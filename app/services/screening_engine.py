@@ -121,15 +121,21 @@ def evaluate_criterion(spec: dict, profile: ProjectProfile, text: str,
             result = CriterionResult.met
 
     verification = spec.get("verification_status", "unverified")
+    check = spec.get("official_text_check") or {}
     explanation = "; ".join(reasons) or "Conditions evaluated"
     if result == CriterionResult.met and verification != "verified":
-        explanation += ". Criterion not yet verified against the official text - human regulatory review required"
+        if check.get("status") in ("consistent", "corrected", "added_from_official_text"):
+            explanation += (f". Criterion compared with the official text on {check.get('checked_on')} "
+                            "(AI-assisted cross-check); confirmation by a qualified reviewer is still required")
+        else:
+            explanation += ". Criterion not yet checked against the official text - human regulatory review required"
     return ScreeningCriterion(
         criterion_id=spec["id"], jurisdiction=spec["jurisdiction"], title=spec["title"],
         description=" ".join(spec["description"].split()), source_document_id=spec["source_document_id"],
         source_section=spec["source_section"], screening_category=spec["screening_category"],
         verification_status=verification, result=result, outcome_if_met=spec["outcome_if_met"],
-        explanation=explanation, parameters_used=used, missing_parameters=sorted(set(missing)))
+        explanation=explanation, parameters_used=used, missing_parameters=sorted(set(missing)),
+        official_text_check={k: str(v) for k, v in check.items()} or None)
 
 
 def regulatory_screening(profile: ProjectProfile, text: str) -> RegulatoryScreening:
@@ -151,9 +157,11 @@ def regulatory_screening(profile: ProjectProfile, text: str) -> RegulatoryScreen
         summary = (f"{len(met)} encoded screening criteria were met, indicating potentially relevant regulatory "
                    f"categories: " + "; ".join(dict.fromkeys(c.outcome_if_met for c in met)) + ".")
     if any(c.verification_status != "verified" for c in criteria):
-        notes.append("Encoded criteria are marked 'unverified': they were transcribed from the maintainers' reading "
-                     "of the legislation and have not been checked against the current official text by a "
-                     "qualified reviewer.")
+        checked = sum(1 for c in criteria if (c.official_text_check or {}).get("status")
+                      in ("consistent", "corrected", "added_from_official_text"))
+        notes.append(f"Encoded criteria are marked 'unverified' until a qualified reviewer confirms them. "
+                     f"{checked} of {len(criteria)} criteria for this jurisdiction were compared with the official "
+                     "text in an AI-assisted cross-check; the remainder have not been checked against official text.")
     notes.append("Regulatory screening is separate from environmental risk prioritisation; risk scores are never "
                  "used as a substitute for statutory criteria.")
     return RegulatoryScreening(jurisdiction=profile.jurisdiction, determinable=bool(met) or bool(decided and specs),

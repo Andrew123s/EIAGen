@@ -19,6 +19,8 @@ rank-bm25>=0.2            # lexical leg of hybrid retrieval
 numpy>=1.26
 pandas>=2.1
 
+rapidocr-onnxruntime>=1.3 # CPU OCR for scanned official PDFs (scripts/ocr_pdf.py)
+
 # --- Geospatial ------------------------------------------------------------
 shapely>=2.0              # coordinate checks / proximity to optional layers
 

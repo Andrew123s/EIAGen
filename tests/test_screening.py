@@ -78,7 +78,37 @@ def test_ghana_sensitive_area_flag_and_unverified_flagging():
     _, reg = _screen("A processing plant beside a wetland and a forest reserve.", "ghana", sector="manufacturing")
     c = _crit(reg, "GH-LI1652-S5")
     assert c.result == CriterionResult.met and c.verification_status == "unverified"
-    assert "human regulatory review" in c.explanation
+    assert "qualified reviewer is still required" in c.explanation
+    assert c.official_text_check["status"] == "corrected"     # Reg. 30(2), not Reg. 3
+    water = _crit(reg, "GH-LI1652-S5-WATER")
+    assert water.result == CriterionResult.indeterminate     # item 11 conditions must be checked
+
+
+def test_ghana_schedule2_rows_from_official_text():
+    _, reg = _screen("A limestone quarry of 8 hectares with blasting; a village 400 m away.", "ghana", sector="mining")
+    assert _crit(reg, "GH-LI1652-S2-11B").result == CriterionResult.met
+    assert _crit(reg, "GH-LI1652-S2-11A").result == CriterionResult.not_met     # quarry, not a mine
+    _, reg = _screen("A rice farm of 120 hectares with irrigation canals.", "ghana", sector="agriculture")
+    assert _crit(reg, "GH-LI1652-S2-01A").result == CriterionResult.met
+    _, reg = _screen("A rice farm of 30 hectares.", "ghana", sector="agriculture")
+    assert _crit(reg, "GH-LI1652-S2-01A").result == CriterionResult.not_met
+
+
+def test_german_quarry_rows_match_official_thresholds():
+    # Official text: 2.1.1 "mehr als 25 ha" (X), 2.1.2 "10 ha bis 25 ha" (A), 2.1.3 "< 10 ha with explosives" (S)
+    _, reg = _screen("A quarry with an extraction area of 25 hectares.", "germany", sector="mining")
+    assert _crit(reg, "DE-UVPG-2.1.1").result == CriterionResult.not_met
+    assert _crit(reg, "DE-UVPG-2.1.2").result == CriterionResult.met
+    _, reg = _screen("A quarry of 6 hectares using blasting.", "germany", sector="mining")
+    assert _crit(reg, "DE-UVPG-2.1.3").result == CriterionResult.met
+    _, reg = _screen("A quarry of 6 hectares; no blasting will be used.", "germany", sector="mining")
+    assert _crit(reg, "DE-UVPG-2.1.3").result == CriterionResult.indeterminate
+
+
+def test_wind_row_requires_turbine_height():
+    _, reg = _screen("A wind farm with 8 wind turbines on farmland.", "germany", sector="renewable_energy")
+    assert _crit(reg, "DE-UVPG-1.6.2").result == CriterionResult.indeterminate
+    assert "turbine_height_m" in _crit(reg, "DE-UVPG-1.6.2").missing_parameters
 
 
 def test_assessment_outcomes_always_include_human_review():

@@ -112,6 +112,8 @@ def validate_citation(db: Session, ref: EvidenceReference, project_jurisdiction:
         checks["document_active"] = bool(doc) and doc.status == "active"
         if doc is not None and doc.content_form == ContentForm.curated_summary.value:
             issues.append("Passage is from a curated summary, not the official text - verify against the official source")
+        if doc is not None and doc.extraction_method == "ocr":
+            issues.append("Passage text was obtained by OCR from a scanned copy - check it against the page image")
         if doc is not None and not doc.status_verified:
             issues.append(f"Legal status not verified: {doc.legal_status or 'unknown'}")
     failed = [k for k, ok in checks.items() if not ok]

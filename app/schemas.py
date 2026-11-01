@@ -463,6 +463,7 @@ class ScreeningCriterion(BaseModel):
     parameters_used: dict[str, float | None] = Field(default_factory=dict)
     missing_parameters: list[str] = Field(default_factory=list)
     evidence: list[str] = Field(default_factory=list)
+    official_text_check: dict[str, str] | None = None
     provenance: Provenance = Provenance.deterministic_rule
 
 
@@ -691,6 +692,7 @@ class RegulationMetadata(BaseModel):
     legal_status: str | None = None
     status_verified: bool = False
     supersedes: str | None = None
+    official_counterpart: str | None = None
 
 
 class RegulationOut(BaseModel):
@@ -713,6 +715,8 @@ class RegulationOut(BaseModel):
     status_verified: bool
     status: str
     superseded_by: str | None
+    official_counterpart: str | None = None
+    extraction_method: str = "text_layer"
     chunk_count: int
     checksum: str
     ingested_at: datetime

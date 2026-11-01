@@ -2,6 +2,8 @@
 
 > CURATED SUMMARY - NOT THE OFFICIAL TEXT. Unofficial English summary of selected
 > provisions of the UVPG (as promulgated on 18 March 2021, as subsequently amended).
+> Revision 2 (2026-11-01): Annex 1 rows compared with the official consolidated text
+> (de-uvpg-official); No. 2.1.1 corrected to "more than 25 ha", No. 7.3 added.
 > Only the German text published on gesetze-im-internet.de / in the Federal Law
 > Gazette is authoritative. Annex 1 rows other than those summarised here must be
 > read from the official text.
@@ -59,11 +61,19 @@ general preliminary assessment); No. 1.6.3 - 3 to fewer than 6 wind turbines
 Obligation: Determine the applicable Annex 1 No. 1.6 row from the number and height of wind turbines.
 
 ## Annex 1, No. 2.1 - Quarries
-Quarrying with an extraction area of 25 hectares or more is listed in Annex 1,
-No. 2.1.1 (column X, mandatory EIA). Smaller extraction areas are listed in
-subsequent rows subject to preliminary assessment; those rows must be read from
-the official text.
-Obligation: Determine the applicable Annex 1 No. 2.1 row from the extraction area.
+Construction and operation of a quarry (Steinbruch) is listed in Annex 1, No. 2.1
+by extraction area: No. 2.1.1 - more than 25 ha (column X, mandatory EIA);
+No. 2.1.2 - 10 ha to 25 ha (column A, general preliminary assessment);
+No. 2.1.3 - less than 10 ha where explosives are used (column S, site-related
+preliminary assessment).
+Obligation: Determine the applicable Annex 1 No. 2.1 row from the extraction area and the use of explosives.
+
+## Annex 1, No. 7.3 - Intensive rearing of meat poultry
+Installations for the intensive keeping or rearing of meat poultry (Mastgeflügel)
+are listed in Annex 1, No. 7.3: No. 7.3.1 - 85 000 or more places (column X);
+No. 7.3.2 - 40 000 to fewer than 85 000 places (column A); No. 7.3.3 - 30 000 to
+fewer than 40 000 places (column S).
+Obligation: Determine the applicable Annex 1 No. 7.3 row from the number of animal places.
 
 ## Annex 3 - Criteria for the preliminary assessment
 Criteria include the characteristics of the project (size, cumulation with other

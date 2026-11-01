@@ -1,0 +1,279 @@
+# Official regulatory texts.
+#
+# Run:  python scripts/fetch_official_sources.py
+#
+# The PDFs are NOT committed to the repository (data/regulations/official/ is
+# git-ignored): they are fetched from the issuing authority, or placed there by
+# hand where the publisher blocks automated downloads (fetch: manual).
+#
+# observed_sha256 records the file obtained on observed_on; consolidated laws are
+# updated over time, so a different checksum means a newer version - re-check the
+# version line and re-run the criteria cross-check.
+#
+# summary_document_id links the official text to the curated summary in
+# manifest.yaml; citations to the summary are then linked to the official
+# provision through data/regulations/crosswalk.yaml.
+
+observed_on: "2026-11-01"
+
+sources:
+  # ------------------------------------------------------------------ Ghana
+  - document_id: gh-act1124-official
+    file: gh_act1124.pdf
+    fetch: auto
+    url: http://faolex.fao.org/docs/pdf/gha232276.pdf
+    repository: FAOLEX (FAO legislative database) copy of the Act as published
+    ocr_required: true
+    observed_sha256: 195a83598137269c3671c0cca27061e150a4a938bf988a9d03309416340b69ad
+    metadata:
+      title: Environmental Protection Act, 2025 (Act 1124)
+      short_title: Act 1124
+      issuing_authority: Parliament of the Republic of Ghana
+      jurisdiction: ghana
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2025-01-06"
+      version: "As assented 6 January 2025 (FAOLEX copy; scanned, text by OCR)"
+      source_url: http://faolex.fao.org/docs/pdf/gha232276.pdf
+      source_url_note: Scanned copy hosted by FAOLEX, not the Government Gazette. Text obtained by OCR and may contain recognition errors - check citations against the page image.
+      applicable_sectors: [all]
+      legal_status: In force (assented 6 January 2025); s.171(1) repeals Act 490 and Act 917; s.171(2) saves subsidiary legislation made under them
+      status_verified: false
+    supersedes_summaries: [gh-act490, gh-act917]
+
+  - document_id: gh-li1652-official
+    file: gh_li1652.pdf
+    fetch: auto
+    url: http://faolex.fao.org/docs/pdf/gha78169.pdf
+    repository: FAOLEX transcription of the Legislative Instrument
+    observed_sha256: c4ec3c9bfee96b5758dc40c7817b43d6755de284c79ba5d0d312a794732481a8
+    summary_document_id: gh-li1652
+    metadata:
+      title: Environmental Assessment Regulations, 1999 (L.I. 1652)
+      short_title: L.I. 1652
+      issuing_authority: Minister responsible for the Environment (made under Act 490, s.28)
+      jurisdiction: ghana
+      document_type: regulation
+      content_form: official_text
+      publication_date: "1999-02-26"
+      effective_date: "1999-06-24"
+      version: "As made 1999 (gazette notification 26 Feb 1999); FAOLEX transcription; amendment L.I. 1703 (2002) not included"
+      source_url: http://faolex.fao.org/docs/pdf/gha78169.pdf
+      source_url_note: Transcribed copy hosted by FAOLEX, not the Government Gazette; contains transcription errors (e.g. numbering) - verify against the gazetted instrument.
+      applicable_sectors: [all]
+      legal_status: Continues in force - Act 1124 s.171(2) saves regulations made under the repealed Act 490 until reviewed; Act 1124 ss.65, 95 and 115 refer to L.I. 1652 (read from OCR text, not verified by a lawyer)
+      status_verified: false
+
+  # ---------------------------------------------------------------- Germany
+  - document_id: de-uvpg-official
+    file: de_uvpg.pdf
+    fetch: auto
+    url: https://www.gesetze-im-internet.de/uvpg/UVPG.pdf
+    repository: gesetze-im-internet.de (Federal Ministry of Justice / Federal Office of Justice)
+    observed_sha256: d1c7abaacf14360c05cf882c64db0b879315c0c244035b65e8046a9a8257c027
+    summary_document_id: de-uvpg
+    metadata:
+      title: Gesetz über die Umweltverträglichkeitsprüfung (UVPG) - official consolidated text (German)
+      short_title: UVPG
+      issuing_authority: German Bundestag (consolidated text published by the Federal Office of Justice)
+      jurisdiction: germany
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2021-03-18"
+      version: "Bek. v. 18.3.2021 (BGBl. I S. 540), zuletzt geändert durch Art. 5 G v. 13.10.2026 (BGBl. 2026 I Nr. 304)"
+      source_url: https://www.gesetze-im-internet.de/uvpg/
+      source_url_note: Consolidated version for information; only the Federal Law Gazette (BGBl.) is legally binding.
+      applicable_sectors: [all]
+      legal_status: In force as amended (version line read from the official consolidated text)
+      status_verified: false
+  - document_id: de-bimschg-official
+    file: de_bimschg.pdf
+    fetch: auto
+    url: https://www.gesetze-im-internet.de/bimschg/BImSchG.pdf
+    repository: gesetze-im-internet.de
+    observed_sha256: 5e38352d9070553dbd7f73a76ad59b233e8dc0ec0f84e3de22521a5ca1da603c
+    summary_document_id: de-bimschg
+    metadata:
+      title: Bundes-Immissionsschutzgesetz (BImSchG) - official consolidated text (German)
+      short_title: BImSchG
+      issuing_authority: German Bundestag (consolidated text published by the Federal Office of Justice)
+      jurisdiction: germany
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2013-05-17"
+      version: "Bek. v. 17.5.2013, zuletzt geändert durch Art. 1 G v. 13.10.2026 (BGBl. 2026 I Nr. 304)"
+      source_url: https://www.gesetze-im-internet.de/bimschg/
+      source_url_note: Consolidated version for information; only the BGBl. is legally binding.
+      applicable_sectors: [manufacturing, mining, waste_management, agriculture, renewable_energy]
+      legal_status: In force as amended
+      status_verified: false
+  - document_id: de-whg-official
+    file: de_whg.pdf
+    fetch: auto
+    url: https://www.gesetze-im-internet.de/whg_2009/WHG.pdf
+    repository: gesetze-im-internet.de
+    observed_sha256: e7bd0eb8a46e7ad70a5d86a799f69dd9791b0b0eecaf8686924d8056fe156ff6
+    summary_document_id: de-whg
+    metadata:
+      title: Wasserhaushaltsgesetz (WHG) - official consolidated text (German)
+      short_title: WHG
+      issuing_authority: German Bundestag (consolidated text published by the Federal Office of Justice)
+      jurisdiction: germany
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2009-07-31"
+      version: "G v. 31.7.2009, zuletzt geändert durch Art. 2 G v. 13.10.2026 (BGBl. 2026 I Nr. 304)"
+      source_url: https://www.gesetze-im-internet.de/whg_2009/
+      source_url_note: Consolidated version for information; only the BGBl. is legally binding.
+      applicable_sectors: [all]
+      legal_status: In force as amended
+      status_verified: false
+  - document_id: de-bnatschg-official
+    file: de_bnatschg.pdf
+    fetch: auto
+    url: https://www.gesetze-im-internet.de/bnatschg_2009/BNatSchG.pdf
+    repository: gesetze-im-internet.de
+    observed_sha256: ae88bc12f0466ad9dbfdd742bf319ebc51b5b222a394b46ef811b1cf251c1277
+    summary_document_id: de-bnatschg
+    metadata:
+      title: Bundesnaturschutzgesetz (BNatSchG) - official consolidated text (German)
+      short_title: BNatSchG
+      issuing_authority: German Bundestag (consolidated text published by the Federal Office of Justice)
+      jurisdiction: germany
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2009-07-29"
+      version: "G v. 29.7.2009, zuletzt geändert durch Art. 2 G v. 30.9.2026 (BGBl. 2026 I Nr. 286)"
+      source_url: https://www.gesetze-im-internet.de/bnatschg_2009/
+      source_url_note: Consolidated version for information; only the BGBl. is legally binding.
+      applicable_sectors: [all]
+      legal_status: In force as amended
+      status_verified: false
+  - document_id: de-krwg-official
+    file: de_krwg.pdf
+    fetch: auto
+    url: https://www.gesetze-im-internet.de/krwg/KrWG.pdf
+    repository: gesetze-im-internet.de
+    observed_sha256: a5c7f1e43f1e5008096171183835ac589ced97fa1300ac94f48c9607ba36235c
+    summary_document_id: de-krwg
+    metadata:
+      title: Kreislaufwirtschaftsgesetz (KrWG) - official consolidated text (German)
+      short_title: KrWG
+      issuing_authority: German Bundestag (consolidated text published by the Federal Office of Justice)
+      jurisdiction: germany
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2012-02-24"
+      version: "G v. 24.2.2012, zuletzt geändert durch Art. 3 G v. 13.10.2026 (BGBl. 2026 I Nr. 304)"
+      source_url: https://www.gesetze-im-internet.de/krwg/
+      source_url_note: Consolidated version for information; only the BGBl. is legally binding.
+      applicable_sectors: [all]
+      legal_status: In force as amended
+      status_verified: false
+
+  # --------------------------------------------------------------------- EU
+  # EUR-Lex blocks scripted downloads. Open each link in a browser, save the PDF
+  # under the given file name in data/regulations/official/, then re-run the script.
+  - document_id: eu-eia-directive-official
+    file: eu_eia.pdf
+    fetch: manual
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02011L0092-20140515
+    repository: EUR-Lex (Publications Office of the EU), consolidated version
+    summary_document_id: eu-eia-directive
+    metadata:
+      title: Directive 2011/92/EU (EIA Directive), consolidated version incl. Directive 2014/52/EU
+      short_title: EIA Directive
+      issuing_authority: European Parliament and Council of the European Union
+      jurisdiction: eu
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2011-12-13"
+      version: "Consolidated version 15 May 2014 (CELEX 02011L0092-20140515)"
+      source_url: https://eur-lex.europa.eu/eli/dir/2011/92/oj
+      source_url_note: Consolidated texts are documentation tools; only the Official Journal is authentic.
+      applicable_sectors: [all]
+      legal_status: In force
+      status_verified: false
+  - document_id: eu-habitats-directive-official
+    file: eu_habitats.pdf
+    fetch: manual
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:01992L0043-20130701
+    repository: EUR-Lex, consolidated version
+    summary_document_id: eu-habitats-directive
+    metadata:
+      title: Council Directive 92/43/EEC (Habitats Directive), consolidated version
+      short_title: Habitats Directive
+      issuing_authority: Council of the European Communities
+      jurisdiction: eu
+      document_type: legislation
+      content_form: official_text
+      publication_date: "1992-05-21"
+      version: "Consolidated version 1 July 2013 (CELEX 01992L0043-20130701)"
+      source_url: https://eur-lex.europa.eu/eli/dir/1992/43/oj
+      source_url_note: Consolidated texts are documentation tools; only the Official Journal is authentic.
+      applicable_sectors: [all]
+      legal_status: In force
+      status_verified: false
+  - document_id: eu-wfd-official
+    file: eu_wfd.pdf
+    fetch: manual
+    url: https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:02000L0060-20141120
+    repository: EUR-Lex, consolidated version
+    summary_document_id: eu-wfd
+    metadata:
+      title: Directive 2000/60/EC (Water Framework Directive), consolidated version
+      short_title: Water Framework Directive
+      issuing_authority: European Parliament and Council of the European Union
+      jurisdiction: eu
+      document_type: legislation
+      content_form: official_text
+      publication_date: "2000-10-23"
+      version: "Consolidated version 20 November 2014 (CELEX 02000L0060-20141120)"
+      source_url: https://eur-lex.europa.eu/eli/dir/2000/60/oj
+      source_url_note: Consolidated texts are documentation tools; only the Official Journal is authentic.
+      applicable_sectors: [all]
+      legal_status: In force
+      status_verified: false
+
+  # ---------------------------------------------------------- International
+  - document_id: intl-ifc-ehs-general-official
+    file: intl_ifc_ehs_general.pdf
+    fetch: auto
+    url: https://www.ifc.org/content/dam/ifc/doc/2023/ifc-general-ehs-guidelines.pdf
+    repository: International Finance Corporation
+    observed_sha256: 9cbf29f37a3a69ac6264057e083880de694058afc7af6e1a7cc21228ff33bf83
+    summary_document_id: intl-ifc-ehs-general
+    metadata:
+      title: World Bank Group Environmental, Health, and Safety General Guidelines (30 April 2007)
+      short_title: EHS General Guidelines
+      issuing_authority: International Finance Corporation (World Bank Group)
+      jurisdiction: international
+      document_type: non_binding_recommendation
+      content_form: official_text
+      publication_date: "2007-04-30"
+      version: "30 April 2007 (IFC notes the EHS Guidelines are being updated)"
+      source_url: https://www.ifc.org/ehsguidelines
+      source_url_note: Copyright IFC - fetched for local use only, not redistributed.
+      applicable_sectors: [all]
+      legal_status: Non-binding technical reference unless required by financing agreements
+      status_verified: false
+  - document_id: intl-ifc-ps-official
+    file: intl_ifc_ps.pdf
+    fetch: manual
+    url: https://www.ifc.org/performancestandards
+    repository: International Finance Corporation (download the 2012 Performance Standards PDF from this page)
+    summary_document_id: intl-ifc-ps
+    metadata:
+      title: IFC Performance Standards on Environmental and Social Sustainability (2012)
+      short_title: IFC PS
+      issuing_authority: International Finance Corporation (World Bank Group)
+      jurisdiction: international
+      document_type: international_framework
+      content_form: official_text
+      publication_date: "2012-01-01"
+      version: "Effective 1 January 2012"
+      source_url: https://www.ifc.org/performancestandards
+      source_url_note: Copyright IFC - for local use only. IFC states the Sustainability Framework is being updated.
+      applicable_sectors: [all]
+      legal_status: Non-binding unless required by financing agreements
+      status_verified: false

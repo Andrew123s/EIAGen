@@ -30,12 +30,12 @@ documents:
     content_form: curated_summary
     publication_date: "1999"
     effective_date: null
-    version: "1999 (amendments not verified)"
+    version: "1999 (amendments not verified); summary rev. 2026-11-01-r2"
     source_url: https://epa.gov.gh/
     source_url_note: Regulator home page; locate the official L.I. 1652 text from the regulator or the Ghana Legal Information Institute.
     applicable_sectors: [all]
     date_last_verified: null
-    legal_status: Believed in force; interaction with the Environmental Protection Act, 2025 (Act 1124) not verified
+    legal_status: Continues in force under Act 1124 s.171(2) (savings for regulations made under the repealed Act 490)
     status_verified: false
   - document_id: gh-act490
     file: ghana/gh-act490_epa_act_summary.md
@@ -52,7 +52,7 @@ documents:
     source_url_note: Regulator home page; locate official text.
     applicable_sectors: [all]
     date_last_verified: null
-    legal_status: Reported repealed and replaced by the Environmental Protection Act, 2025 (Act 1124) - NOT VERIFIED
+    legal_status: Repealed by the Environmental Protection Act, 2025 (Act 1124), assented 6 January 2025 (FAOLEX record)
     status_verified: false
   - document_id: gh-wrc-act522
     file: ghana/gh-wrc-act522_water_resources_summary.md
@@ -103,7 +103,7 @@ documents:
     source_url_note: Regulator home page; locate official text.
     applicable_sectors: [mining, manufacturing, waste_management]
     date_last_verified: null
-    legal_status: Believed in force - not verified
+    legal_status: Repealed and consolidated into Part Three of the Environmental Protection Act, 2025 (Act 1124) per FAOLEX record
     status_verified: false
 
   # ---------------------------------------------------------------- Germany
@@ -117,7 +117,7 @@ documents:
     content_form: curated_summary
     publication_date: "2021-03-18"
     effective_date: null
-    version: "Promulgation of 18 March 2021, as amended (consolidated version not verified)"
+    version: "Promulgation of 18 March 2021, as amended; summary rev. 2026-11-01-r2"
     source_url: https://www.gesetze-im-internet.de/uvpg/
     source_url_note: Official consolidated German text (Federal Ministry of Justice).
     applicable_sectors: [all]

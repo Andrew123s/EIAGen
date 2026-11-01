@@ -160,15 +160,45 @@ provenance and verification status. All impacts have `status = "potential"`.
   fingerprint of the active chunk set and rebuilds automatically.
 * **Knowledge-base version** (`kb-<n>docs-<hash>`) is recorded on every assessment and report.
 
-### Seed knowledge base — important
+### Knowledge base: curated summaries + official texts
 
-The repository ships **15 curated summaries** (Ghana 5, Germany 5, EU 3, international 2), e.g. L.I. 1652,
-Act 522/L.I. 1692, Act 703, UVPG, BImSchG, WHG, BNatSchG, the EIA/Habitats/Water Framework Directives and IFC
-standards. They are **not official texts**: they were written for this project as retrieval aids, carry
-`content_form: curated_summary`, `status_verified: false` and `date_last_verified: null`, and every citation to
-them is flagged. Known status uncertainties are recorded (e.g. Ghana's Act 490 is reported to have been replaced by
-the Environmental Protection Act, 2025 (Act 1124) — unverified). For real use, ingest the official documents
-(see §16) and mark the summaries as superseded.
+**Curated summaries (committed).** 15 English summaries (Ghana 5, Germany 5, EU 3, international 2) written for
+this project as retrieval aids. They carry `content_form: curated_summary` and every citation to them is flagged.
+
+**Official texts (fetched locally, not committed).** [`data/regulations/official_sources.yaml`](data/regulations/official_sources.yaml)
+lists the official sources; `python scripts/fetch_official_sources.py` downloads and ingests them:
+
+| Document | Source | Status in this build |
+|---|---|---|
+| Environmental Protection Act, 2025 (**Act 1124**), Ghana | FAOLEX scan → **OCR** (182 pages) | ingested; s.171(1) repeals Act 490 and Act 917 (their summaries are marked superseded); s.171(2) keeps L.I. 1652 in force |
+| Environmental Assessment Regulations, 1999 (**L.I. 1652**) | FAOLEX transcription | ingested |
+| **UVPG, BImSchG, WHG, BNatSchG, KrWG** (German, consolidated, amended to Sept/Oct 2026) | gesetze-im-internet.de | ingested |
+| WBG **EHS General Guidelines** (2007) | ifc.org | ingested (local use only, not redistributed) |
+| **EIA, Habitats, Water Framework Directives** | EUR-Lex | **manual download required** (EUR-Lex blocks scripted access) |
+| **IFC Performance Standards** (2012) | ifc.org | **manual download required** (no stable PDF URL) |
+| Act 522 / L.I. 1692, Act 703 (Ghana) | — | not yet sourced |
+
+Scanned PDFs are OCR'd on CPU (`scripts/ocr_pdf.py`, RapidOCR) into a page-keyed sidecar so citations keep page
+numbers; OCR'd documents are flagged (`extraction_method: ocr`) and citations to them warn about recognition
+errors. FAOLEX copies are not Government Gazette copies, and German consolidated texts are informational versions
+(only the BGBl. is binding) — this is recorded in each document's metadata.
+
+**Summary → official crosswalk.** [`data/regulations/crosswalk.yaml`](data/regulations/crosswalk.yaml) maps 42
+summary sections to verbatim anchor phrases in the official texts (`python scripts/check_crosswalk.py` shows where
+each lands). When a summary passage is cited, the official provision is cited next to it (e.g. `[REG-03]` summary
+of UVPG Annex 1 No. 1.6 + `[REG-04]` the German Anlage 1 row on page 37), so a reviewer can compare wording.
+English retrieval over German text is weak with the English embedding model, which is why the English summaries
+remain the retrieval surface for Germany.
+
+**Official-text cross-check of the screening criteria (2026-11-01, AI-assisted).** Every criterion records an
+`official_text_check`; `verification_status` stays `unverified` because an AI comparison is not a qualified human
+review. Outcome: **10 consistent, 3 corrected, 18 added from the official texts, 7 not checked** (no official text
+yet). Corrections: UVPG Annex 1 No. 2.1.1 is "more than 25 ha" (was encoded as ≥ 25 ha); L.I. 1652 Schedule 5 is
+designated by Regulation 30(2), not Regulation 3; Schedule 5 water bodies qualify only under stated conditions.
+Additions include the actual L.I. 1652 Schedule 2 EIA entries (agriculture ≥ 40 ha, ≥ 20 families resettled,
+dams, housing, cement, roads, mining lease > 10 ha, quarries within 3 km of settlements, transmission lines,
+landfills, sewage plants), UVPG rows 2.1.2/2.1.3 and 7.3.1–7.3.3, the wind-farm height condition (> 50 m), and
+Act 1124 s.29 (assessment by notice) and s.30 (compensation plan).
 
 ## 9. RAG implementation
 
@@ -190,14 +220,17 @@ applicable based on verified criteria* (**only** settable by a human reviewer).
 
 ## 10. Screening methodology
 
-**A. Regulatory screening** — [`config/assessment_rules.yaml`](config/assessment_rules.yaml) encodes 19 criteria
-(Ghana 5, Germany 9, EU 5), each citing its source document and section, e.g. UVPG Annex 1 No. 1.6.1–1.6.3 wind
-farm rows (≥20 X, 6–19 A, 3–5 S), EIA Directive Annex I point 19 (quarries > 25 ha), point 7(c) (≥4 lanes,
-≥10 km), point 17 (intensive poultry/pigs), L.I. 1652 Schedule 1/2/5, water-use permits. Results are `met`,
-`not_met` or `indeterminate`; **missing data gives `indeterminate`, never `not_met`**. Only the selected
-jurisdiction's criteria run. Without encoded criteria the engine states that regulatory screening cannot be
-determined reliably. All criteria are marked `unverified` until a qualified reviewer checks them against the
-official text — results based on them say so.
+**A. Regulatory screening** — [`config/assessment_rules.yaml`](config/assessment_rules.yaml) encodes 38 criteria
+(Ghana 19, Germany 14, EU 5), each citing its source document and section and, where available, a verbatim anchor
+in the official text that is cited alongside the result. Examples: UVPG Annex 1 No. 1.6 wind farms (turbines
+> 50 m; ≥20 X, 6–19 A, 3–5 S), No. 2.1 quarries (> 25 ha X, 10–25 ha A, < 10 ha with explosives S), No. 7.3 broilers;
+L.I. 1652 Schedule 2 entries (agriculture ≥ 40 ha, mining lease > 10 ha, quarries within 3 km of settlements,
+dams, roads, housing, transmission lines, landfills, sewage plants) and Schedule 5 sensitive areas; Act 1124
+s.29/s.30; EIA Directive Annex I points 7(c), 17, 19. Results are `met`, `not_met` or `indeterminate`; **missing
+data gives `indeterminate`, never `not_met`**. Only the selected jurisdiction's criteria run. Without encoded
+criteria the engine states that regulatory screening cannot be determined reliably. All criteria stay
+`unverified` until a qualified reviewer confirms them; each result states whether its criterion was compared with
+the official text.
 
 **B. Environmental risk screening** (methodology `EIAGen-RS-1`, non-statutory): `score = likelihood (1–3) ×
 severity (1–3) + 1 if receptor sensitivity is high` (max 9); bands 1–2 low, 3–5 medium, 6–9 high. Documented
@@ -257,7 +290,8 @@ prompt-injection detection, report completeness, citation validity, evidence cov
 ## 14. Actual evaluation results
 
 From [`evaluation/evaluation_report.md`](evaluation/evaluation_report.md) (rule-based mode, bge-small embeddings,
-CPU):
+CPU; knowledge base `kb-21docs-75c637bdb8` = 15 curated summaries + 8 official texts, 3,827 indexed passages, with
+the Act 490/917 summaries superseded):
 
 | Area | Result |
 |---|---|
@@ -265,20 +299,20 @@ CPU):
 | Parameter extraction accuracy | 0.968 (31 values) |
 | Missing-information P / R / F1 | 0.947 / 0.982 / 0.964 |
 | Impact components P / R / F1 | 0.661 / 0.937 / 0.775 (recall-oriented by design) |
-| Retrieval P@5 / R@5 / MRR (bge-small hybrid) | 0.704 / 1.0 / 1.0 (27 queries) |
-| Retrieval P@5 / R@5 / MRR (hashing hybrid) | 0.711 / 1.0 / 1.0 |
+| Retrieval P@5 / R@5 / MRR (bge-small hybrid) | 0.711 / 0.981 / 1.0 (27 queries; the one miss is a stale label - see report) |
+| Retrieval P@5 / R@5 / MRR (hashing hybrid) | 0.689 / 0.981 / 1.0 |
 | Workflows completed / schema-valid | 10/10 / 1.0 |
-| Encoded-rule execution correctness | 1.0 (51 criterion results) |
-| Citation validity | 1.0 (193 citations) |
-| Unsupported legal conclusions in generated reports | 0 |
-| Mean time: retrieval / report stage | ≈1.2 s / ≈1.5 s per project |
+| Encoded-rule execution correctness | 1.0 (66 criterion results, rules version 2026.11-2) |
+| Citation validity | 1.0 (408 citations, incl. official-text passages) |
+| Unsupported legal conclusions in system-written report text | 0 (2 detector hits inside quoted statute text, reported separately) |
+| Mean time per project: retrieval / report stage | ≈1.0 s / ≈1.5 s (after a one-time index build: ≈8 min for 3,827 passages on CPU) |
 
-**Automated tests:** `python -m pytest` → **104 passed** (≈3 min on CPU; mocked LLM, isolated temporary
-databases, offline hashing embeddings).
+**Automated tests:** `python -m pytest` → **112 passed** (≈4–7 min on CPU; mocked LLM, isolated temporary
+databases, offline hashing embeddings, fixture PDFs for official-text linking and OCR).
 
-**Caveats:** synthetic author-labelled data, a small curated corpus (retrieval queries are easy — MRR 1.0 should
-not be expected on full official texts), detector rates measured on the statements used to fix two detector
-defects (see report), and rule correctness ≠ legal correctness.
+**Caveats:** synthetic author-labelled data; retrieval labels name the curated summaries (official counterparts
+count as relevant); detector rates measured on the statements used to fix two detector defects (see report); rule
+correctness ≠ legal correctness.
 
 ## 15. Installation (Windows PowerShell)
 
@@ -338,10 +372,29 @@ set `EIAGEN_EMBEDDING_BACKEND=hashing`.
 python scripts/initialize.py
 ```
 
-### Ingest official regulatory documents
+### Fetch and ingest the official texts
 
 ```powershell
-python scripts/ingest_regulations.py --file C:\path\to\uvpg.pdf --document-id de-uvpg-official --title "Gesetz ueber die Umweltvertraeglichkeitspruefung (UVPG)" --authority "German Bundestag" --jurisdiction germany --type legislation --version "consolidated 2025" --source-url https://www.gesetze-im-internet.de/uvpg/ --supersedes de-uvpg
+pip install rapidocr-onnxruntime
+```
+
+```powershell
+python scripts/fetch_official_sources.py
+```
+
+This downloads the automatically obtainable sources, OCRs the scanned Ghana Act 1124 (≈15–25 min on CPU, once),
+ingests everything, links summaries to official provisions and marks the repealed Act 490 / Act 917 summaries as
+superseded. For the EU directives and IFC Performance Standards, open the URLs the script prints in a browser, save
+the PDFs under the given names in `data\regulations\official\`, and run the script again. Check the anchors:
+
+```powershell
+python scripts/check_crosswalk.py
+```
+
+Any other official document can be added with metadata:
+
+```powershell
+python scripts/ingest_regulations.py --file C:\path\to\document.pdf --document-id gh-li1692-official --title "Water Use Regulations, 2001 (L.I. 1692)" --authority "Water Resources Commission" --jurisdiction ghana --type regulation --version "2001"
 ```
 
 ```powershell
@@ -449,13 +502,15 @@ Ghana's Western Region, 1,500 t/day CIL processing, 1,200 m³/day river abstract
   sensitivity), aquatic ecosystems, communities, farmland.
 * **Impacts:** 32 potential adverse impacts (12 high, 19 medium, 1 low) + 1 beneficial (employment); top: dust,
   groundwater contamination and drawdown, habitat loss, hydrological change, resource-access conflict.
-* **Regulatory screening (encoded, unverified):** L.I. 1652 Reg. 1/Schedule 1 registration & permit — *met*;
-  Schedule 2 mandatory EIA — *indeterminate* (Schedule 2 entries not encoded); Schedule 5 sensitive area —
-  *met*; WRC water use permit — *met*; Act 703 mineral right — *met*.
-* **Requirements:** 25 retrieved provisions (10 potentially applicable), e.g. `[REG-05]` L.I. 1692 water use
-  permits, `[REG-02]` hazardous waste permits; IFC/EHS items labelled as non-binding references.
+* **Regulatory screening (encoded, unverified, compared with official text):** L.I. 1652 Reg. 1/Schedule 1
+  registration & permit — *met* (official text p.2); Schedule 2 item 11(a) mining and processing with a lease
+  > 10 ha — *met* (official text p.22); Schedule 5 water body — *indeterminate* (item 11 conditions must be
+  checked); Act 1124 s.29 assessment by notice — *indeterminate* (Authority's discretion, official text
+  p.23–24); WRC water use permit and Act 703 mineral right — *met* (official text not yet sourced).
+* **Requirements:** 42 provisions; 31 cite L.I. 1652 or Act 1124 directly, the rest cite curated summaries
+  (linked to the official provision where available) and IFC/EHS non-binding references.
 * **Outcome:** potentially relevant regulatory screening category identified · further assessment potentially
-  warranted · human regulatory review required. 26/26 citations verified. Missing: coordinates, land tenure,
+  warranted · human regulatory review required. 60/60 citations verified. Missing: coordinates, land tenure,
   wastewater volume, hazardous materials inventory, energy demand.
 
 | | |
@@ -475,10 +530,14 @@ invented coordinates, observations, provisions or thresholds.
 
 ## 20. Known limitations
 
-* **Seed knowledge base = curated summaries**, not official texts; legal status is unverified (notably the Act
-  490 → Act 1124 transition in Ghana). Official documents must be ingested and reviewed before reliance.
-* **Encoded criteria** cover only selected rows of each framework (e.g. UVPG wind and quarry rows, EIA Directive
-  Annex I points 7(c), 17, 19) and are unverified; Schedule 2 of L.I. 1652 thresholds are not encoded.
+* **Official texts are partial.** EU directives and IFC Performance Standards need a manual download; Ghana's
+  Act 522 / L.I. 1692 and Act 703 are not yet sourced. The Ghana texts are FAOLEX copies (Act 1124 via OCR,
+  L.I. 1652 a transcription with errors), not Government Gazette copies.
+* **Ghana standards missing.** Act 1124's First Schedule names Ghana Standards GS 1212 (effluent), GS 1236 (air
+  quality / stack emissions) and GS 1222 (ambient noise); they are not in the knowledge base, so IFC/EHS values
+  appear as the only (non-binding) numeric references for Ghana.
+* **Encoded criteria** cover selected rows of each framework. They were compared with the official texts in an
+  AI-assisted cross-check, which is **not** a qualified human verification — all remain `unverified`.
 * **Keyword-based extraction** misses activities phrased without taxonomy vocabulary (e.g. "clear 120 hectares
   of forest") and can over-trigger on shared words; LLM supplementation helps but is optional.
 * **Impact identification favours recall** (P ≈ 0.66): practitioners will discard some potential impacts.

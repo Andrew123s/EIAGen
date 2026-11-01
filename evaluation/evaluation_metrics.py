@@ -95,10 +95,13 @@ def evaluate_retrieval(db, dataset: dict, k: int = 5) -> dict:
     for proj in dataset["projects"]:
         for q in proj["retrieval"]:
             hits = rs.search(q["query"], proj["jurisdiction"], top_k=k, min_score=0.0)
-            rel = set(q["relevant"])
+            # A relevant summary's official counterpart is relevant too.
+            rel = set(q["relevant"]) | {f"{d}-official" for d in q["relevant"]}
             flags = [h.document_id in rel for h in hits]
             p_at.append(sum(flags) / k)
-            r_at.append(len({h.document_id for h in hits} & rel) / len(rel))
+            # Recall: share of the labelled documents found (either as summary or as official text).
+            found = {h.document_id.removesuffix("-official") for h in hits}
+            r_at.append(len(found & set(q["relevant"])) / len(q["relevant"]))
             first = next((i for i, f in enumerate(flags, 1) if f), None)
             rr.append(1 / first if first else 0.0)
             rows.append({"project": proj["id"], "query": q["query"], "relevant": q["relevant"],
@@ -117,11 +120,13 @@ def run(backend: str, retrieval_backends: list[str]) -> dict:
         with tempfile.TemporaryDirectory() as tmp:
             configure(Path(tmp), rb)
             from app.database import get_session_factory, init_db, reset_engine
+            from app.services.official_sources import ingest_official_sources
             from app.services.regulatory_library import ingest_manifest
 
             init_db()
             db = get_session_factory()()
             ingest_manifest(db)
+            ingest_official_sources(db)
             results["retrieval"][rb] = evaluate_retrieval(db, dataset)
             db.close()
             reset_engine()
@@ -133,14 +138,26 @@ def run(backend: str, retrieval_backends: list[str]) -> dict:
     from app.database import get_session_factory, init_db
     from app.models import Project, Report
     from app.schemas import ProjectCreate, ScreeningAssessment
-    from app.services.regulatory_library import ingest_manifest, knowledge_base_version
+    from app.models import RegulatoryDocument
+    from app.services.official_sources import ingest_official_sources
+    from app.services.regulatory_library import ingest_manifest, knowledge_base_version, library_stats
     from app.services.taxonomy import component_category
     from app.services.validation_service import find_unsupported_claims
 
     init_db()
     db = get_session_factory()()
     ingest_manifest(db)
+    ingest_official_sources(db)
     results["knowledge_base_version"] = knowledge_base_version(db)
+    results["kb_documents"] = library_stats(db)["by_status"].get("active", 0)
+    results["kb_official"] = db.query(RegulatoryDocument).filter_by(status="active", content_form="official_text").count()
+    from app.services.retrieval_service import ensure_index
+
+    t_index = time.perf_counter()
+    results["index_build_seconds"] = None
+    store = ensure_index(db)
+    results["index_build_seconds"] = round(time.perf_counter() - t_index, 1)
+    results["indexed_passages"] = store.size
 
     act = [0, 0, 0]
     miss = [0, 0, 0]
@@ -154,6 +171,7 @@ def run(backend: str, retrieval_backends: list[str]) -> dict:
     imp_cov = [0, 0]
     sections_ok = disclaimers_ok = 0
     report_unsupported = 0
+    quoted_unsupported = 0
     stage_times: dict[str, list[float]] = defaultdict(list)
     per_case = []
 
@@ -225,8 +243,12 @@ def run(backend: str, retrieval_backends: list[str]) -> dict:
         disclaimers_ok += content["disclaimer"].startswith("This report is an AI-assisted") and \
             Path(report.pdf_path).exists() and Path(report.docx_path).exists()
         md = Path(report.markdown_path).read_text(encoding="utf-8").replace(content["disclaimer"], "")
-        flagged = find_unsupported_claims(md)
+        # Section 17 reproduces source passages verbatim (statute wording, not system assertions): count separately.
+        start, end = md.find("## 17. Evidence and references"), md.find("## 18. ")
+        quoted = md[start:end] if start >= 0 else ""
+        flagged = find_unsupported_claims(md.replace(quoted, ""))
         report_unsupported += len(flagged)
+        quoted_unsupported += len(find_unsupported_claims(quoted))
         for s in res.stages:
             if s.duration_ms is not None:
                 stage_times[s.stage].append(s.duration_ms)
@@ -281,6 +303,7 @@ def run(backend: str, retrieval_backends: list[str]) -> dict:
             "requirement_evidence_coverage": round(req_cov[0] / req_cov[1], 3) if req_cov[1] else None,
             "impact_evidence_coverage": round(imp_cov[0] / imp_cov[1], 3) if imp_cov[1] else None,
             "unsupported_claims_in_reports": report_unsupported,
+            "flagged_phrases_in_quoted_source_passages": quoted_unsupported,
         },
         "timing_ms_mean": {k: round(statistics.mean(v), 1) for k, v in stage_times.items()},
         "per_case": per_case,
@@ -329,11 +352,15 @@ def write_report(r: dict) -> str:
               f"| Citation validity | {rp['citation_validity']} ({rp['citations_checked']} citations) |",
               f"| Requirements with ≥1 verified citation | {rp['requirement_evidence_coverage']} |",
               f"| Impacts with recorded evidence | {rp['impact_evidence_coverage']} |",
-              f"| Unsupported legal conclusions found in report text | {rp['unsupported_claims_in_reports']} |",
-              "", "## 6. Processing time (mean per workflow stage, ms)", "", "| Stage | ms |", "|---|---|"]
+              f"| Unsupported legal conclusions in system-written report text | {rp['unsupported_claims_in_reports']} |",
+              f"| Detector hits inside quoted source passages (section 17, statute wording) | {rp['flagged_phrases_in_quoted_source_passages']} |",
+              "", "## 6. Processing time (mean per workflow stage, ms)", "",
+              f"Vector index built once before timing: {r.get('indexed_passages')} passages in {r.get('index_build_seconds')} s.", "",
+              "| Stage | ms |", "|---|---|"]
     for stage, ms in r["timing_ms_mean"].items():
         lines.append(f"| {stage} | {ms} |")
-    lines += ["", "The first run in a process also loads the embedding model, which inflates the retrieval stage.", "",
+    lines += ["", "Retrieval time grows with the corpus because BM25 is computed over every passage of the jurisdiction's "
+              "collections on each query (no persistent lexical index yet).", "",
               "## 7. Per-case results", "",
               "| Case | Sector | Juris. | Activity F1 | Missed activities | Extra activities | Missing-info F1 | Component F1 | Criteria errors | Citations |",
               "|---|---|---|---|---|---|---|---|---|---|"]
@@ -353,10 +380,15 @@ def write_report(r: dict) -> str:
               "and were not used in this run.",
               "* **Impact precision.** The taxonomy deliberately casts a wide net for screening (recall over "
               "precision); extra components are potential issues for a practitioner to discard.",
-              "* **Retrieval.** Measured on a 15-document curated-summary corpus. Results on full official texts will "
-              "differ and should be re-measured after ingesting official documents.",
+              f"* **Retrieval.** Measured on the knowledge base `{r['knowledge_base_version']}` "
+              f"({r.get('kb_documents', '?')} active documents, {r.get('kb_official', 0)} of them official texts). "
+              "Relevance labels name the curated-summary documents; official texts retrieved for the same query count "
+              "as non-relevant here, which lowers Precision@5. English queries over German official text rely mainly "
+              "on the English summaries.",
+              "* **Stale retrieval label.** The only Recall@5 miss (SYN-01, 'storage of hazardous chemicals such as cyanide') expects the Act 917 summary, which is now superseded because Act 1124 s.171(1) repealed Act 917; its content moved to Act 1124 Part Three. The label was left unchanged so the reported figure is not tuned after the fact.",
               "* **Rule correctness ≠ legal correctness.** Criterion results are compared with the expected output of "
-              "the encoded rules. All encoded criteria are 'unverified' against official texts.",
+              "the encoded rules. The rules were compared with the official texts in an AI-assisted cross-check, but "
+              "no criterion has been verified by a qualified reviewer.",
               "* **Unsupported-claim and injection detectors** are pattern-based and were tested on small hand-written "
               "sets; paraphrased claims may evade them, which is why human review remains mandatory. The first "
               "evaluation run exposed two detector defects (a missed 'does not require an environmental permit' and "

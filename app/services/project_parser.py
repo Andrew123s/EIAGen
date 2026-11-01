@@ -159,6 +159,20 @@ _PATTERNS: dict[str, list[tuple[re.Pattern[str], callable]]] = {
         (re.compile(r"(?:construction|duration|period)[^.]{0,40}?" + _NUM + r"\s*years?", re.I),
          lambda m: _num(m.group(1)) * 12),
     ],
+    "settlement_distance_km": [
+        (re.compile(r"\b(?:village|town|settlement|communit(?:y|ies)|residential\s+(?:area|buildings?)|dwellings?|homes|houses)"
+                    r"[^.;]{0,40}?" + _NUM + r"\s*(km|m)\b", re.I),
+         lambda m: _num(m.group(1)) / (1000 if m.group(2).lower() == "m" else 1)),
+        (re.compile(_NUM + r"\s*(km|m)\s+(?:from|of|to)\s+(?:the\s+)?(?:nearest\s+)?(?:two\s+|several\s+)?"
+                    r"(?:villages?|towns?|settlements?|communit|residential|dwellings?|homes|houses)", re.I),
+         lambda m: _num(m.group(1)) / (1000 if m.group(2).lower() == "m" else 1)),
+    ],
+    "resettled_households": [
+        (re.compile(r"(?:resettle\w*|relocat\w*|displac\w*)[^.;]{0,40}?" + _NUM + r"\s+(?:households|families)", re.I),
+         lambda m: _num(m.group(1))),
+        (re.compile(_NUM + r"\s+(?:households|families)[^.;]{0,30}?(?:resettle\w*|relocat\w*|displac\w*)", re.I),
+         lambda m: _num(m.group(1))),
+    ],
     "energy_demand": [
         (re.compile(_NUM + r"\s*(?:MWh|GWh|kWh)", re.I), lambda m: _num(m.group(1))),
     ],
@@ -166,6 +180,8 @@ _PATTERNS: dict[str, list[tuple[re.Pattern[str], callable]]] = {
 # Parameters whose occurrences should be summed or maximised.
 _TAKE_MAX = {"project_area_ha", "road_length_km", "workforce", "installed_capacity_mw", "housing_units",
              "turbine_count", "water_demand", "production_capacity"}
+_TAKE_MIN = {"settlement_distance_km"}
+_EXPLOSIVES_RE = re.compile(r"\b(?:blast(?:ing|s)?|explosives?|sprengstoff\w*)\b", re.I)
 
 _WASTEWATER_RE = re.compile(
     r"(?:wastewater|waste\s+water|effluent)[^.]{0,60}?" + _NUM + r"\s*(?:m3|m³|cubic\s+met(?:re|er)s?)\s*(?:per|/|a)\s*(day|d|hour|h|year|annum)"
@@ -205,11 +221,17 @@ def extract_parameters(sources: list[SourceText], characteristics: dict) -> list
                         continue
             if not values:
                 continue
-            value, quote = max(values, key=lambda v: v[0]) if name in _TAKE_MAX else values[0]
+            if name in _TAKE_MAX:
+                value, quote = max(values, key=lambda v: v[0])
+            elif name in _TAKE_MIN:
+                value, quote = min(values, key=lambda v: v[0])
+            else:
+                value, quote = values[0]
             if value <= 0:
                 continue
             current = found.get(name)
-            if current is None or (name in _TAKE_MAX and value > current.value):
+            if current is None or (name in _TAKE_MAX and value > current.value) or \
+                    (name in _TAKE_MIN and value < current.value):
                 found[name] = ProjectParameter(name=name, label=defs[name]["label"], value=value,
                                                unit=defs[name]["unit"], source_text=quote,
                                                status=InfoStatus.extracted, provenance=src.provenance)
@@ -221,6 +243,17 @@ def extract_parameters(sources: list[SourceText], characteristics: dict) -> list
                 name="wastewater_volume", label=defs["wastewater_volume"]["label"],
                 value=round(_num(num) * _time_factor(per), 2), unit=defs["wastewater_volume"]["unit"],
                 source_text=m.group(0), status=InfoStatus.extracted, provenance=src.provenance)
+
+    # Use of explosives is a yes/no fact stated in text (never assumed absent).
+    if "explosives_used" not in found:
+        for src in sources:
+            m = _EXPLOSIVES_RE.search(src.text)
+            if m and find_keywords(src.text, [m.group(0)]):   # ignores "no blasting will be used"
+                found["explosives_used"] = ProjectParameter(
+                    name="explosives_used", label=defs["explosives_used"]["label"], value=1.0,
+                    unit=defs["explosives_used"]["unit"], source_text=m.group(0), status=InfoStatus.extracted,
+                    provenance=src.provenance)
+                break
 
     # Livestock total (inferred) from species-specific counts.
     species = [found[k].value for k in ("broiler_count", "hen_count", "pig_count", "sow_count") if k in found]

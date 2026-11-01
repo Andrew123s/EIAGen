@@ -31,6 +31,7 @@ from app.schemas import (
     RegulatoryRequirement,
 )
 from app.services.citation_service import CitationRegistry
+from app.services.crosswalk import official_passage_for
 from app.services.regulatory_library import is_binding
 from app.services.retrieval_service import RetrievalService, RetrievedPassage, tokenize
 from app.services.taxonomy import component_label, find_keywords, taxonomy
@@ -120,8 +121,19 @@ def map_requirements(db: Session, profile: ProjectProfile, impacts: list[Potenti
         if passage.relationship == "supranational":
             uncertainty.append("EU-level instrument: applies through national transposing legislation; confirm the "
                                "corresponding national provision.")
+        evidence_keys = [ref.citation_key]
         if doc.content_form == ContentForm.curated_summary.value:
-            uncertainty.append("Retrieved from a curated summary, not the official text.")
+            official = official_passage_for(db, doc.document_id, passage.section)
+            official_doc = db.scalar(select(RegulatoryDocument).where(
+                RegulatoryDocument.document_id == official.document_id)) if official else None
+            if official is not None and official_doc is not None:
+                official_ref = registry.cite_passage(official, official_doc)
+                evidence_keys.append(official_ref.citation_key)
+                uncertainty.append(f"Paraphrased in a curated summary; the corresponding official provision is cited "
+                                   f"as [{official_ref.citation_key}] - compare the wording before relying on it.")
+            else:
+                uncertainty.append("Retrieved from a curated summary, not the official text; no official provision "
+                                   "is linked for this passage.")
         if not doc.status_verified:
             uncertainty.append(f"Current legal status not verified ({doc.legal_status or 'unknown'}).")
 
@@ -142,7 +154,7 @@ def map_requirements(db: Session, profile: ProjectProfile, impacts: list[Potenti
             related_activities=[act_names[a] for a in sorted(acts) if a in act_names],
             environmental_components=sorted(comps), potential_obligation=obligation,
             permit_or_approval=permit.group(1).strip() if permit else None,
-            applicability=status, supporting_evidence=[ref.citation_key], uncertainty=uncertainty,
+            applicability=status, supporting_evidence=evidence_keys, uncertainty=uncertainty,
             legal_status=doc.legal_status, source_url=doc.source_url, provenance=prov))
     return requirements, [h[0] for h in hits.values()]
 

@@ -22,7 +22,7 @@ from app.core.security import detect_injection, safe_filename
 from app.models import EvidenceRecord, RegulatoryChunk, RegulatoryDocument
 from app.schemas import BINDING_TYPES, DocumentStatus, DocumentType, RegulationMetadata
 from app.services import audit
-from app.services.document_processor import chunk_pages, detect_markdown, extract_pages, sha256_bytes
+from app.services.document_processor import chunk_pages, detect_markdown, extract_pages, sha256_bytes, uses_ocr
 
 log = get_logger("regulatory_library")
 
@@ -89,6 +89,8 @@ def ingest_file(db: Session, metadata: RegulationMetadata, path: Path, *, actor:
         applicable_sectors=metadata.applicable_sectors, date_last_verified=metadata.date_last_verified,
         legal_status=metadata.legal_status, status_verified=metadata.status_verified,
         status=DocumentStatus.active.value, supersedes=metadata.supersedes,
+        official_counterpart=metadata.official_counterpart,
+        extraction_method="ocr" if uses_ocr(path) else ("text_layer" if path.suffix.lower() == ".pdf" else "text_file"),
         file_path=str(stored), checksum=checksum)
     for c in chunks:
         doc.chunks.append(RegulatoryChunk(chunk_index=c.index, text=c.text, page=c.page, section=c.section,
@@ -121,9 +123,26 @@ def ingest_manifest(db: Session, manifest_path: Path | None = None, actor: str =
         entry = dict(entry)
         rel = entry.pop("file")
         meta = RegulationMetadata(**entry)
-        docs.append(ingest_file(db, meta, manifest_path.parent / rel, actor=actor))
+        try:
+            docs.append(ingest_file(db, meta, manifest_path.parent / rel, actor=actor))
+        except DocumentConflict:
+            # A revised seed summary may replace its previous revision only if nothing cites it;
+            # otherwise ingest_file refuses again and the revision must be added via 'supersedes'.
+            docs.append(ingest_file(db, meta, manifest_path.parent / rel, actor=actor, replace=True))
+    _relink_counterparts(db)
     db.commit()
     return docs
+
+
+def _relink_counterparts(db: Session) -> None:
+    """Restore summary -> official links after a summary has been re-ingested."""
+    from app.services.crosswalk import crosswalk
+
+    for summary_id, entry in crosswalk().items():
+        summary = db.scalar(select(RegulatoryDocument).where(RegulatoryDocument.document_id == summary_id))
+        official = db.scalar(select(RegulatoryDocument).where(RegulatoryDocument.document_id == entry["official"]))
+        if summary is not None and official is not None and summary.official_counterpart is None:
+            summary.official_counterpart = official.document_id
 
 
 def set_status(db: Session, document_id: str, status: DocumentStatus, actor: str,
@@ -145,7 +164,7 @@ def set_status(db: Session, document_id: str, status: DocumentStatus, actor: str
 
 def update_metadata(db: Session, document_id: str, changes: dict, actor: str) -> RegulatoryDocument:
     allowed = {"legal_status", "status_verified", "date_last_verified", "source_url", "source_url_note",
-               "effective_date", "short_title", "applicable_sectors"}
+               "effective_date", "short_title", "applicable_sectors", "official_counterpart"}
     doc = get_document(db, document_id)
     for key, value in changes.items():
         if key not in allowed:

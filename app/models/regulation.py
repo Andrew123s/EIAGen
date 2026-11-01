@@ -39,6 +39,9 @@ class RegulatoryDocument(Base):
     status: Mapped[str] = mapped_column(String(20), default="active", index=True)
     superseded_by: Mapped[str | None] = mapped_column(String(80))
     supersedes: Mapped[str | None] = mapped_column(String(80))
+    # For curated summaries: the official document whose provisions the summary paraphrases.
+    official_counterpart: Mapped[str | None] = mapped_column(String(80))
+    extraction_method: Mapped[str] = mapped_column(String(20), default="text_layer")   # text_layer | ocr | text_file
     file_path: Mapped[str | None] = mapped_column(String(500))
     checksum: Mapped[str] = mapped_column(String(64))
     ingested_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)

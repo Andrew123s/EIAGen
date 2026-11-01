@@ -17,6 +17,8 @@ from app.schemas import (
     ScreeningAssessment,
 )
 from app.services.citation_service import CitationRegistry
+from app.services.crosswalk import resolve_anchor
+from app.services.taxonomy import rules
 from app.services.mitigation_service import generate_mitigation, identify_investigations
 from app.services.regulatory_mapper import find_criterion_passage
 from app.services.regulatory_library import get_document, LibraryError
@@ -32,15 +34,21 @@ def run(ctx: ToolContext, registry: ToolRegistry, profile: ProjectProfile, impac
     assert isinstance(assessment, ScreeningAssessment)
 
     citations: CitationRegistry = ctx.state.setdefault("citations", CitationRegistry())
+    specs = {c["id"]: c for c in rules()["regulatory_screening_criteria"]}
     for crit in assessment.regulatory_screening.criteria:
+        keys: list[str] = []
         passage = find_criterion_passage(ctx.db, crit.source_document_id, crit.source_section, crit.title)
-        if passage is None:
-            continue
-        try:
-            doc = get_document(ctx.db, crit.source_document_id)
-        except LibraryError:
-            continue
-        crit.evidence = [citations.cite_passage(passage, doc).citation_key]
+        if passage is not None:
+            try:
+                keys.append(citations.cite_passage(passage, get_document(ctx.db, crit.source_document_id)).citation_key)
+            except LibraryError:
+                pass
+        official = (specs.get(crit.criterion_id) or {}).get("official_source")
+        if official:
+            op = resolve_anchor(ctx.db, official["document_id"], official["anchor"])
+            if op is not None:
+                keys.append(citations.cite_passage(op, get_document(ctx.db, op.document_id)).citation_key)
+        crit.evidence = keys
 
     binding_reqs = [r for r in requirements if r.binding and r.applicability.value == "potentially_applicable"]
     mitigation = generate_mitigation(impacts, profile, binding_reqs)

@@ -49,12 +49,21 @@ def extract_pages(path: Path) -> list[PageText]:
     """Extract text per page. Non-paginated formats return a single page=None item."""
     suffix = path.suffix.lower()
     if suffix == ".pdf":
+        import json
+
         import pymupdf
 
+        # Scanned PDFs: pages without a text layer are read from an OCR sidecar
+        # (<file>.ocr.json, produced by scripts/ocr_pdf.py) so page numbers are kept.
+        sidecar = path.with_suffix(path.suffix + ".ocr.json")
+        ocr_pages = json.loads(sidecar.read_text(encoding="utf-8"))["pages"] if sidecar.exists() else {}
         pages: list[PageText] = []
         with pymupdf.open(path) as doc:
             for i, page in enumerate(doc, start=1):
-                pages.append(PageText(page=i, text=page.get_text("text")))
+                text = page.get_text("text")
+                if not text.strip() and str(i) in ocr_pages:
+                    text = ocr_pages[str(i)]
+                pages.append(PageText(page=i, text=text))
         return pages
     if suffix == ".docx":
         import docx
@@ -68,6 +77,10 @@ def extract_pages(path: Path) -> list[PageText]:
     if suffix in (".txt", ".md"):
         return [PageText(page=None, text=path.read_text(encoding="utf-8"))]
     raise ValueError(f"Unsupported document type: {suffix}")
+
+
+def uses_ocr(path: Path) -> bool:
+    return path.with_suffix(path.suffix + ".ocr.json").exists()
 
 
 def _heading_of(line: str, markdown: bool) -> str | None:

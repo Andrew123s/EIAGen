@@ -11,7 +11,7 @@
 #      prioritisation heuristic. It is NOT a statutory method and must never be
 #      used as a substitute for legal EIA classification.
 
-rules_version: "2026.11-1"
+rules_version: "2026.11-2"
 
 parameters:
   project_area_ha: {label: Project area, unit: ha}
@@ -33,61 +33,245 @@ parameters:
   pig_count: {label: Production pig places (over 30 kg), unit: animals}
   sow_count: {label: Sow places, unit: animals}
   project_duration_months: {label: Project / construction duration, unit: months}
+  settlement_distance_km: {label: Distance to nearest settlement, unit: km}
+  resettled_households: {label: Households / families to be resettled, unit: households}
+  explosives_used: {label: Use of explosives (1 = stated), unit: flag}
 
 regulatory_screening_criteria:
   # ------------------------------------------------------------------ Ghana
+  # official_text_check records an AI-assisted comparison with the official text
+  # (2026-11-01). It is NOT a qualified human verification: verification_status
+  # stays "unverified" until a reviewer confirms each criterion.
   - id: GH-LI1652-R1
     jurisdiction: ghana
-    title: Registration and environmental permit for listed undertakings
+    title: Registration and environmental permit for listed undertakings (Schedule 1)
     description: >-
-      L.I. 1652 requires undertakings listed in Schedule 1 to be registered with the
-      Agency and to obtain an environmental permit before commencement. Schedule 1
-      covers a broad range of sectors including those listed here.
+      Regulation 1(1) of L.I. 1652: no person shall commence an undertaking specified in Schedule 1 unless it
+      has been registered and an environmental permit issued. Regulation 1(2) also requires registration of
+      any undertaking which in the regulator's opinion is likely to have an adverse effect on the environment
+      or public health.
     source_document_id: gh-li1652
     source_section: Regulation 1; Schedule 1
+    official_source: {document_id: gh-li1652-official, anchor: "No person shall commence any of the undertakings specified in Schedule 1"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01", note: "Reg. 1(1) and 1(2) wording matches the criterion; Schedule 1 entries carry their own size/location conditions that are not encoded."}
     condition:
       sectors_any: [mining, agriculture, manufacturing, renewable_energy, road_construction, housing_development, waste_management, water_infrastructure]
     outcome_if_met: Environmental registration and environmental permit potentially required
     screening_category: registration_and_permit
     verification_status: unverified
-  - id: GH-LI1652-S2
+
+  - id: GH-LI1652-S2-01A
     jurisdiction: ghana
-    title: Undertakings for which EIA is mandatory (Schedule 2)
+    title: Land development for agriculture of not less than 40 ha (Schedule 2, item 1(a))
+    description: Schedule 2 (Regulation 3) lists land development for agriculture purposes not less than 40 hectares as an undertaking for which EIA is mandatory.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 1(a)
+    official_source: {document_id: gh-li1652-official, anchor: "land development for agriculture purposes not less than 40 hectares"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      sectors_any: [agriculture]
+      parameter: {name: project_area_ha, op: ">=", value: 40}
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-01B
+    jurisdiction: ghana
+    title: Agricultural programmes resettling 20 or more families (Schedule 2, item 1(b))
+    description: Schedule 2 lists agricultural programmes necessitating the resettlement of 20 families or more.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 1(b)
+    official_source: {document_id: gh-li1652-official, anchor: "agricultural programmes necessitating the resettlement of 20 families or more"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      sectors_any: [agriculture, water_infrastructure]
+      activities_any: [land_acquisition_resettlement]
+      parameter: {name: resettled_households, op: ">=", value: 20}
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-03
+    jurisdiction: ghana
+    title: Construction of dams and man-made lakes (Schedule 2, items 3(a), 13(b), 16(a))
+    description: Schedule 2 lists construction of dams and man-made lakes, dams and hydroelectric power schemes, and dams impounding reservoirs for water supply.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, items 3(a), 13(b), 16(a)
+    official_source: {document_id: gh-li1652-official, anchor: "construction of dams and man-made lakes"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      activities_any: [impoundment_dam]
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-07
+    jurisdiction: ghana
+    title: Housing development (Schedule 2, item 7)
+    description: Schedule 2 lists human settlement development undertakings and housing development (no size threshold stated in the text consulted).
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 7
+    official_source: {document_id: gh-li1652-official, anchor: "human settlement development undertaking"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      sectors_any: [housing_development]
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-08
+    jurisdiction: ghana
+    title: Cement manufacture (Schedule 2, item 8, non-metallic industry)
+    description: Schedule 2 item 8 (industry) lists non-metallic industry - cement. The transcribed text consulted is garbled at this entry; whether a capacity threshold applies must be checked in the gazetted instrument.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 8
+    official_source: {document_id: gh-li1652-official, anchor: "Non-metallic -cement"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01", note: "Entry garbled in the FAOLEX transcription; threshold applicability unclear."}
+    condition:
+      sectors_any: [manufacturing]
+      keywords_any: [cement]
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-09
+    jurisdiction: ghana
+    title: Construction of roads and highways (Schedule 2, item 9(c))
+    description: Schedule 2 item 9 (infrastructure) lists construction of roads and highways (no size threshold stated).
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 9(c)
+    official_source: {document_id: gh-li1652-official, anchor: "construction of roads and highways"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      sectors_any: [road_construction]
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-11A
+    jurisdiction: ghana
+    title: Mining and processing of minerals where the lease exceeds 10 ha (Schedule 2, item 11(a))
+    description: Schedule 2 lists mining and processing of minerals in areas where the mining lease covers a total area in excess of 10 hectares. EIAGen uses the stated project area as a proxy for the lease area.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 11(a)
+    official_source: {document_id: gh-li1652-official, anchor: "mining and processing of minerals in areas where the mining lease covers a total area"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01", note: "Threshold refers to the mining lease area, not the project footprint."}
+    condition:
+      sectors_any: [mining]
+      keywords_any: [mine, mining, ore, mineral processing]
+      parameter: {name: project_area_ha, op: ">", value: 10}
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-11B
+    jurisdiction: ghana
+    title: Quarrying within 3 km of settlements (Schedule 2, item 11(b))
+    description: Schedule 2 lists proposed quarrying of aggregate, limestone, silica, quartzite, sandstone, marble and decorative building stone within 3 kilometres of any existing village, residential, commercial or industrial area.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 11(b)
+    official_source: {document_id: gh-li1652-official, anchor: "within 3 kilometers radius of any existing village"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      keywords_any: [quarry, quarrying]
+      parameter: {name: settlement_distance_km, op: "<=", value: 3}
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-13E
+    jurisdiction: ghana
+    title: Erection of power transmission lines (Schedule 2, item 13(e))
+    description: Schedule 2 item 13 (power generation and transmission) lists erection of power transmission lines.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 13(e)
+    official_source: {document_id: gh-li1652-official, anchor: "erection of power transmission lines"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      activities_any: [linear_infrastructure]
+      keywords_any: [transmission line, power line]
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-15A
+    jurisdiction: ghana
+    title: Municipal solid waste landfill and treatment facilities (Schedule 2, item 15)
+    description: Schedule 2 item 15 lists, among others, construction of municipal solid waste incineration, composting, recovery/recycling plants, landfill facilities and waste depots, and secure landfills for hazardous waste.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 15
+    official_source: {document_id: gh-li1652-official, anchor: "construction of municipal solid waste landfill facility"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      activities_any: [landfilling_waste_treatment]
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-15C
+    jurisdiction: ghana
+    title: Construction of a municipal sewage treatment plant (Schedule 2, item 15, municipal sewage)
+    description: Schedule 2 item 15 (municipal sewage) lists construction of wastewater treatment plants, marine outfalls and night-soil treatment.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2, item 15
+    official_source: {document_id: gh-li1652-official, anchor: "municipal sewage"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      keywords_any: [sewage treatment, wastewater treatment plant, marine outfall]
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S2-OTHER
+    jurisdiction: ghana
+    title: Other Schedule 2 entries - manual check
     description: >-
-      Schedule 2 of L.I. 1652 lists undertakings for which an environmental impact
-      assessment is mandatory. Whether this project falls within Schedule 2 depends on
-      undertaking type and scale; the Schedule 2 entries and any scale thresholds are
-      not encoded here and must be checked against the official text.
+      Schedule 2 contains further entries (airports, land reclamation, fisheries, forestry, chemical and
+      petrochemical industry, ports, petroleum, resorts, water supply, conservation areas) that are not encoded.
+      A qualified reviewer must check the undertaking against the full Schedule.
     source_document_id: gh-li1652
     source_section: Regulation 3; Schedule 2
+    official_source: {document_id: gh-li1652-official, anchor: "No environmental permit shall be issued by the Agency for any of the undertakings mentioned in Schedule 2"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01"}
     condition:
       sectors_any: [mining, manufacturing, road_construction, waste_management, water_infrastructure, agriculture, renewable_energy, housing_development]
       always_indeterminate: true
     outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
-    screening_category: environmental_impact_assessment
+    screening_category: further_regulatory_screening
     verification_status: unverified
   - id: GH-LI1652-S5
     jurisdiction: ghana
-    title: Undertakings in or near environmentally sensitive areas (Schedule 5)
+    title: Location in an environmentally sensitive area (Schedule 5, items 1 and 4)
     description: >-
-      L.I. 1652 identifies environmentally sensitive areas (Schedule 5). Location of an
-      undertaking in or near such an area is relevant to whether an EIA is required.
+      Regulation 30(2) designates the areas in Schedule 5 as environmentally sensitive, including areas declared
+      by law as national parks, watershed and wildlife reserves and sanctuaries (including sacred groves) and
+      areas of unique historic or archaeological interest. Several Schedule 1 entries are triggered by location
+      in such areas.
     source_document_id: gh-li1652
-    source_section: Regulation 3; Schedule 5
+    source_section: Regulation 30(2); Schedule 5
+    official_source: {document_id: gh-li1652-official, anchor: "All areas declared by law as national parks"}
+    official_text_check: {status: corrected, checked_on: "2026-11-01", note: "Schedule 5 is designated by Regulation 30(2), not Regulation 3 as previously encoded."}
     condition:
-      flags_any: [near_protected_area, near_wetland_or_waterbody, near_cultural_heritage]
+      flags_any: [near_protected_area, near_cultural_heritage]
     outcome_if_met: Location in or near an environmentally sensitive area - EIA requirement should be examined
     screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S5-WATER
+    jurisdiction: ghana
+    title: Water bodies as environmentally sensitive areas (Schedule 5, item 11)
+    description: >-
+      Water bodies are environmentally sensitive under Schedule 5 item 11 only where the water is tapped for
+      domestic purposes, lies within controlled or protected areas, or supports wildlife and fishery activities.
+      A water body near the site must be checked against these conditions.
+    source_document_id: gh-li1652
+    source_section: Regulation 30(2); Schedule 5, item 11
+    official_source: {document_id: gh-li1652-official, anchor: "water tapped for domestic purposes"}
+    official_text_check: {status: corrected, checked_on: "2026-11-01", note: "Previously any water body triggered the sensitive-area criterion; the official text attaches conditions."}
+    condition:
+      flags_any: [near_wetland_or_waterbody]
+      always_indeterminate: true
+    outcome_if_met: Water body may qualify as an environmentally sensitive area - check Schedule 5 item 11 conditions
+    screening_category: further_regulatory_screening
     verification_status: unverified
   - id: GH-WRC-WATERUSE
     jurisdiction: ghana
     title: Water use permit (abstraction or discharge)
     description: >-
-      Water use, including abstraction and discharge of wastewater into water bodies,
-      is regulated by the Water Resources Commission under Act 522 and the Water Use
-      Regulations, 2001 (L.I. 1692). Exemptions (e.g. certain domestic uses) must be checked.
+      Water use, including abstraction and discharge of wastewater into water bodies, is regulated by the Water
+      Resources Commission under Act 522 and the Water Use Regulations, 2001 (L.I. 1692). Exemptions (e.g.
+      certain domestic uses) must be checked.
     source_document_id: gh-wrc-act522
     source_section: Act 522, s.13; L.I. 1692
+    official_text_check: {status: not_checked, note: "Official text of Act 522 / L.I. 1692 not yet ingested."}
     condition:
       activities_any: [water_abstraction, wastewater_discharge, impoundment_dam]
     outcome_if_met: Water use permit from the Water Resources Commission potentially required
@@ -98,10 +282,48 @@ regulatory_screening_criteria:
     title: Mineral right / mining lease
     description: Mining operations require a mineral right granted under the Minerals and Mining Act, 2006 (Act 703).
     source_document_id: gh-act703
-    source_section: Act 703, ss. 9-11
+    source_section: Act 703, s.9
+    official_text_check: {status: not_checked, note: "Official text of Act 703 not yet ingested."}
     condition:
       sectors_any: [mining]
     outcome_if_met: Mineral right (sector approval) potentially required in addition to the environmental permit
+    screening_category: sector_approval
+    verification_status: unverified
+
+  - id: GH-ACT1124-S29
+    jurisdiction: ghana
+    title: Environmental assessment required by notice of the Authority (Act 1124, s.29)
+    description: >-
+      Under section 29(1) of the Environmental Protection Act, 2025 (Act 1124) the Environmental Protection
+      Authority may, by written notice, require the entity responsible for an undertaking which in its opinion
+      has or is likely to have an adverse effect on the environment to conduct an environmental assessment.
+      Under s.29(5) other government bodies shall not grant a licence, permit, approval or consent for such a
+      matter without the Authority's written approval. Whether a notice is issued is at the Authority's discretion.
+    source_document_id: gh-act1124-official
+    source_section: Act 1124, s.29
+    official_source: {document_id: gh-act1124-official, anchor: "require an entity responsible for an undertaking which in the opinion of the Authority"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01", note: "OCR text; s.29(2) has a missing line in the OCR output - check the page image."}
+    condition:
+      sectors_any: [mining, agriculture, manufacturing, renewable_energy, road_construction, housing_development, waste_management, water_infrastructure]
+      always_indeterminate: true
+    outcome_if_met: Environmental assessment may be required by notice of the Authority; sector approvals need the Authority's written approval
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-ACT1124-S30
+    jurisdiction: ghana
+    title: Compensation plan for relocation, displacement or livelihood impacts (Act 1124, s.30)
+    description: >-
+      Section 30 of Act 1124: where the environmental assessment report indicates that the land for the
+      undertaking will affect property and livelihoods, result in relocation or displacement of people, or
+      restrict land use, the proponent shall prepare a compensation plan or compensation policy framework in
+      accordance with guidelines issued by the Authority.
+    source_document_id: gh-act1124-official
+    source_section: Act 1124, s.30
+    official_source: {document_id: gh-act1124-official, anchor: "the proponent shall prepare a compensation plan or compensation policy framework"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01", note: "OCR text."}
+    condition:
+      activities_any: [land_acquisition_resettlement]
+    outcome_if_met: Compensation plan or compensation policy framework potentially required
     screening_category: sector_approval
     verification_status: unverified
 
@@ -109,63 +331,150 @@ regulatory_screening_criteria:
   - id: DE-UVPG-1.6.1
     jurisdiction: germany
     title: Wind farm - 20 or more turbines (UVPG Annex 1, No. 1.6.1, column X)
-    description: Wind farms with 20 or more wind turbines each with a total height of more than 50 m are listed as subject to mandatory EIA.
+    description: Wind farms with turbines each of a total height of more than 50 m and 20 or more wind turbines are listed as subject to mandatory EIA.
     source_document_id: de-uvpg
     source_section: Annex 1, No. 1.6.1
+    official_source: {document_id: de-uvpg-official, anchor: "Windfarm mit Anlagen mit einer Gesamthöhe von jeweils mehr als 50 Metern"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01", note: "Row 1.6 applies only to turbines with a total height of more than 50 m; height condition now encoded."}
     condition:
       activities_any: [power_generation_renewable]
       keywords_any: [wind]
       parameter: {name: turbine_count, op: ">=", value: 20}
+      parameter_2: {name: turbine_height_m, op: ">", value: 50}
     outcome_if_met: Mandatory EIA category (X) potentially relevant
     screening_category: environmental_impact_assessment
     verification_status: unverified
   - id: DE-UVPG-1.6.2
     jurisdiction: germany
     title: Wind farm - 6 to fewer than 20 turbines (UVPG Annex 1, No. 1.6.2, column A)
-    description: Wind farms with 6 to fewer than 20 turbines (total height > 50 m) require a general preliminary assessment of the individual case (allgemeine Vorpruefung).
+    description: Wind farms (turbines > 50 m total height) with 6 to fewer than 20 turbines require a general preliminary assessment of the individual case.
     source_document_id: de-uvpg
     source_section: Annex 1, No. 1.6.2; Section 7
+    official_source: {document_id: de-uvpg-official, anchor: "Windfarm mit Anlagen mit einer Gesamthöhe von jeweils mehr als 50 Metern"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01"}
     condition:
       activities_any: [power_generation_renewable]
       keywords_any: [wind]
       parameter: {name: turbine_count, op: between, min: 6, max: 19}
+      parameter_2: {name: turbine_height_m, op: ">", value: 50}
     outcome_if_met: General preliminary assessment (A) category potentially relevant
     screening_category: preliminary_assessment
     verification_status: unverified
   - id: DE-UVPG-1.6.3
     jurisdiction: germany
     title: Wind farm - 3 to fewer than 6 turbines (UVPG Annex 1, No. 1.6.3, column S)
-    description: Wind farms with 3 to fewer than 6 turbines (total height > 50 m) require a site-related preliminary assessment (standortbezogene Vorpruefung).
+    description: Wind farms (turbines > 50 m total height) with 3 to fewer than 6 turbines require a site-related preliminary assessment.
     source_document_id: de-uvpg
     source_section: Annex 1, No. 1.6.3; Section 7
+    official_source: {document_id: de-uvpg-official, anchor: "Windfarm mit Anlagen mit einer Gesamthöhe von jeweils mehr als 50 Metern"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01"}
     condition:
       activities_any: [power_generation_renewable]
       keywords_any: [wind]
       parameter: {name: turbine_count, op: between, min: 3, max: 5}
+      parameter_2: {name: turbine_height_m, op: ">", value: 50}
     outcome_if_met: Site-related preliminary assessment (S) category potentially relevant
     screening_category: preliminary_assessment
     verification_status: unverified
   - id: DE-UVPG-2.1.1
     jurisdiction: germany
-    title: Quarry / open-cast extraction of 25 ha or more (UVPG Annex 1, No. 2.1.1)
-    description: Quarries with an extraction area of 25 hectares or more are listed as subject to mandatory EIA (transposing Annex I No. 19 of the EIA Directive).
+    title: Quarry with an extraction area of more than 25 ha (UVPG Annex 1, No. 2.1.1, column X)
+    description: Construction and operation of a quarry (Steinbruch) with an extraction area of more than 25 ha is listed as subject to mandatory EIA.
     source_document_id: de-uvpg
     source_section: Annex 1, No. 2.1.1
+    official_source: {document_id: de-uvpg-official, anchor: "Steinbruchs mit einer Abbaufläche von"}
+    official_text_check: {status: corrected, checked_on: "2026-11-01", note: "Official threshold is 'mehr als 25 ha' (more than 25 ha); previously encoded as 25 ha or more."}
     condition:
       sectors_any: [mining]
-      parameter: {name: project_area_ha, op: ">=", value: 25}
+      keywords_any: [quarry, quarrying, steinbruch]
+      parameter: {name: project_area_ha, op: ">", value: 25}
     outcome_if_met: Mandatory EIA category (X) potentially relevant
     screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: DE-UVPG-2.1.2
+    jurisdiction: germany
+    title: Quarry with an extraction area of 10 ha to 25 ha (UVPG Annex 1, No. 2.1.2, column A)
+    description: Quarries with an extraction area of 10 ha to 25 ha require a general preliminary assessment of the individual case.
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 2.1.2; Section 7
+    official_source: {document_id: de-uvpg-official, anchor: "Steinbruchs mit einer Abbaufläche von"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      sectors_any: [mining]
+      keywords_any: [quarry, quarrying, steinbruch]
+      parameter: {name: project_area_ha, op: between, min: 10, max: 25}
+    outcome_if_met: General preliminary assessment (A) category potentially relevant
+    screening_category: preliminary_assessment
+    verification_status: unverified
+  - id: DE-UVPG-2.1.3
+    jurisdiction: germany
+    title: Quarry under 10 ha using explosives (UVPG Annex 1, No. 2.1.3, column S)
+    description: Quarries with an extraction area of less than 10 ha require a site-related preliminary assessment where explosives are used.
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 2.1.3; Section 7
+    official_source: {document_id: de-uvpg-official, anchor: "Steinbruchs mit einer Abbaufläche von"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      sectors_any: [mining]
+      keywords_any: [quarry, quarrying, steinbruch]
+      parameter: {name: project_area_ha, op: "<", value: 10}
+      parameter_2: {name: explosives_used, op: ">=", value: 1}
+    outcome_if_met: Site-related preliminary assessment (S) category potentially relevant
+    screening_category: preliminary_assessment
+    verification_status: unverified
+  - id: DE-UVPG-7.3.1
+    jurisdiction: germany
+    title: Intensive broiler (Mastgeflügel) installation with 85 000 or more places (UVPG Annex 1, No. 7.3.1, column X)
+    description: Installations for intensive rearing of meat poultry with 85 000 or more places are listed as subject to mandatory EIA.
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 7.3.1
+    official_source: {document_id: de-uvpg-official, anchor: "Intensivhaltung oder -aufzucht von Mastgeflügel"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      activities_any: [livestock_rearing]
+      parameter: {name: broiler_count, op: ">=", value: 85000}
+    outcome_if_met: Mandatory EIA category (X) potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: DE-UVPG-7.3.2
+    jurisdiction: germany
+    title: Intensive broiler installation with 40 000 to fewer than 85 000 places (UVPG Annex 1, No. 7.3.2, column A)
+    description: Installations for intensive rearing of meat poultry with 40 000 to fewer than 85 000 places require a general preliminary assessment.
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 7.3.2; Section 7
+    official_source: {document_id: de-uvpg-official, anchor: "Intensivhaltung oder -aufzucht von Mastgeflügel"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      activities_any: [livestock_rearing]
+      parameter: {name: broiler_count, op: between, min: 40000, max: 84999}
+    outcome_if_met: General preliminary assessment (A) category potentially relevant
+    screening_category: preliminary_assessment
+    verification_status: unverified
+  - id: DE-UVPG-7.3.3
+    jurisdiction: germany
+    title: Intensive broiler installation with 30 000 to fewer than 40 000 places (UVPG Annex 1, No. 7.3.3, column S)
+    description: Installations for intensive rearing of meat poultry with 30 000 to fewer than 40 000 places require a site-related preliminary assessment.
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 7.3.3; Section 7
+    official_source: {document_id: de-uvpg-official, anchor: "Intensivhaltung oder -aufzucht von Mastgeflügel"}
+    official_text_check: {status: added_from_official_text, checked_on: "2026-11-01"}
+    condition:
+      activities_any: [livestock_rearing]
+      parameter: {name: broiler_count, op: between, min: 30000, max: 39999}
+    outcome_if_met: Site-related preliminary assessment (S) category potentially relevant
+    screening_category: preliminary_assessment
     verification_status: unverified
   - id: DE-UVPG-ANNEX1
     jurisdiction: germany
     title: Determination of EIA obligation against UVPG Annex 1
     description: >-
-      The EIA obligation is determined by the project type and size class listed in
-      Annex 1 UVPG (X = mandatory EIA, A = general preliminary assessment, S = site-related
-      preliminary assessment). Rows other than those encoded here must be checked manually.
+      The EIA obligation is determined by the project type and size class listed in Annex 1 UVPG (X = mandatory
+      EIA, A = general preliminary assessment, S = site-related preliminary assessment). Rows other than those
+      encoded here must be checked manually.
     source_document_id: de-uvpg
     source_section: Sections 5-7; Annex 1
+    official_source: {document_id: de-uvpg-official, anchor: "§ 5 Feststellung der UVP-Pflicht"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01"}
     condition:
       sectors_any: [mining, agriculture, manufacturing, renewable_energy, road_construction, housing_development, waste_management, water_infrastructure]
       always_indeterminate: true
@@ -178,6 +487,8 @@ regulatory_screening_criteria:
     description: Installations listed in the 4th BImSchV require a permit under Section 4 BImSchG; listing depends on installation type and capacity.
     source_document_id: de-bimschg
     source_section: Section 4 BImSchG; 4. BImSchV
+    official_source: {document_id: de-bimschg-official, anchor: "§ 4 Genehmigung"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01", note: "§ 4(1) wording matches; the 4. BImSchV listing itself is not ingested."}
     condition:
       activities_any: [industrial_processing, mineral_processing, landfilling_waste_treatment, livestock_rearing, power_generation_renewable]
       always_indeterminate: true
@@ -187,12 +498,17 @@ regulatory_screening_criteria:
   - id: DE-WHG-8
     jurisdiction: germany
     title: Water-law permit for water uses
-    description: Water uses such as abstraction and discharge of substances into water bodies require a permit or authorisation under Sections 8-9 WHG.
+    description: >-
+      Water uses such as abstraction and direct discharge of substances into water bodies require a permit or
+      authorisation under Sections 8-9 WHG. Discharge into a public sewer is an indirect discharge governed by
+      Section 58 WHG and local rules instead.
     source_document_id: de-whg
-    source_section: Sections 8-9 WHG
+    source_section: Sections 8-9 WHG (indirect discharges - Section 58)
+    official_source: {document_id: de-whg-official, anchor: "§ 8 Erlaubnis, Bewilligung"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01", note: "§ 8(1) wording matches; § 58 governs discharges into public sewers (indirect discharges)."}
     condition:
       activities_any: [water_abstraction, wastewater_discharge, impoundment_dam]
-    outcome_if_met: Water-law permit (Erlaubnis / Bewilligung) potentially required
+    outcome_if_met: Water-law permit (Erlaubnis / Bewilligung, or indirect-discharge approval under § 58) potentially required
     screening_category: sector_approval
     verification_status: unverified
   - id: DE-BNATSCHG-14
@@ -201,6 +517,8 @@ regulatory_screening_criteria:
     description: Changes to the shape or use of land that may significantly impair nature and landscape are interventions requiring avoidance and compensation measures (Sections 14-15 BNatSchG).
     source_document_id: de-bnatschg
     source_section: Sections 14-15 BNatSchG
+    official_source: {document_id: de-bnatschg-official, anchor: "§ 14 Eingriffe in Natur und Landschaft"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01"}
     condition:
       activities_any: [site_preparation_land_clearing, excavation_earthworks, linear_infrastructure, mining_extraction]
     outcome_if_met: Intervention under the impact regulation potentially triggered (avoidance / compensation)
@@ -212,6 +530,8 @@ regulatory_screening_criteria:
     description: Projects likely to significantly affect a Natura 2000 site require a compatibility assessment (Section 34 BNatSchG, implementing Article 6(3) Habitats Directive).
     source_document_id: de-bnatschg
     source_section: Section 34 BNatSchG
+    official_source: {document_id: de-bnatschg-official, anchor: "§ 34 Verträglichkeit und Unzulässigkeit von Projekten"}
+    official_text_check: {status: consistent, checked_on: "2026-11-01"}
     condition:
       flags_any: [near_protected_area]
     outcome_if_met: Natura 2000 compatibility pre-assessment potentially required
@@ -224,6 +544,7 @@ regulatory_screening_criteria:
     title: Quarries and open-cast mining over 25 ha (EIA Directive Annex I, point 19)
     description: Quarries and open-cast mining where the surface of the site exceeds 25 hectares are Annex I projects subject to EIA under Article 4(1).
     source_document_id: eu-eia-directive
+    official_text_check: {status: not_checked, note: "EUR-Lex text requires manual download (see official_sources.yaml)."}
     source_section: Article 4(1); Annex I, point 19
     condition:
       sectors_any: [mining]
@@ -236,6 +557,7 @@ regulatory_screening_criteria:
     title: New road of four or more lanes, 10 km or more (EIA Directive Annex I, point 7(c))
     description: Construction of a new road of four or more lanes, or widening to four or more lanes, of 10 km or more in continuous length.
     source_document_id: eu-eia-directive
+    official_text_check: {status: not_checked, note: "EUR-Lex text requires manual download (see official_sources.yaml)."}
     source_section: Annex I, point 7(c)
     condition:
       sectors_any: [road_construction]
@@ -249,6 +571,7 @@ regulatory_screening_criteria:
     title: Intensive rearing of poultry or pigs (EIA Directive Annex I, point 17)
     description: Installations for intensive rearing with more than 85 000 places for broilers, 60 000 for hens, 3 000 for production pigs (over 30 kg) or 900 for sows.
     source_document_id: eu-eia-directive
+    official_text_check: {status: not_checked, note: "EUR-Lex text requires manual download (see official_sources.yaml)."}
     source_section: Annex I, point 17
     condition:
       activities_any: [livestock_rearing]
@@ -269,6 +592,7 @@ regulatory_screening_criteria:
       case-by-case examination and/or thresholds whether an EIA is required, taking into
       account the Annex III selection criteria.
     source_document_id: eu-eia-directive
+    official_text_check: {status: not_checked, note: "EUR-Lex text requires manual download (see official_sources.yaml)."}
     source_section: Article 4(2)-(4); Annex II; Annex III
     condition:
       sectors_any: [renewable_energy, housing_development, manufacturing, waste_management, water_infrastructure, agriculture, road_construction, mining]
@@ -281,6 +605,7 @@ regulatory_screening_criteria:
     title: Appropriate assessment for Natura 2000 sites (Habitats Directive Article 6(3))
     description: Plans or projects likely to have a significant effect on a Natura 2000 site require an appropriate assessment.
     source_document_id: eu-habitats-directive
+    official_text_check: {status: not_checked, note: "EUR-Lex text requires manual download (see official_sources.yaml)."}
     source_section: Article 6(3)
     condition:
       flags_any: [near_protected_area]

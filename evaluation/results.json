@@ -3,12 +3,12 @@
   "status": "SYNTHETIC - for software testing only",
   "label_provenance": "All project descriptions are fictitious. Expected labels were written by the EIAGen developer from a reading of each description (activities, parameters, missing information, affected environmental components) and from the encoded screening rules (criterion results). They have NOT been reviewed by independent EIA experts and do NOT represent real regulatory outcomes or professional EIA decisions.",
   "workflow_embedding_backend": "sentence_transformers",
-  "generated_at": "2026-11-01T12:28:01.090458+00:00",
+  "generated_at": "2026-11-01T14:03:56.760614+00:00",
   "retrieval": {
     "sentence_transformers": {
       "queries": 27,
-      "precision_at_5": 0.704,
-      "recall_at_5": 1.0,
+      "precision_at_5": 0.711,
+      "recall_at_5": 0.981,
       "mrr": 1.0,
       "details": [
         {
@@ -19,8 +19,8 @@
           ],
           "top": [
             "gh-li1652 (0.88)",
-            "gh-li1652 (0.79)",
-            "gh-act703 (0.76)"
+            "gh-li1652-official (0.80)",
+            "gh-act703 (0.79)"
           ],
           "first_relevant_rank": 1
         },
@@ -32,8 +32,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.88)",
-            "gh-wrc-act522 (0.62)",
-            "gh-wrc-act522 (0.61)"
+            "intl-ifc-ehs-general-official (0.67)",
+            "gh-wrc-act522 (0.60)"
           ],
           "first_relevant_rank": 1
         },
@@ -45,7 +45,7 @@
           ],
           "top": [
             "gh-act703 (0.88)",
-            "gh-act703 (0.70)",
+            "gh-act703 (0.71)",
             "gh-act703 (0.70)"
           ],
           "first_relevant_rank": 1
@@ -58,9 +58,9 @@
             "intl-ifc-ehs-general"
           ],
           "top": [
-            "intl-ifc-ehs-general (0.81)",
-            "gh-act917 (0.77)",
-            "gh-act917 (0.72)"
+            "intl-ifc-ehs-general-official (0.81)",
+            "intl-ifc-ehs-general-official (0.76)",
+            "intl-ifc-ehs-general (0.73)"
           ],
           "first_relevant_rank": 1
         },
@@ -111,8 +111,8 @@
           ],
           "top": [
             "gh-li1652 (0.87)",
-            "gh-li1652 (0.67)",
-            "gh-li1652 (0.62)"
+            "gh-li1652-official (0.77)",
+            "gh-li1652-official (0.76)"
           ],
           "first_relevant_rank": 1
         },
@@ -124,8 +124,8 @@
           ],
           "top": [
             "intl-ifc-ehs-general (0.89)",
-            "intl-ifc-ehs-general (0.59)",
-            "intl-ifc-ehs-general (0.53)"
+            "intl-ifc-ehs-general-official (0.84)",
+            "intl-ifc-ehs-general-official (0.77)"
           ],
           "first_relevant_rank": 1
         },
@@ -137,8 +137,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.85)",
-            "gh-wrc-act522 (0.64)",
-            "gh-wrc-act522 (0.64)"
+            "gh-wrc-act522 (0.62)",
+            "intl-ifc-ehs-general-official (0.61)"
           ],
           "first_relevant_rank": 1
         },
@@ -150,8 +150,8 @@
           ],
           "top": [
             "gh-li1652 (0.89)",
-            "gh-li1652 (0.75)",
-            "gh-li1652 (0.63)"
+            "gh-li1652-official (0.85)",
+            "gh-li1652-official (0.81)"
           ],
           "first_relevant_rank": 1
         },
@@ -163,8 +163,8 @@
           ],
           "top": [
             "intl-ifc-ps (0.86)",
-            "intl-ifc-ehs-general (0.46)",
-            "intl-ifc-ps (0.46)"
+            "gh-li1652-official (0.59)",
+            "intl-ifc-ehs-general (0.50)"
           ],
           "first_relevant_rank": 1
         },
@@ -202,8 +202,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.91)",
-            "gh-wrc-act522 (0.58)",
-            "intl-ifc-ehs-general (0.54)"
+            "intl-ifc-ehs-general-official (0.69)",
+            "intl-ifc-ehs-general-official (0.65)"
           ],
           "first_relevant_rank": 1
         },
@@ -215,8 +215,8 @@
           ],
           "top": [
             "gh-li1652 (0.85)",
-            "gh-li1652 (0.64)",
-            "gh-act490 (0.60)"
+            "gh-li1652-official (0.84)",
+            "gh-li1652-official (0.74)"
           ],
           "first_relevant_rank": 1
         },
@@ -228,8 +228,8 @@
           ],
           "top": [
             "de-bimschg (0.86)",
-            "de-bimschg (0.68)",
-            "de-bimschg (0.66)"
+            "de-bimschg (0.71)",
+            "de-bimschg (0.69)"
           ],
           "first_relevant_rank": 1
         },
@@ -241,8 +241,8 @@
           ],
           "top": [
             "de-krwg (0.88)",
-            "de-krwg (0.70)",
-            "de-krwg (0.70)"
+            "de-krwg (0.73)",
+            "de-krwg (0.73)"
           ],
           "first_relevant_rank": 1
         },
@@ -256,7 +256,7 @@
           "top": [
             "de-whg (0.88)",
             "eu-wfd (0.80)",
-            "de-whg (0.68)"
+            "de-whg (0.67)"
           ],
           "first_relevant_rank": 1
         },
@@ -268,8 +268,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.90)",
-            "gh-wrc-act522 (0.72)",
-            "gh-wrc-act522 (0.63)"
+            "gh-wrc-act522 (0.70)",
+            "gh-wrc-act522 (0.61)"
           ],
           "first_relevant_rank": 1
         },
@@ -280,9 +280,9 @@
             "gh-li1652"
           ],
           "top": [
-            "gh-li1652 (0.82)",
-            "intl-ifc-ps (0.41)",
-            "intl-ifc-ps (0.39)"
+            "gh-li1652-official (0.80)",
+            "gh-li1652 (0.79)",
+            "gh-li1652-official (0.71)"
           ],
           "first_relevant_rank": 1
         },
@@ -294,8 +294,8 @@
           ],
           "top": [
             "intl-ifc-ps (0.87)",
-            "gh-act703 (0.35)",
-            "intl-ifc-ps (0.34)"
+            "gh-act1124-official (0.42)",
+            "gh-li1652-official (0.42)"
           ],
           "first_relevant_rank": 1
         },
@@ -307,8 +307,8 @@
           ],
           "top": [
             "intl-ifc-ps (0.84)",
-            "gh-li1652 (0.37)",
-            "gh-li1652 (0.32)"
+            "gh-li1652-official (0.41)",
+            "gh-li1652-official (0.41)"
           ],
           "first_relevant_rank": 1
         },
@@ -320,8 +320,8 @@
           ],
           "top": [
             "de-uvpg (0.83)",
-            "eu-eia-directive (0.42)",
-            "eu-eia-directive (0.39)"
+            "eu-eia-directive (0.44)",
+            "de-bnatschg-official (0.41)"
           ],
           "first_relevant_rank": 1
         },
@@ -334,8 +334,8 @@
           ],
           "top": [
             "de-bnatschg (0.89)",
-            "eu-habitats-directive (0.86)",
-            "eu-eia-directive (0.48)"
+            "eu-habitats-directive (0.85)",
+            "eu-eia-directive (0.49)"
           ],
           "first_relevant_rank": 1
         },
@@ -369,8 +369,8 @@
     },
     "hashing": {
       "queries": 27,
-      "precision_at_5": 0.711,
-      "recall_at_5": 1.0,
+      "precision_at_5": 0.689,
+      "recall_at_5": 0.981,
       "mrr": 1.0,
       "details": [
         {
@@ -381,8 +381,8 @@
           ],
           "top": [
             "gh-li1652 (0.66)",
-            "gh-li1652 (0.56)",
-            "gh-act703 (0.50)"
+            "gh-li1652-official (0.60)",
+            "gh-li1652-official (0.58)"
           ],
           "first_relevant_rank": 1
         },
@@ -394,8 +394,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.77)",
-            "gh-wrc-act522 (0.42)",
-            "gh-wrc-act522 (0.41)"
+            "gh-wrc-act522 (0.40)",
+            "gh-wrc-act522 (0.40)"
           ],
           "first_relevant_rank": 1
         },
@@ -408,7 +408,7 @@
           "top": [
             "gh-act703 (0.79)",
             "gh-act703 (0.48)",
-            "gh-act703 (0.35)"
+            "gh-act703 (0.36)"
           ],
           "first_relevant_rank": 1
         },
@@ -420,9 +420,9 @@
             "intl-ifc-ehs-general"
           ],
           "top": [
-            "gh-act917 (0.51)",
-            "intl-ifc-ehs-general (0.48)",
-            "gh-act917 (0.46)"
+            "intl-ifc-ehs-general-official (0.54)",
+            "intl-ifc-ehs-general-official (0.44)",
+            "intl-ifc-ehs-general-official (0.42)"
           ],
           "first_relevant_rank": 1
         },
@@ -473,8 +473,8 @@
           ],
           "top": [
             "gh-li1652 (0.68)",
-            "gh-li1652 (0.49)",
-            "gh-li1652 (0.38)"
+            "gh-li1652-official (0.60)",
+            "gh-li1652-official (0.60)"
           ],
           "first_relevant_rank": 1
         },
@@ -486,8 +486,8 @@
           ],
           "top": [
             "intl-ifc-ehs-general (0.54)",
-            "intl-ifc-ehs-general (0.22)",
-            "intl-ifc-ehs-general (0.18)"
+            "intl-ifc-ehs-general-official (0.52)",
+            "intl-ifc-ehs-general-official (0.40)"
           ],
           "first_relevant_rank": 1
         },
@@ -499,8 +499,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.76)",
-            "gh-wrc-act522 (0.47)",
-            "gh-wrc-act522 (0.45)"
+            "gh-wrc-act522 (0.44)",
+            "gh-wrc-act522 (0.44)"
           ],
           "first_relevant_rank": 1
         },
@@ -512,8 +512,8 @@
           ],
           "top": [
             "gh-li1652 (0.68)",
-            "gh-li1652 (0.52)",
-            "gh-li1652 (0.41)"
+            "gh-li1652-official (0.63)",
+            "gh-li1652-official (0.59)"
           ],
           "first_relevant_rank": 1
         },
@@ -525,8 +525,8 @@
           ],
           "top": [
             "intl-ifc-ps (0.62)",
-            "intl-ifc-ps (0.14)",
-            "intl-ifc-ehs-general (0.12)"
+            "gh-li1652-official (0.22)",
+            "gh-act1124-official (0.21)"
           ],
           "first_relevant_rank": 1
         },
@@ -564,8 +564,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.66)",
-            "intl-ifc-ehs-general (0.26)",
-            "gh-wrc-act522 (0.26)"
+            "intl-ifc-ehs-general-official (0.45)",
+            "intl-ifc-ehs-general-official (0.40)"
           ],
           "first_relevant_rank": 1
         },
@@ -576,9 +576,9 @@
             "gh-li1652"
           ],
           "top": [
+            "gh-li1652-official (0.66)",
             "gh-li1652 (0.65)",
-            "gh-li1652 (0.41)",
-            "gh-act490 (0.35)"
+            "gh-li1652-official (0.57)"
           ],
           "first_relevant_rank": 1
         },
@@ -590,8 +590,8 @@
           ],
           "top": [
             "de-bimschg (0.62)",
-            "de-whg (0.35)",
-            "de-bimschg (0.31)"
+            "de-bimschg (0.34)",
+            "de-bimschg (0.33)"
           ],
           "first_relevant_rank": 1
         },
@@ -603,8 +603,8 @@
           ],
           "top": [
             "de-krwg (0.69)",
-            "de-krwg (0.45)",
-            "de-krwg (0.43)"
+            "de-krwg (0.48)",
+            "de-krwg (0.46)"
           ],
           "first_relevant_rank": 1
         },
@@ -617,8 +617,8 @@
           ],
           "top": [
             "de-whg (0.71)",
-            "eu-wfd (0.56)",
-            "de-whg (0.41)"
+            "eu-wfd (0.57)",
+            "de-whg (0.40)"
           ],
           "first_relevant_rank": 1
         },
@@ -630,8 +630,8 @@
           ],
           "top": [
             "gh-wrc-act522 (0.68)",
-            "gh-wrc-act522 (0.46)",
-            "gh-wrc-act522 (0.45)"
+            "gh-wrc-act522 (0.44)",
+            "gh-wrc-act522 (0.43)"
           ],
           "first_relevant_rank": 1
         },
@@ -642,9 +642,9 @@
             "gh-li1652"
           ],
           "top": [
-            "gh-li1652 (0.62)",
-            "gh-act490 (0.11)",
-            "intl-ifc-ps (0.11)"
+            "gh-li1652 (0.59)",
+            "gh-li1652-official (0.57)",
+            "gh-li1652-official (0.44)"
           ],
           "first_relevant_rank": 1
         },
@@ -656,8 +656,8 @@
           ],
           "top": [
             "intl-ifc-ps (0.65)",
-            "intl-ifc-ps (0.02)",
-            "intl-ifc-ps (0.02)"
+            "gh-li1652-official (0.12)",
+            "gh-act1124-official (0.09)"
           ],
           "first_relevant_rank": 1
         },
@@ -669,8 +669,8 @@
           ],
           "top": [
             "intl-ifc-ps (0.78)",
-            "gh-li1652 (0.05)",
-            "gh-act917 (0.04)"
+            "gh-li1652-official (0.11)",
+            "gh-li1652-official (0.08)"
           ],
           "first_relevant_rank": 1
         },
@@ -682,8 +682,8 @@
           ],
           "top": [
             "de-uvpg (0.72)",
-            "eu-eia-directive (0.15)",
-            "eu-eia-directive (0.06)"
+            "eu-eia-directive (0.18)",
+            "de-bnatschg-official (0.11)"
           ],
           "first_relevant_rank": 1
         },
@@ -696,8 +696,8 @@
           ],
           "top": [
             "de-bnatschg (0.61)",
-            "eu-habitats-directive (0.53)",
-            "eu-eia-directive (0.14)"
+            "eu-habitats-directive (0.52)",
+            "eu-eia-directive (0.15)"
           ],
           "first_relevant_rank": 1
         },
@@ -730,7 +730,11 @@
       ]
     }
   },
-  "knowledge_base_version": "kb-15docs-722268ba9e",
+  "knowledge_base_version": "kb-21docs-75c637bdb8",
+  "kb_documents": 21,
+  "kb_official": 8,
+  "index_build_seconds": 480.9,
+  "indexed_passages": 3827,
   "projects_evaluated": 10,
   "extraction": {
     "activities": {
@@ -801,7 +805,7 @@
     "workflows_completed": 10,
     "schema_validation_success": 1.0,
     "rule_execution_correctness": 1.0,
-    "criteria_checked": 51,
+    "criteria_checked": 66,
     "unsupported_conclusion_detection": {
       "true_positive_rate": 1.0,
       "false_positive_rate": 0.0,
@@ -817,20 +821,21 @@
     "reports_with_19_sections": "10/10",
     "disclaimer_and_exports_present": "10/10",
     "citation_validity": 1.0,
-    "citations_checked": 193,
+    "citations_checked": 408,
     "requirement_evidence_coverage": 1.0,
     "impact_evidence_coverage": 1.0,
-    "unsupported_claims_in_reports": 0
+    "unsupported_claims_in_reports": 0,
+    "flagged_phrases_in_quoted_source_passages": 2
   },
   "timing_ms_mean": {
-    "project_information_extraction": 8.9,
-    "project_profile_validation": 0.2,
-    "missing_information_check": 0.5,
-    "environmental_impact_identification": 2.5,
-    "regulatory_requirement_retrieval": 1198.8,
-    "preliminary_eia_screening": 18.6,
-    "evidence_citation_validation": 41.3,
-    "preliminary_screening_report": 1524.1
+    "project_information_extraction": 8.1,
+    "project_profile_validation": 0.1,
+    "missing_information_check": 0.4,
+    "environmental_impact_identification": 2.0,
+    "regulatory_requirement_retrieval": 1028.3,
+    "preliminary_eia_screening": 113.4,
+    "evidence_citation_validation": 51.1,
+    "preliminary_screening_report": 1545.7
   },
   "per_case": [
     {
@@ -838,7 +843,7 @@
       "sector": "mining",
       "jurisdiction": "ghana",
       "status": "completed",
-      "seconds": 9.78,
+      "seconds": 5.99,
       "activities": {
         "precision": 0.9,
         "recall": 0.818,
@@ -889,8 +894,8 @@
       ],
       "criteria_wrong": [],
       "impacts": 34,
-      "requirements": 26,
-      "citations": "27/27",
+      "requirements": 53,
+      "citations": "68/68",
       "outcomes": [
         "Potentially relevant regulatory screening category identified",
         "Further assessment potentially warranted",
@@ -904,7 +909,7 @@
       "sector": "agriculture",
       "jurisdiction": "eu",
       "status": "completed",
-      "seconds": 1.98,
+      "seconds": 1.75,
       "activities": {
         "precision": 0.8,
         "recall": 0.8,
@@ -972,7 +977,7 @@
       "sector": "manufacturing",
       "jurisdiction": "ghana",
       "status": "completed",
-      "seconds": 1.78,
+      "seconds": 2.19,
       "activities": {
         "precision": 1.0,
         "recall": 0.8,
@@ -1019,8 +1024,8 @@
       ],
       "criteria_wrong": [],
       "impacts": 16,
-      "requirements": 18,
-      "citations": "20/20",
+      "requirements": 28,
+      "citations": "48/48",
       "outcomes": [
         "Potentially relevant regulatory screening category identified",
         "Further assessment potentially warranted",
@@ -1033,7 +1038,7 @@
       "sector": "renewable_energy",
       "jurisdiction": "ghana",
       "status": "completed",
-      "seconds": 2.76,
+      "seconds": 3.43,
       "activities": {
         "precision": 1.0,
         "recall": 1.0,
@@ -1082,8 +1087,8 @@
       ],
       "criteria_wrong": [],
       "impacts": 36,
-      "requirements": 19,
-      "citations": "21/21",
+      "requirements": 44,
+      "citations": "61/61",
       "outcomes": [
         "Potentially relevant regulatory screening category identified",
         "Further assessment potentially warranted",
@@ -1096,7 +1101,7 @@
       "sector": "road_construction",
       "jurisdiction": "eu",
       "status": "completed",
-      "seconds": 2.2,
+      "seconds": 2.33,
       "activities": {
         "precision": 1.0,
         "recall": 0.667,
@@ -1160,7 +1165,7 @@
       "sector": "housing_development",
       "jurisdiction": "ghana",
       "status": "completed",
-      "seconds": 2.14,
+      "seconds": 2.52,
       "activities": {
         "precision": 1.0,
         "recall": 1.0,
@@ -1205,8 +1210,8 @@
       ],
       "criteria_wrong": [],
       "impacts": 25,
-      "requirements": 19,
-      "citations": "22/22",
+      "requirements": 28,
+      "citations": "46/46",
       "outcomes": [
         "Potentially relevant regulatory screening category identified",
         "Further assessment potentially warranted",
@@ -1219,7 +1224,7 @@
       "sector": "waste_management",
       "jurisdiction": "germany",
       "status": "completed",
-      "seconds": 1.86,
+      "seconds": 2.69,
       "activities": {
         "precision": 0.6,
         "recall": 1.0,
@@ -1265,8 +1270,8 @@
       ],
       "criteria_wrong": [],
       "impacts": 16,
-      "requirements": 19,
-      "citations": "23/23",
+      "requirements": 17,
+      "citations": "41/41",
       "outcomes": [
         "Potentially relevant regulatory screening category identified",
         "Further assessment potentially warranted",
@@ -1280,7 +1285,7 @@
       "sector": "water_infrastructure",
       "jurisdiction": "ghana",
       "status": "completed",
-      "seconds": 2.89,
+      "seconds": 3.84,
       "activities": {
         "precision": 1.0,
         "recall": 0.875,
@@ -1325,11 +1330,12 @@
       ],
       "criteria_wrong": [],
       "impacts": 35,
-      "requirements": 21,
-      "citations": "22/22",
+      "requirements": 53,
+      "citations": "68/68",
       "outcomes": [
         "Potentially relevant regulatory screening category identified",
         "Further assessment potentially warranted",
+        "Additional project information required",
         "Human regulatory review required"
       ],
       "report_unsupported_claims": []
@@ -1339,7 +1345,7 @@
       "sector": "renewable_energy",
       "jurisdiction": "germany",
       "status": "completed",
-      "seconds": 1.34,
+      "seconds": 1.7,
       "activities": {
         "precision": 1.0,
         "recall": 1.0,
@@ -1380,8 +1386,8 @@
       ],
       "criteria_wrong": [],
       "impacts": 13,
-      "requirements": 11,
-      "citations": "15/15",
+      "requirements": 13,
+      "citations": "33/33",
       "outcomes": [
         "Potentially relevant regulatory screening category identified",
         "Further assessment potentially warranted",
@@ -1395,7 +1401,7 @@
       "sector": "mining",
       "jurisdiction": "eu",
       "status": "completed",
-      "seconds": 1.93,
+      "seconds": 1.87,
       "activities": {
         "precision": 1.0,
         "recall": 1.0,

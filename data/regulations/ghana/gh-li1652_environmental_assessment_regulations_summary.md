@@ -4,6 +4,11 @@
 > Regulation and schedule references must be checked against the official
 > Legislative Instrument before any reliance. Subsequent amendments and the effect
 > of later primary legislation on these Regulations have not been verified.
+> Revision 2 (2026-11-01): compared with the FAOLEX text (gh-li1652-official);
+> Schedule 2 examples added, Schedule 5 reference corrected to Regulation 30(2).
+> The Regulations were made under Act 490, which was repealed by the Environmental
+> Protection Act, 2025 (Act 1124); section 171(2) of Act 1124 saves them, and Act 1124
+> refers to L.I. 1652 directly (e.g. s.115 for hazardous waste management permits).
 
 ## Regulation 1 - Registration of new undertakings (Schedule 1)
 No person shall commence an undertaking listed in Schedule 1 unless the undertaking
@@ -15,20 +20,28 @@ Obligation: Register the undertaking and obtain an environmental permit before c
 Permit: Environmental permit
 
 ## Regulation 3 - Undertakings requiring environmental impact assessment (Schedule 2)
-An undertaking listed in Schedule 2 requires an environmental impact assessment
-before an environmental permit is issued. Schedule 2 lists undertakings for which
-an EIA is mandatory; inclusion depends on the type of undertaking and, for some
-entries, on its scale. The scale thresholds in Schedule 2 are not reproduced in
-this summary and must be read from the official text.
+No environmental permit is issued for an undertaking listed in Schedule 2 unless an
+environmental impact assessment has been submitted. Schedule 2 entries include, for
+example: land development for agriculture of not less than 40 hectares; agricultural
+programmes requiring resettlement of 20 families or more; construction of dams and
+man-made lakes and irrigation schemes; housing development; construction of roads
+and highways; mining and processing of minerals where the mining lease exceeds 10
+hectares; quarrying within 3 kilometres of any existing village or residential,
+commercial or industrial area; erection of power transmission lines; and municipal
+solid waste landfills and sewage treatment plants. The full list must be read from
+the official text.
 Obligation: Prepare an environmental impact statement where the undertaking falls within Schedule 2.
 Permit: Environmental permit following EIA
 
 ## Schedule 5 - Environmentally sensitive areas
-The Regulations identify environmentally sensitive areas, such as areas declared as
-national parks, watershed or forest reserves, wildlife reserves and sanctuaries,
-areas of cultural or historic significance, wetlands, coastal zones and areas prone
-to natural hazards. Undertakings located in or near such areas, for example near a
-river, wetland or protected area, warrant particular scrutiny of the need for EIA.
+Regulation 30(2) designates the areas in Schedule 5 as environmentally sensitive,
+including areas declared by law as national parks, watershed reserves, wildlife
+reserves and sanctuaries (including sacred groves), habitats of endangered species,
+areas of historic or archaeological interest, areas prone to natural disasters,
+prime agricultural land, aquifer recharge areas, mangroves, and water bodies that
+are tapped for domestic purposes, lie in protected areas or support wildlife and
+fisheries. Several Schedule 1 entries apply where an undertaking is located in an
+environmentally sensitive area.
 Obligation: Identify whether the undertaking lies in or near an environmentally sensitive area and disclose this in the application.
 
 ## Screening of applications

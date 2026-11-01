@@ -1,0 +1,79 @@
+# Crosswalk: curated-summary sections -> official provisions.
+#
+# Each anchor is a short verbatim phrase from the official text (whitespace-
+# insensitive). When a summary passage is cited, EIAGen also cites the official
+# passage that contains the anchor, so a reviewer can check the paraphrase
+# against the official wording. Anchors are matched against a passage's section
+# heading first, then its text. Unresolved anchors are reported by
+# scripts/check_crosswalk.py and simply produce no official link.
+
+crosswalk:
+  gh-li1652:
+    official: gh-li1652-official
+    sections:
+      "Regulation 1 - Registration of new undertakings (Schedule 1)": "No person shall commence any of the undertakings specified in Schedule 1"
+      "Regulation 3 - Undertakings requiring environmental impact assessment (Schedule 2)": "No environmental permit shall be issued by the Agency for any of the undertakings mentioned in Schedule 2"
+      "Schedule 5 - Environmentally sensitive areas": "All areas declared by law as national parks"
+      "Screening of applications": "Initial assessment by screening of application"
+      "Preliminary environmental report": "Preliminary environmental report"
+      "Scoping and terms of reference": "A scoping report shall set out the scope or extent of the environmental impact assessment"
+      "Environmental impact statement": "The environmental impact statement shall also address possible direct and indirect impact"
+      "Public hearings and consultation": "The Agency shall hold a public hearing in respect of an application"
+      "Environmental management plan and permit conditions": "shall submit to the Agency an environmental management plan in respect of his operations"
+
+  de-uvpg:
+    official: de-uvpg-official
+    sections:
+      "Section 2 - Protected assets (Schutzgüter)": "§ 2 Begriffsbestimmungen"
+      "Section 5 - Determination of the EIA obligation": "§ 5 Feststellung der UVP-Pflicht"
+      "Section 6 - Mandatory EIA for new projects": "§ 6 Unbedingte UVP-Pflicht bei Neuvorhaben"
+      "Section 7 - Preliminary assessment of the individual case for new projects": "§ 7 Vorprüfung bei Neuvorhaben"
+      "Section 15 - Scoping": "§ 15 Unterrichtung über den Untersuchungsrahmen"
+      "Section 16 - EIA report (UVP-Bericht)": "§ 16 UVP-Bericht"
+      "Annex 1, No. 1.6 - Wind farms": "Windfarm mit Anlagen mit einer Gesamthöhe von jeweils mehr als 50 Metern"
+      "Annex 1, No. 2.1 - Quarries": "Steinbruchs mit einer Abbaufläche von"
+      "Annex 1, No. 7.3 - Intensive rearing of meat poultry": "Intensivhaltung oder -aufzucht von Mastgeflügel"
+      "Annex 3 - Criteria for the preliminary assessment": "Kriterien für die Vorprüfung"
+
+  de-bimschg:
+    official: de-bimschg-official
+    sections:
+      "Section 4 - Permit requirement for installations": "§ 4 Genehmigung"
+      "Section 5 - Obligations of operators of installations requiring a permit": "§ 5 Pflichten der Betreiber genehmigungsbedürftiger Anlagen"
+      "Section 10 - Permit procedure": "§ 10 Genehmigungsverfahren"
+      "Section 48 - Technical instructions (TA Luft, TA Lärm)": "§ 48 Verwaltungsvorschriften"
+
+  de-whg:
+    official: de-whg-official
+    sections:
+      "Section 8 - Permit or authorisation required for water uses": "§ 8 Erlaubnis, Bewilligung"
+      "Section 9 - Water uses": "§ 9 Benutzungen"
+      "Section 27 - Management objectives for surface waters": "§ 27 Bewirtschaftungsziele für oberirdische Gewässer"
+      "Section 47 - Management objectives for groundwater": "§ 47 Bewirtschaftungsziele für das Grundwasser"
+      "Section 57 - Discharge of wastewater into water bodies": "§ 57 Einleiten von Abwasser in Gewässer"
+
+  de-bnatschg:
+    official: de-bnatschg-official
+    sections:
+      "Section 14 - Interventions in nature and landscape": "§ 14 Eingriffe in Natur und Landschaft"
+      "Section 15 - Obligations of the party causing the intervention": "§ 15 Verursacherpflichten"
+      "Section 30 - Legally protected biotopes": "§ 30 Gesetzlich geschützte Biotope"
+      "Section 34 - Compatibility with Natura 2000 sites": "§ 34 Verträglichkeit und Unzulässigkeit von Projekten"
+      "Section 44 - Species protection prohibitions": "§ 44 Vorschriften für besonders geschützte"
+
+  de-krwg:
+    official: de-krwg-official
+    sections:
+      "Section 6 - Waste hierarchy": "§ 6 Abfallhierarchie"
+      "Section 7 - Obligations of waste producers and holders - recovery": "§ 7 Grundpflichten der Kreislaufwirtschaft"
+      "Section 15 - Obligations of waste producers and holders - disposal": "§ 15 Grundpflichten der Abfallbeseitigung"
+
+  intl-ifc-ehs-general:
+    official: intl-ifc-ehs-general-official
+    sections:
+      "Section 1.1 - Air emissions and ambient air quality": "This guideline applies to facilities or projects that generate emissions to air"
+      "Section 1.3 - Wastewater and ambient water quality": "This guideline applies to projects that have either direct or indirect discharge of process wastewater"
+      "Section 1.5 - Hazardous materials management": "These guidelines apply to projects that use, store, or handle any quantity of hazardous materials"
+      "Section 1.6 - Waste management": "These guidelines apply to projects that generate, store, or handle any quantity of waste"
+      "Section 1.7 - Noise": "Noise Level Guidelines"
+      "Section 4 - Construction and decommissioning": "During construction and decommissioning activities, noise and vibration may be caused"

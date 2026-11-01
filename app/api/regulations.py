@@ -40,7 +40,9 @@ def to_out(d: RegulatoryDocument) -> RegulationOut:
                          effective_date=d.effective_date, version=d.version, source_url=d.source_url,
                          applicable_sectors=d.applicable_sectors or [], date_last_verified=d.date_last_verified,
                          legal_status=d.legal_status, status_verified=d.status_verified, status=d.status,
-                         superseded_by=d.superseded_by, chunk_count=len(d.chunks), checksum=d.checksum,
+                         superseded_by=d.superseded_by, official_counterpart=d.official_counterpart,
+                         extraction_method=d.extraction_method or "text_layer",
+                         chunk_count=len(d.chunks), checksum=d.checksum,
                          ingested_at=d.ingested_at)
 
 
