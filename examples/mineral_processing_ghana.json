@@ -1,0 +1,13 @@
+{
+  "name": "Ankobra Valley Mineral Processing Facility (synthetic example)",
+  "developer": "Example Minerals Ltd (fictitious)",
+  "description": "A company proposes to establish a mineral processing facility near a river. The project will involve land clearing, excavation, water abstraction, ore processing, wastewater generation, and transportation. The processing plant will treat 1,500 tonnes per day of ore using crushing, milling and carbon-in-leach processing, with cyanide and diesel stored on site. The site covers 45 hectares and the construction period is 18 months. About 250 workers will be employed. Water demand is approximately 1,200 m3/day, abstracted from the river. Tailings will be stored in a lined tailings storage facility.",
+  "sector": "mining",
+  "phase": "feasibility",
+  "objectives": "Process ore from nearby concessions for export.",
+  "location": "Near Tarkwa, Western Region (illustrative)",
+  "jurisdiction": "ghana",
+  "region": "Western",
+  "characteristics": {},
+  "environmental_setting": "The site lies about 300 m from the Ankobra river. Secondary forest and farmland (cocoa farms) surround the site, and two villages are located within 2 km."
+}

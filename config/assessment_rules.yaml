@@ -1,0 +1,387 @@
+# EIAGen assessment rules.
+#
+# Two strictly separate parts:
+#   1. regulatory_screening_criteria - statutory screening criteria per jurisdiction.
+#      Each criterion cites its source document (a document_id in the regulatory
+#      library) and carries a verification_status. Criteria are encoded by the
+#      project maintainers from their reading of the legislation; until a
+#      qualified reviewer has checked a criterion against the current official
+#      text, it stays "unverified" and every result based on it is flagged.
+#   2. risk_methodology - a transparent, project-defined environmental risk
+#      prioritisation heuristic. It is NOT a statutory method and must never be
+#      used as a substitute for legal EIA classification.
+
+rules_version: "2026.11-1"
+
+parameters:
+  project_area_ha: {label: Project area, unit: ha}
+  installed_capacity_mw: {label: Installed capacity, unit: MW}
+  turbine_count: {label: Number of wind turbines, unit: turbines}
+  turbine_height_m: {label: Wind turbine total height, unit: m}
+  road_length_km: {label: Road length, unit: km}
+  lanes: {label: Number of traffic lanes, unit: lanes}
+  production_capacity: {label: Production / throughput capacity, unit: as stated}
+  water_demand: {label: Water demand, unit: m3/day}
+  wastewater_volume: {label: Wastewater volume, unit: m3/day}
+  energy_demand: {label: Energy demand, unit: as stated}
+  workforce: {label: Workforce, unit: persons}
+  housing_units: {label: Housing units, unit: units}
+  waste_capacity: {label: Waste handling capacity, unit: as stated}
+  livestock_count: {label: Livestock places, unit: animals}
+  broiler_count: {label: Broiler places, unit: birds}
+  hen_count: {label: Laying-hen places, unit: birds}
+  pig_count: {label: Production pig places (over 30 kg), unit: animals}
+  sow_count: {label: Sow places, unit: animals}
+  project_duration_months: {label: Project / construction duration, unit: months}
+
+regulatory_screening_criteria:
+  # ------------------------------------------------------------------ Ghana
+  - id: GH-LI1652-R1
+    jurisdiction: ghana
+    title: Registration and environmental permit for listed undertakings
+    description: >-
+      L.I. 1652 requires undertakings listed in Schedule 1 to be registered with the
+      Agency and to obtain an environmental permit before commencement. Schedule 1
+      covers a broad range of sectors including those listed here.
+    source_document_id: gh-li1652
+    source_section: Regulation 1; Schedule 1
+    condition:
+      sectors_any: [mining, agriculture, manufacturing, renewable_energy, road_construction, housing_development, waste_management, water_infrastructure]
+    outcome_if_met: Environmental registration and environmental permit potentially required
+    screening_category: registration_and_permit
+    verification_status: unverified
+  - id: GH-LI1652-S2
+    jurisdiction: ghana
+    title: Undertakings for which EIA is mandatory (Schedule 2)
+    description: >-
+      Schedule 2 of L.I. 1652 lists undertakings for which an environmental impact
+      assessment is mandatory. Whether this project falls within Schedule 2 depends on
+      undertaking type and scale; the Schedule 2 entries and any scale thresholds are
+      not encoded here and must be checked against the official text.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 2
+    condition:
+      sectors_any: [mining, manufacturing, road_construction, waste_management, water_infrastructure, agriculture, renewable_energy, housing_development]
+      always_indeterminate: true
+    outcome_if_met: Mandatory EIA (Schedule 2) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-LI1652-S5
+    jurisdiction: ghana
+    title: Undertakings in or near environmentally sensitive areas (Schedule 5)
+    description: >-
+      L.I. 1652 identifies environmentally sensitive areas (Schedule 5). Location of an
+      undertaking in or near such an area is relevant to whether an EIA is required.
+    source_document_id: gh-li1652
+    source_section: Regulation 3; Schedule 5
+    condition:
+      flags_any: [near_protected_area, near_wetland_or_waterbody, near_cultural_heritage]
+    outcome_if_met: Location in or near an environmentally sensitive area - EIA requirement should be examined
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: GH-WRC-WATERUSE
+    jurisdiction: ghana
+    title: Water use permit (abstraction or discharge)
+    description: >-
+      Water use, including abstraction and discharge of wastewater into water bodies,
+      is regulated by the Water Resources Commission under Act 522 and the Water Use
+      Regulations, 2001 (L.I. 1692). Exemptions (e.g. certain domestic uses) must be checked.
+    source_document_id: gh-wrc-act522
+    source_section: Act 522, s.13; L.I. 1692
+    condition:
+      activities_any: [water_abstraction, wastewater_discharge, impoundment_dam]
+    outcome_if_met: Water use permit from the Water Resources Commission potentially required
+    screening_category: sector_approval
+    verification_status: unverified
+  - id: GH-ACT703-MINERAL-RIGHT
+    jurisdiction: ghana
+    title: Mineral right / mining lease
+    description: Mining operations require a mineral right granted under the Minerals and Mining Act, 2006 (Act 703).
+    source_document_id: gh-act703
+    source_section: Act 703, ss. 9-11
+    condition:
+      sectors_any: [mining]
+    outcome_if_met: Mineral right (sector approval) potentially required in addition to the environmental permit
+    screening_category: sector_approval
+    verification_status: unverified
+
+  # ---------------------------------------------------------------- Germany
+  - id: DE-UVPG-1.6.1
+    jurisdiction: germany
+    title: Wind farm - 20 or more turbines (UVPG Annex 1, No. 1.6.1, column X)
+    description: Wind farms with 20 or more wind turbines each with a total height of more than 50 m are listed as subject to mandatory EIA.
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 1.6.1
+    condition:
+      activities_any: [power_generation_renewable]
+      keywords_any: [wind]
+      parameter: {name: turbine_count, op: ">=", value: 20}
+    outcome_if_met: Mandatory EIA category (X) potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: DE-UVPG-1.6.2
+    jurisdiction: germany
+    title: Wind farm - 6 to fewer than 20 turbines (UVPG Annex 1, No. 1.6.2, column A)
+    description: Wind farms with 6 to fewer than 20 turbines (total height > 50 m) require a general preliminary assessment of the individual case (allgemeine Vorpruefung).
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 1.6.2; Section 7
+    condition:
+      activities_any: [power_generation_renewable]
+      keywords_any: [wind]
+      parameter: {name: turbine_count, op: between, min: 6, max: 19}
+    outcome_if_met: General preliminary assessment (A) category potentially relevant
+    screening_category: preliminary_assessment
+    verification_status: unverified
+  - id: DE-UVPG-1.6.3
+    jurisdiction: germany
+    title: Wind farm - 3 to fewer than 6 turbines (UVPG Annex 1, No. 1.6.3, column S)
+    description: Wind farms with 3 to fewer than 6 turbines (total height > 50 m) require a site-related preliminary assessment (standortbezogene Vorpruefung).
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 1.6.3; Section 7
+    condition:
+      activities_any: [power_generation_renewable]
+      keywords_any: [wind]
+      parameter: {name: turbine_count, op: between, min: 3, max: 5}
+    outcome_if_met: Site-related preliminary assessment (S) category potentially relevant
+    screening_category: preliminary_assessment
+    verification_status: unverified
+  - id: DE-UVPG-2.1.1
+    jurisdiction: germany
+    title: Quarry / open-cast extraction of 25 ha or more (UVPG Annex 1, No. 2.1.1)
+    description: Quarries with an extraction area of 25 hectares or more are listed as subject to mandatory EIA (transposing Annex I No. 19 of the EIA Directive).
+    source_document_id: de-uvpg
+    source_section: Annex 1, No. 2.1.1
+    condition:
+      sectors_any: [mining]
+      parameter: {name: project_area_ha, op: ">=", value: 25}
+    outcome_if_met: Mandatory EIA category (X) potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: DE-UVPG-ANNEX1
+    jurisdiction: germany
+    title: Determination of EIA obligation against UVPG Annex 1
+    description: >-
+      The EIA obligation is determined by the project type and size class listed in
+      Annex 1 UVPG (X = mandatory EIA, A = general preliminary assessment, S = site-related
+      preliminary assessment). Rows other than those encoded here must be checked manually.
+    source_document_id: de-uvpg
+    source_section: Sections 5-7; Annex 1
+    condition:
+      sectors_any: [mining, agriculture, manufacturing, renewable_energy, road_construction, housing_development, waste_management, water_infrastructure]
+      always_indeterminate: true
+    outcome_if_met: UVPG Annex 1 row must be identified by a qualified reviewer
+    screening_category: further_regulatory_screening
+    verification_status: unverified
+  - id: DE-BIMSCHG-4
+    jurisdiction: germany
+    title: Immission-control permit for listed installations
+    description: Installations listed in the 4th BImSchV require a permit under Section 4 BImSchG; listing depends on installation type and capacity.
+    source_document_id: de-bimschg
+    source_section: Section 4 BImSchG; 4. BImSchV
+    condition:
+      activities_any: [industrial_processing, mineral_processing, landfilling_waste_treatment, livestock_rearing, power_generation_renewable]
+      always_indeterminate: true
+    outcome_if_met: Immission-control (BImSchG) permit potentially required - check 4. BImSchV listing
+    screening_category: environmental_permit
+    verification_status: unverified
+  - id: DE-WHG-8
+    jurisdiction: germany
+    title: Water-law permit for water uses
+    description: Water uses such as abstraction and discharge of substances into water bodies require a permit or authorisation under Sections 8-9 WHG.
+    source_document_id: de-whg
+    source_section: Sections 8-9 WHG
+    condition:
+      activities_any: [water_abstraction, wastewater_discharge, impoundment_dam]
+    outcome_if_met: Water-law permit (Erlaubnis / Bewilligung) potentially required
+    screening_category: sector_approval
+    verification_status: unverified
+  - id: DE-BNATSCHG-14
+    jurisdiction: germany
+    title: Impact regulation (Eingriffsregelung)
+    description: Changes to the shape or use of land that may significantly impair nature and landscape are interventions requiring avoidance and compensation measures (Sections 14-15 BNatSchG).
+    source_document_id: de-bnatschg
+    source_section: Sections 14-15 BNatSchG
+    condition:
+      activities_any: [site_preparation_land_clearing, excavation_earthworks, linear_infrastructure, mining_extraction]
+    outcome_if_met: Intervention under the impact regulation potentially triggered (avoidance / compensation)
+    screening_category: sector_approval
+    verification_status: unverified
+  - id: DE-BNATSCHG-34
+    jurisdiction: germany
+    title: Natura 2000 compatibility assessment
+    description: Projects likely to significantly affect a Natura 2000 site require a compatibility assessment (Section 34 BNatSchG, implementing Article 6(3) Habitats Directive).
+    source_document_id: de-bnatschg
+    source_section: Section 34 BNatSchG
+    condition:
+      flags_any: [near_protected_area]
+    outcome_if_met: Natura 2000 compatibility pre-assessment potentially required
+    screening_category: further_regulatory_screening
+    verification_status: unverified
+
+  # --------------------------------------------------------------------- EU
+  - id: EU-EIA-I-19
+    jurisdiction: eu
+    title: Quarries and open-cast mining over 25 ha (EIA Directive Annex I, point 19)
+    description: Quarries and open-cast mining where the surface of the site exceeds 25 hectares are Annex I projects subject to EIA under Article 4(1).
+    source_document_id: eu-eia-directive
+    source_section: Article 4(1); Annex I, point 19
+    condition:
+      sectors_any: [mining]
+      parameter: {name: project_area_ha, op: ">", value: 25}
+    outcome_if_met: Annex I (mandatory EIA) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: EU-EIA-I-7C
+    jurisdiction: eu
+    title: New road of four or more lanes, 10 km or more (EIA Directive Annex I, point 7(c))
+    description: Construction of a new road of four or more lanes, or widening to four or more lanes, of 10 km or more in continuous length.
+    source_document_id: eu-eia-directive
+    source_section: Annex I, point 7(c)
+    condition:
+      sectors_any: [road_construction]
+      parameter: {name: lanes, op: ">=", value: 4}
+      parameter_2: {name: road_length_km, op: ">=", value: 10}
+    outcome_if_met: Annex I (mandatory EIA) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: EU-EIA-I-17
+    jurisdiction: eu
+    title: Intensive rearing of poultry or pigs (EIA Directive Annex I, point 17)
+    description: Installations for intensive rearing with more than 85 000 places for broilers, 60 000 for hens, 3 000 for production pigs (over 30 kg) or 900 for sows.
+    source_document_id: eu-eia-directive
+    source_section: Annex I, point 17
+    condition:
+      activities_any: [livestock_rearing]
+      any_parameter:
+        - {name: broiler_count, op: ">", value: 85000}
+        - {name: hen_count, op: ">", value: 60000}
+        - {name: pig_count, op: ">", value: 3000}
+        - {name: sow_count, op: ">", value: 900}
+    outcome_if_met: Annex I (mandatory EIA) category potentially relevant
+    screening_category: environmental_impact_assessment
+    verification_status: unverified
+  - id: EU-EIA-II
+    jurisdiction: eu
+    title: Annex II projects - Member State determination (Article 4(2))
+    description: >-
+      For Annex II project types (including wind farms, urban development, industrial
+      installations and waste disposal not in Annex I) Member States determine through
+      case-by-case examination and/or thresholds whether an EIA is required, taking into
+      account the Annex III selection criteria.
+    source_document_id: eu-eia-directive
+    source_section: Article 4(2)-(4); Annex II; Annex III
+    condition:
+      sectors_any: [renewable_energy, housing_development, manufacturing, waste_management, water_infrastructure, agriculture, road_construction, mining]
+      always_indeterminate: true
+    outcome_if_met: Annex II screening by the competent Member State authority potentially required
+    screening_category: further_regulatory_screening
+    verification_status: unverified
+  - id: EU-HABITATS-6-3
+    jurisdiction: eu
+    title: Appropriate assessment for Natura 2000 sites (Habitats Directive Article 6(3))
+    description: Plans or projects likely to have a significant effect on a Natura 2000 site require an appropriate assessment.
+    source_document_id: eu-habitats-directive
+    source_section: Article 6(3)
+    condition:
+      flags_any: [near_protected_area]
+    outcome_if_met: Appropriate assessment screening potentially required
+    screening_category: further_regulatory_screening
+    verification_status: unverified
+
+# Setting flags derived deterministically from the environmental setting text.
+setting_flags:
+  near_protected_area: [protected area, national park, forest reserve, ramsar, natura 2000, nature reserve, ffh, wildlife sanctuary, game reserve, important bird area]
+  near_wetland_or_waterbody: [river, wetland, lagoon, estuary, lake, stream, mangrove, reservoir, creek]
+  near_cultural_heritage: [heritage, sacred grove, shrine, archaeolog, monument, burial, cemetery, listed building]
+  near_settlement: [community, village, town, settlement, residents, households, school, hospital, city]
+
+risk_methodology:
+  version: "EIAGen-RS-1"
+  description: >-
+    Preliminary environmental risk prioritisation. Score = likelihood (1-3) x severity
+    (1-3), plus 1 if the receptor sensitivity is high (maximum 9). Scale escalators may
+    raise severity by one level. Priority bands: 1-2 low, 3-5 medium, 6-9 high.
+    This is a project-defined screening heuristic, not a statutory significance method.
+  likelihood: {unlikely: 1, possible: 2, likely: 3}
+  severity: {minor: 1, moderate: 2, major: 3}
+  sensitivity_bonus: {high: 1, medium: 0, low: 0}
+  bands: {low: [1, 2], medium: [3, 5], high: [6, 9]}
+  # Heuristic scale escalators (non-statutory). Raise severity one level for the
+  # listed components when the parameter meets the value.
+  scale_escalators:
+    - {parameter: project_area_ha, op: ">=", value: 100, components: [habitats, vegetation, land, soil, carbon_storage, land_tenure]}
+    - {parameter: water_demand, op: ">=", value: 1000, components: [resources, groundwater, hydrology, resource_access]}
+    - {parameter: workforce, op: ">=", value: 500, components: [social_cohesion, community_health]}
+    - {parameter: road_length_km, op: ">=", value: 20, components: [habitats, land_tenure, livelihoods]}
+  assumptions:
+    - Defaults per impact type come from config/impact_taxonomy.yaml and are generic.
+    - Receptor sensitivity is "high" only when the description or setting names the receptor.
+    - Scores rank issues for further investigation; they do not indicate significance.
+  limitations:
+    - No site data, modelling or field survey informs the score.
+    - Ordinal scales are multiplied for ranking only; the result is not a measurement.
+    - Beneficial effects are listed but not scored as risks.
+
+missing_information:
+  general:
+    - key: location
+      description: Specific project location (district / municipality and nearest settlement)
+      importance: critical
+      question: Where exactly is the project located (district or municipality, and the nearest settlement)?
+    - key: coordinates
+      description: Project coordinates or site boundary
+      importance: important
+      question: Can you provide site coordinates (latitude/longitude) or a site boundary file?
+    - key: project_area_ha
+      description: Total project footprint
+      importance: critical
+      question: What is the total land area of the project (in hectares), including temporary construction areas?
+    - key: environmental_setting
+      description: Description of the environmental setting (water bodies, habitats, settlements, protected areas)
+      importance: critical
+      question: Describe the site setting - nearby rivers or wetlands, vegetation, protected areas, settlements and current land use.
+    - key: distance_to_receptors
+      description: Distances to the nearest sensitive receptors
+      importance: important
+      question: What are the distances from the site boundary to the nearest watercourse, settlement and protected area?
+    - key: project_duration_months
+      description: Construction and operation schedule
+      importance: important
+      question: What are the construction duration, the expected operational lifetime and the working hours?
+    - key: workforce
+      description: Workforce numbers and accommodation
+      importance: useful
+      question: How many workers are expected during construction and operation, and will they be accommodated on site?
+    - key: waste_streams
+      description: Waste types and quantities, and their management
+      importance: important
+      question: What waste streams (types and quantities) will be generated, and how will they be managed?
+    - key: land_tenure
+      description: Land ownership and current users
+      importance: important
+      question: Who owns and currently uses the land, and will any land acquisition or relocation be required?
+    - key: project_phase
+      description: Current project development phase
+      importance: useful
+      question: What is the current development phase (concept, feasibility, design, construction)?
+  conditional:
+    - key: water_demand
+      when_activities_any: [water_abstraction, mineral_processing, industrial_processing, agricultural_operations, residential_occupation]
+      description: Water demand and source
+      importance: important
+      question: What is the expected water demand (m3/day) and from which source will water be obtained?
+    - key: wastewater_volume
+      when_activities_any: [wastewater_discharge, mineral_processing, industrial_processing, livestock_rearing]
+      description: Wastewater quantity, quality, treatment and discharge point
+      importance: important
+      question: What volume and type of wastewater will be generated, how will it be treated, and where will it be discharged?
+    - key: energy_demand
+      when_activities_any: [energy_consumption, industrial_processing, mineral_processing]
+      description: Energy demand and supply source
+      importance: useful
+      question: What is the energy demand and how will it be supplied (grid, diesel generators, renewables)?
+    - key: hazardous_materials
+      when_activities_any: [hazardous_materials_storage, mineral_processing]
+      description: Hazardous materials inventory and storage arrangements
+      importance: important
+      question: Which hazardous materials (types, quantities) will be stored and how will storage be contained?

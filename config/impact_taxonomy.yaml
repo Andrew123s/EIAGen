@@ -1,0 +1,692 @@
+# EIAGen environmental impact taxonomy.
+#
+# Chain used by the deterministic engine:
+#   activity --(generates)--> pressure --(causes)--> potential impact --(affects)--> receptor
+#
+# Every entry here is a *screening heuristic* that identifies impacts worth
+# investigating. Nothing in this file is a regulatory threshold or a finding.
+# Extend by adding keys; no code changes are required.
+
+taxonomy_version: "2026.11-1"
+
+components:
+  physical:
+    air_quality: Air quality
+    surface_water: Surface water quality
+    groundwater: Groundwater quality and quantity
+    soil: Soil quality
+    land: Land degradation and land use
+    noise_vibration: Noise and vibration
+    waste: Waste generation
+    hydrology: Hydrological regime
+    resources: Resource consumption
+  biological:
+    habitats: Habitat loss and fragmentation
+    biodiversity: Biodiversity and species
+    aquatic_ecosystems: Aquatic ecosystems
+    vegetation: Vegetation
+    invasive_species: Invasive species
+  social:
+    community_health: Community health and safety
+    occupational_health_safety: Occupational health and safety
+    livelihoods: Livelihoods and land-based income
+    land_tenure: Land acquisition and resettlement
+    employment: Employment and local economy
+    social_cohesion: Community relations and conflict
+    traffic_safety: Traffic and road safety
+    cultural_heritage: Cultural heritage
+    resource_access: Access to natural resources
+  climate_ecosystem_services:
+    ghg: Greenhouse gas emissions
+    climate_resilience: Climate vulnerability (flood, drought)
+    carbon_storage: Carbon storage
+    ecosystem_services: Ecosystem services (provisioning, regulating, cultural)
+
+sectors:
+  mining:
+    label: Mining and quarrying
+    keywords: [mine, mining, quarry, quarrying, ore, gold, bauxite, manganese, mineral, open-pit, open pit, tailings, sand winning, gravel extraction]
+    required_parameters: [project_area_ha, production_capacity, water_demand, workforce]
+  agriculture:
+    label: Agriculture and livestock
+    keywords: [farm, farming, plantation, agricultur, irrigation, livestock, poultry, piggery, pig, broiler, cattle, crop, cocoa, oil palm, rice, maize, greenhouse]
+    required_parameters: [project_area_ha, water_demand]
+  manufacturing:
+    label: Manufacturing and industrial processing
+    keywords: [factory, manufactur, industrial, cement, brewery, textile, food processing, assembly plant, production facility, smelter, chemical plant]
+    required_parameters: [production_capacity, water_demand, energy_demand, project_area_ha]
+  renewable_energy:
+    label: Renewable energy
+    keywords: [solar, photovoltaic, " pv ", wind farm, wind turbine, wind park, hydropower, hydro-electric, biomass power, renewable]
+    required_parameters: [installed_capacity_mw, project_area_ha]
+  road_construction:
+    label: Roads and linear transport infrastructure
+    keywords: [road, highway, motorway, bypass, expressway, carriageway, dual carriageway, interchange, bridge]
+    required_parameters: [road_length_km, lanes]
+  housing_development:
+    label: Housing and urban development
+    keywords: [housing, residential, estate development, dwellings, apartments, homes, urban development, gated community]
+    required_parameters: [housing_units, project_area_ha]
+  waste_management:
+    label: Waste management
+    keywords: [landfill, waste management, waste treatment, incinerat, recycling, composting, transfer station, sanitary site, waste disposal]
+    required_parameters: [waste_capacity, project_area_ha]
+  water_infrastructure:
+    label: Water infrastructure
+    keywords: [dam, reservoir, water supply, water treatment plant, desalination, irrigation scheme, water transmission, pipeline]
+    required_parameters: [water_demand, project_area_ha]
+
+# Extra parameters required when particular activities are present.
+activity_required_parameters:
+  power_generation_renewable: [installed_capacity_mw]
+  livestock_rearing: [livestock_count]
+  water_abstraction: [water_demand]
+  wastewater_discharge: [wastewater_volume]
+
+activities:
+  land_acquisition_resettlement:
+    label: Land acquisition and resettlement
+    keywords: [land acquisition, acquire land, acquisition of land, resettle, relocation of households, relocate households, compensation for land, displacement, compulsory acquisition, land take]
+    phases: [pre_construction]
+    pressures: [land_acquisition]
+  site_preparation_land_clearing:
+    label: Land clearing and site preparation
+    keywords: [land clearing, clear land, clearing of land, clearing of vegetation, vegetation clearance, clear vegetation, deforest, site clearance, site clearing, bush clearing, clear-felling, grubbing, tree felling, felling of trees]
+    phases: [construction]
+    pressures: [land_disturbance, vegetation_removal, dust_emissions, noise_vibration, sediment_runoff, introduction_of_invasives]
+  excavation_earthworks:
+    label: Excavation and earthworks
+    keywords: [excavat, earthworks, earth works, cut and fill, grading, trenching, dredg, blasting, foundation works]
+    phases: [construction]
+    pressures: [land_disturbance, sediment_runoff, dust_emissions, noise_vibration, spoil_generation]
+  construction_works:
+    label: Construction of facilities and infrastructure
+    keywords: [construct, build, built, erect, installation of, civil works, concrete, paving, asphalt]
+    phases: [construction]
+    pressures: [noise_vibration, dust_emissions, construction_waste, traffic_generation, workforce_influx]
+  drilling:
+    label: Drilling
+    keywords: [drill, exploratory well, piling]
+    phases: [construction, operation]
+    pressures: [noise_vibration, drilling_fluids, groundwater_interference]
+  mining_extraction:
+    label: Mineral extraction (mining / quarrying)
+    keywords: [mining, open pit, open-pit, extraction of ore, extract ore, quarrying, quarry, underground mine, mine pit, sand winning, gravel extraction, strip mining]
+    phases: [operation]
+    pressures: [land_disturbance, dust_emissions, noise_vibration, acid_mine_drainage, groundwater_interference, spoil_generation, landscape_change]
+  mineral_processing:
+    label: Mineral / ore processing
+    keywords: [ore processing, mineral processing, processing of ore, process ore, crushing, milling, beneficiation, smelting, heap leach, leaching, cyanide, carbon-in-leach, concentrator]
+    phases: [operation]
+    pressures: [chemical_hazard, wastewater_discharge, tailings_generation, dust_emissions, noise_vibration, air_emissions, ghg_emissions]
+  industrial_processing:
+    label: Industrial processing and manufacturing operations
+    keywords: [manufactur, industrial process, production line, kiln, boiler, furnace, clinker, fermentation, dyeing, assembly line]
+    phases: [operation]
+    pressures: [air_emissions, wastewater_discharge, solid_waste, noise_vibration, energy_use, ghg_emissions]
+  water_abstraction:
+    label: Water abstraction
+    keywords: [water abstraction, abstract water, abstraction of water, withdraw water, water withdrawal, pump water, pumping water, extraction of water, groundwater extraction, boreholes, borehole, irrigation, abstracted from, draw water]
+    phases: [operation]
+    pressures: [water_consumption, groundwater_interference, hydrological_alteration]
+  wastewater_discharge:
+    label: Wastewater generation and discharge
+    keywords: [wastewater, waste water, effluent, discharge, sewage, process water, stormwater discharge]
+    phases: [operation]
+    pressures: [wastewater_discharge]
+  solid_waste_generation:
+    label: Solid waste generation
+    keywords: [waste generation, solid waste, refuse, garbage, construction waste, spoil, overburden, waste rock, generate waste]
+    phases: [construction, operation]
+    pressures: [solid_waste]
+  hazardous_materials_storage:
+    label: Storage and handling of hazardous materials
+    keywords: [chemical storage, store chemicals, storage of chemicals, fuel storage, hazardous, diesel, pesticide, fertiliser, fertilizer, cyanide, explosives, storage tank, reagents, lubricants]
+    phases: [construction, operation]
+    pressures: [chemical_hazard]
+  transportation_traffic:
+    label: Transportation and traffic
+    keywords: [transport, haul, truck, vehicle, traffic, haulage, deliveries, delivery, lorr, heavy goods]
+    phases: [construction, operation]
+    pressures: [traffic_generation, dust_emissions, noise_vibration, air_emissions, ghg_emissions]
+  energy_consumption:
+    label: Energy consumption
+    keywords: [energy consumption, power supply, electricity demand, generator, grid connection, energy use, energy demand, power demand, fuel consumption]
+    phases: [operation]
+    pressures: [energy_use, ghg_emissions]
+  power_generation_renewable:
+    label: Renewable power generation infrastructure
+    keywords: [solar panel, photovoltaic, pv module, pv array, solar array, wind turbine, turbines, hydropower, hydro-electric, solar farm, solar park, wind farm]
+    phases: [operation]
+    pressures: [collision_risk, landscape_change, land_occupation, noise_vibration]
+  impoundment_dam:
+    label: Impoundment (dam / reservoir / weir)
+    keywords: [dam, reservoir, impound, weir, embankment dam, inundat]
+    phases: [construction, operation]
+    pressures: [hydrological_alteration, inundation, barrier_to_movement]
+  agricultural_operations:
+    label: Crop cultivation and agrochemical use
+    keywords: [cultivat, plantation, crop production, agrochemical, pesticide application, fertiliser application, fertilizer application, farming, harvest]
+    phases: [operation]
+    pressures: [agrochemical_runoff, land_occupation, water_consumption, soil_degradation]
+  livestock_rearing:
+    label: Livestock rearing
+    keywords: [livestock, poultry, piggery, pig farm, pigs, cattle, broiler, laying hens, feedlot, animal housing, sows]
+    phases: [operation]
+    pressures: [odour_emissions, wastewater_discharge, air_emissions, disease_vector]
+  landfilling_waste_treatment:
+    label: Landfilling and waste treatment
+    keywords: [landfill, waste disposal, incinerat, waste treatment, leachate, composting, transfer station, sanitary site]
+    phases: [operation]
+    pressures: [leachate_generation, odour_emissions, air_emissions, ghg_emissions, disease_vector, traffic_generation]
+  linear_infrastructure:
+    label: Linear infrastructure corridor (road, pipeline, line)
+    keywords: [road, highway, motorway, carriageway, alignment, right of way, right-of-way, corridor, bridge, culvert, transmission line, pipeline route]
+    phases: [construction, operation]
+    pressures: [habitat_severance, land_acquisition, traffic_generation, hydrological_alteration]
+  workforce_employment:
+    label: Workforce employment and accommodation
+    keywords: [workers camp, labour camp, labor camp, worker accommodation, workforce, employ, workers, jobs]
+    phases: [construction, operation]
+    pressures: [workforce_influx, employment_generation]
+  residential_occupation:
+    label: Residential occupation
+    keywords: [residential units, housing units, dwellings, homes, apartments, occupants, residents will]
+    phases: [operation]
+    pressures: [wastewater_discharge, solid_waste, traffic_generation, water_consumption, land_occupation, energy_use]
+  decommissioning_closure:
+    label: Decommissioning and closure
+    keywords: [decommission, closure, mine closure, dismantl, abandonment, end of life, site restoration]
+    phases: [decommissioning]
+    pressures: [land_disturbance, solid_waste, residual_contamination]
+
+pressures:
+  land_acquisition: {label: Land take and change of tenure, impacts: [land_acquisition_impacts, resettlement_displacement, livelihood_impacts]}
+  land_disturbance: {label: Land disturbance, impacts: [soil_erosion, soil_quality_degradation, land_degradation, habitat_loss]}
+  vegetation_removal: {label: Vegetation removal, impacts: [vegetation_clearance, habitat_loss, carbon_storage_loss, biodiversity_disturbance]}
+  introduction_of_invasives: {label: Introduction or spread of invasive species, impacts: [invasive_species_risk]}
+  dust_emissions: {label: Dust emissions, impacts: [air_quality_particulates, community_health_effects]}
+  air_emissions: {label: Gaseous and particulate air emissions, impacts: [air_quality_gaseous, community_health_effects]}
+  noise_vibration: {label: Noise and vibration, impacts: [noise_nuisance, vibration_effects, fauna_disturbance]}
+  sediment_runoff: {label: Sediment generation and runoff, impacts: [surface_water_sedimentation, aquatic_ecosystem_disturbance]}
+  spoil_generation: {label: Spoil / overburden generation, impacts: [solid_waste_burden, landscape_visual]}
+  construction_waste: {label: Construction waste, impacts: [solid_waste_burden]}
+  solid_waste: {label: Solid waste, impacts: [solid_waste_burden, soil_contamination]}
+  traffic_generation: {label: Traffic generation, impacts: [road_safety, air_quality_gaseous, noise_nuisance]}
+  workforce_influx: {label: Workforce influx, impacts: [community_health_effects, community_conflict, occupational_health_safety]}
+  employment_generation: {label: Employment generation, impacts: [employment_opportunities]}
+  drilling_fluids: {label: Drilling fluids and cuttings, impacts: [groundwater_contamination, soil_contamination]}
+  groundwater_interference: {label: Groundwater interference, impacts: [groundwater_drawdown, groundwater_contamination]}
+  acid_mine_drainage: {label: Acid / metalliferous drainage, impacts: [surface_water_contamination, groundwater_contamination, aquatic_ecosystem_disturbance]}
+  landscape_change: {label: Landscape change, impacts: [landscape_visual, cultural_heritage_disturbance]}
+  chemical_hazard: {label: Hazardous substances, impacts: [soil_contamination, groundwater_contamination, surface_water_contamination, occupational_health_safety]}
+  wastewater_discharge: {label: Wastewater discharge, impacts: [surface_water_contamination, aquatic_ecosystem_disturbance, community_health_effects]}
+  tailings_generation: {label: Tailings generation and storage, impacts: [tailings_failure_risk, groundwater_contamination, solid_waste_burden]}
+  water_consumption: {label: Water consumption, impacts: [water_resource_depletion, resource_access_conflict, drought_vulnerability]}
+  hydrological_alteration: {label: Hydrological alteration, impacts: [hydrological_change, flood_risk, aquatic_ecosystem_disturbance]}
+  energy_use: {label: Energy use, impacts: [resource_consumption_energy, ghg_emissions]}
+  ghg_emissions: {label: Greenhouse gas emissions, impacts: [ghg_emissions]}
+  collision_risk: {label: Collision / barotrauma risk to flying fauna, impacts: [bird_bat_mortality]}
+  land_occupation: {label: Land occupation, impacts: [land_use_change, livelihood_impacts]}
+  inundation: {label: Inundation, impacts: [habitat_loss, resettlement_displacement, cultural_heritage_disturbance, ghg_emissions]}
+  barrier_to_movement: {label: Barrier to movement, impacts: [habitat_fragmentation, aquatic_ecosystem_disturbance]}
+  agrochemical_runoff: {label: Agrochemical runoff, impacts: [surface_water_contamination, soil_contamination, pollination_impacts]}
+  soil_degradation: {label: Soil degradation, impacts: [soil_fertility_loss, soil_erosion]}
+  odour_emissions: {label: Odour emissions, impacts: [odour_nuisance]}
+  disease_vector: {label: Disease vectors, impacts: [community_health_effects]}
+  leachate_generation: {label: Leachate generation, impacts: [groundwater_contamination, surface_water_contamination]}
+  habitat_severance: {label: Habitat severance, impacts: [habitat_fragmentation, fauna_disturbance]}
+  residual_contamination: {label: Residual contamination, impacts: [soil_contamination, land_degradation]}
+
+receptors:
+  surface_water: {label: Surface water bodies, component: surface_water, keywords: [river, stream, lake, lagoon, creek, estuary, reservoir, canal, water body, wetland, tributary, pond]}
+  groundwater: {label: Groundwater / aquifers, component: groundwater, keywords: [aquifer, groundwater, borehole, wells, water table, spring]}
+  soil: {label: Soil, component: soil, keywords: [soil, topsoil, farmland, agricultural land], always_present: true}
+  vegetation: {label: Vegetation, component: vegetation, keywords: [forest, woodland, vegetation, grassland, savanna, savannah, trees, bush, scrub, mangrove]}
+  terrestrial_habitats: {label: Terrestrial habitats and fauna, component: habitats, keywords: [forest reserve, habitat, wildlife, national park, protected area, sanctuary, nature reserve, natura 2000, ffh, biodiversity, game reserve, species]}
+  aquatic_ecosystems: {label: Aquatic ecosystems, component: aquatic_ecosystems, keywords: [river, wetland, fish, mangrove, lagoon, estuary, ramsar, stream, lake]}
+  protected_areas: {label: Protected or designated areas, component: biodiversity, keywords: [protected area, national park, forest reserve, ramsar, natura 2000, nature reserve, ffh, wildlife sanctuary, game reserve, landscape protection area]}
+  nearby_communities: {label: Nearby communities, component: community_health, keywords: [community, communities, village, town, settlement, residents, households, school, hospital, homes, city, neighbourhood, neighborhood]}
+  workers: {label: Project workforce, component: occupational_health_safety, keywords: [workers, workforce, employees, staff], always_present: true}
+  cultural_heritage_sites: {label: Cultural heritage sites, component: cultural_heritage, keywords: [heritage, sacred grove, shrine, archaeolog, monument, cemetery, burial, historic, listed building]}
+  agricultural_land_users: {label: Farmers and land users, component: livelihoods, keywords: [farmland, farms, cropland, agricultural land, cocoa farms, plantations, farmers, grazing, fishing, fishermen]}
+  air_shed: {label: Local air shed, component: air_quality, keywords: [air quality, urban area, industrial area], always_present: true}
+  road_users: {label: Road users, component: traffic_safety, keywords: [road users, highway, main road, junction, pedestrians, school route]}
+  global_climate: {label: Global climate system, component: ghg, keywords: [], always_present: true}
+  flying_fauna: {label: Birds and bats, component: biodiversity, keywords: [birds, bats, migratory, flyway, raptor, bird sanctuary, important bird area]}
+  pollinators: {label: Pollinators, component: ecosystem_services, keywords: [bees, pollinat, apiar, beekeep]}
+
+# Defaults: likelihood unlikely|possible|likely; severity minor|moderate|major
+# duration short_term|medium_term|long_term|permanent; extent site|local|regional|transboundary
+# reversibility reversible|partially_reversible|irreversible
+impacts:
+  land_acquisition_impacts:
+    label: Land acquisition and change of land tenure
+    component: land_tenure
+    receptors: [nearby_communities, agricultural_land_users]
+    pathway: Land required for the project is acquired or its use restricted, affecting existing owners and users.
+    defaults: {likelihood: likely, severity: moderate, duration: permanent, extent: local, reversibility: irreversible}
+    mitigation:
+      avoid: [Optimise layout to minimise land take and avoid occupied or productive land]
+      minimize: [Prepare a land acquisition and compensation framework consistent with applicable law and lender standards]
+      restore: [Restore livelihoods of affected land users to at least pre-project levels]
+    investigations: [Land tenure and land-use survey, Social impact assessment]
+  resettlement_displacement:
+    label: Physical or economic displacement
+    component: land_tenure
+    receptors: [nearby_communities]
+    pathway: Project footprint or inundation requires relocation of households or loss of income sources.
+    defaults: {likelihood: possible, severity: major, duration: permanent, extent: local, reversibility: irreversible}
+    mitigation:
+      avoid: [Select alternative sites or alignments that avoid physical displacement]
+      minimize: [Prepare a resettlement action plan with meaningful consultation of affected households]
+      restore: [Provide livelihood restoration and monitoring until outcomes are achieved]
+    investigations: [Census and asset inventory of affected households, Stakeholder consultation]
+  livelihood_impacts:
+    label: Loss or disruption of livelihoods
+    component: livelihoods
+    receptors: [agricultural_land_users, nearby_communities]
+    pathway: Occupation of farmland, fishing grounds or resource areas reduces income-earning activities.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Avoid productive agricultural land and customary resource areas where feasible]
+      minimize: [Maintain access routes to remaining farmland and resource areas]
+      restore: [Implement livelihood restoration programmes]
+    investigations: [Socio-economic baseline survey, Social impact assessment]
+  soil_erosion:
+    label: Soil erosion
+    component: soil
+    receptors: [soil, surface_water]
+    pathway: Removal of cover and disturbance of soils exposes them to water and wind erosion.
+    defaults: {likelihood: likely, severity: moderate, duration: medium_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Schedule major earthworks outside the wettest period where feasible]
+      minimize: [Install erosion and sediment controls (silt fences, check dams, diversion drains) before earthworks, Stage clearing to limit exposed areas]
+      restore: [Re-vegetate disturbed areas progressively using stockpiled topsoil]
+    investigations: [Soil survey and erodibility assessment]
+  soil_quality_degradation:
+    label: Soil compaction and loss of soil structure
+    component: soil
+    receptors: [soil, agricultural_land_users]
+    pathway: Heavy machinery and stockpiling compact soils and mix topsoil with subsoil.
+    defaults: {likelihood: likely, severity: minor, duration: medium_term, extent: site, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Strip and stockpile topsoil separately, Restrict vehicle movements to designated routes]
+      restore: [Decompact and reinstate topsoil after construction]
+    investigations: [Soil survey and erodibility assessment]
+  land_degradation:
+    label: Land degradation
+    component: land
+    receptors: [soil, agricultural_land_users]
+    pathway: Excavation, spoil placement or contamination reduce the land's capacity for future use.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Minimise the disturbance footprint]
+      minimize: [Prepare a progressive rehabilitation plan]
+      restore: [Rehabilitate land to an agreed post-project land use]
+    investigations: [Soil survey and erodibility assessment]
+  habitat_loss:
+    label: Loss of natural habitat
+    component: habitats
+    receptors: [terrestrial_habitats, vegetation, protected_areas]
+    pathway: Clearing and occupation of land removes habitat used by fauna and flora.
+    defaults: {likelihood: likely, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Avoid areas of natural or critical habitat and designated sites through layout design]
+      minimize: [Clearly demarcate clearing limits and retain habitat corridors]
+      restore: [Restore habitat on temporarily disturbed land with native species]
+      offset: [Consider a biodiversity offset only for significant residual losses after avoidance, minimisation and restoration, where legally and technically justified]
+    investigations: [Terrestrial biodiversity survey (flora and fauna), Habitat mapping]
+  habitat_fragmentation:
+    label: Habitat fragmentation and barrier effects
+    component: habitats
+    receptors: [terrestrial_habitats, aquatic_ecosystems]
+    pathway: Linear structures or impoundments divide habitats and restrict movement of species.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Route infrastructure to avoid intact habitat blocks]
+      minimize: [Provide wildlife crossings, culverts or fish passage]
+    investigations: [Terrestrial biodiversity survey (flora and fauna), Habitat connectivity analysis]
+  vegetation_clearance:
+    label: Vegetation clearance
+    component: vegetation
+    receptors: [vegetation]
+    pathway: Removal of trees and vegetation cover during site preparation.
+    defaults: {likelihood: likely, severity: moderate, duration: long_term, extent: site, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Retain mature trees and vegetation outside the essential footprint]
+      minimize: [Restrict clearing to marked boundaries; salvage timber and seed]
+      restore: [Re-vegetate with native species]
+    investigations: [Vegetation survey]
+  biodiversity_disturbance:
+    label: Disturbance to biodiversity
+    component: biodiversity
+    receptors: [terrestrial_habitats, protected_areas]
+    pathway: Habitat change, human presence and edge effects disturb species and communities.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Avoid works in sensitive seasons (e.g. breeding) for species of concern]
+      minimize: [Implement a biodiversity management plan]
+    investigations: [Terrestrial biodiversity survey (flora and fauna)]
+  fauna_disturbance:
+    label: Disturbance and displacement of fauna
+    component: biodiversity
+    receptors: [terrestrial_habitats, flying_fauna]
+    pathway: Noise, light, vibration and human activity cause fauna to avoid the area.
+    defaults: {likelihood: possible, severity: minor, duration: medium_term, extent: local, reversibility: reversible}
+    mitigation:
+      minimize: [Limit night-time works and use directional lighting, Use noise-attenuated equipment]
+    investigations: [Terrestrial biodiversity survey (flora and fauna)]
+  invasive_species_risk:
+    label: Introduction or spread of invasive species
+    component: invasive_species
+    receptors: [vegetation, terrestrial_habitats]
+    pathway: Disturbed ground and imported materials or machinery facilitate establishment of invasive species.
+    defaults: {likelihood: possible, severity: minor, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Clean machinery before mobilisation, Source fill and seed from controlled sources]
+      restore: [Monitor and control invasive species during rehabilitation]
+    investigations: [Vegetation survey]
+  bird_bat_mortality:
+    label: Bird and bat collision mortality
+    component: biodiversity
+    receptors: [flying_fauna]
+    pathway: Rotating blades, overhead lines or reflective surfaces cause collisions of birds and bats.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: regional, reversibility: irreversible}
+    mitigation:
+      avoid: [Avoid siting in migratory corridors and near roosts]
+      minimize: [Apply curtailment during high-risk periods, Install line markers]
+    investigations: [Bird and bat surveys (including migration seasons)]
+  air_quality_particulates:
+    label: Dust and particulate matter
+    component: air_quality
+    receptors: [air_shed, nearby_communities, workers]
+    pathway: Earthworks, haul roads, crushing and stockpiles generate airborne dust.
+    defaults: {likelihood: likely, severity: moderate, duration: medium_term, extent: local, reversibility: reversible}
+    mitigation:
+      minimize: [Water spraying of haul roads and stockpiles, Cover loads and enforce speed limits, Enclose crushing and conveyor transfer points]
+    investigations: [Baseline air-quality monitoring (PM10/PM2.5), Dust dispersion assessment]
+  air_quality_gaseous:
+    label: Gaseous air emissions
+    component: air_quality
+    receptors: [air_shed, nearby_communities]
+    pathway: Combustion sources and process emissions release NOx, SO2, CO and other pollutants.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: reversible}
+    mitigation:
+      minimize: [Use low-emission equipment and emission controls sized to the applicable standards, Maintain vehicles and plant]
+    investigations: [Baseline air-quality monitoring, Air dispersion modelling]
+  community_health_effects:
+    label: Community health and safety effects
+    component: community_health
+    receptors: [nearby_communities]
+    pathway: Emissions, discharges, disease vectors or workforce interaction affect community health.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Prepare a community health and safety management plan, Establish a grievance mechanism]
+    investigations: [Community health baseline, Stakeholder consultation]
+  occupational_health_safety:
+    label: Occupational health and safety risks
+    component: occupational_health_safety
+    receptors: [workers]
+    pathway: Workers are exposed to machinery, hazardous substances, dust, noise and working at height.
+    defaults: {likelihood: likely, severity: moderate, duration: long_term, extent: site, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Implement an occupational health and safety management system, Provide training and PPE]
+    investigations: [Occupational hazard assessment]
+  noise_nuisance:
+    label: Noise nuisance
+    component: noise_vibration
+    receptors: [nearby_communities, workers]
+    pathway: Construction plant, operations and traffic increase ambient noise at sensitive receptors.
+    defaults: {likelihood: likely, severity: minor, duration: medium_term, extent: local, reversibility: reversible}
+    mitigation:
+      avoid: [Locate noisy plant away from sensitive receptors]
+      minimize: [Restrict working hours, Use acoustic enclosures and barriers]
+    investigations: [Baseline noise survey, Noise impact assessment]
+  vibration_effects:
+    label: Vibration effects
+    component: noise_vibration
+    receptors: [nearby_communities, cultural_heritage_sites]
+    pathway: Blasting, piling and heavy traffic transmit ground vibration to structures and people.
+    defaults: {likelihood: possible, severity: minor, duration: medium_term, extent: local, reversibility: reversible}
+    mitigation:
+      minimize: [Design blasts to limit peak particle velocity, Conduct pre-condition surveys of nearby structures]
+    investigations: [Vibration assessment]
+  surface_water_sedimentation:
+    label: Sedimentation of surface water
+    component: surface_water
+    receptors: [surface_water, aquatic_ecosystems]
+    pathway: Sediment-laden runoff from disturbed areas enters nearby watercourses.
+    defaults: {likelihood: likely, severity: moderate, duration: medium_term, extent: local, reversibility: reversible}
+    mitigation:
+      avoid: [Maintain a vegetated riparian buffer between works and watercourses]
+      minimize: [Construction-phase drainage management with sediment retention ponds, Install silt fences and check dams]
+    investigations: [Baseline surface water-quality sampling, Hydrological study]
+  surface_water_contamination:
+    label: Surface water contamination
+    component: surface_water
+    receptors: [surface_water, aquatic_ecosystems, nearby_communities]
+    pathway: Discharges, spills or contaminated runoff introduce pollutants to watercourses.
+    defaults: {likelihood: possible, severity: major, duration: long_term, extent: regional, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Design for zero or minimised process water discharge through recycling]
+      minimize: [Treat effluent to meet the applicable discharge standards before release, Bund chemical and fuel storage areas, Implement water-quality monitoring upstream and downstream]
+    investigations: [Baseline surface water-quality sampling, Effluent characterisation]
+  groundwater_contamination:
+    label: Groundwater contamination
+    component: groundwater
+    receptors: [groundwater, nearby_communities]
+    pathway: Leachate, spills or seepage infiltrate to aquifers used for water supply.
+    defaults: {likelihood: possible, severity: major, duration: long_term, extent: local, reversibility: irreversible}
+    mitigation:
+      avoid: [Site storage and waste facilities away from vulnerable aquifers and wells]
+      minimize: [Install liners and leak detection, Monitor groundwater quality with up- and down-gradient wells]
+    investigations: [Hydrogeological investigation, Baseline groundwater-quality sampling]
+  groundwater_drawdown:
+    label: Groundwater drawdown
+    component: groundwater
+    receptors: [groundwater, nearby_communities]
+    pathway: Abstraction or dewatering lowers the water table, affecting wells and groundwater-dependent ecosystems.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Limit abstraction to sustainable yield determined by testing, Monitor community wells]
+    investigations: [Hydrogeological investigation, Pumping tests]
+  water_resource_depletion:
+    label: Pressure on water resources
+    component: resources
+    receptors: [surface_water, groundwater, nearby_communities]
+    pathway: Project water demand reduces water available to other users and ecosystems.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: reversible}
+    mitigation:
+      avoid: [Use alternative or recycled water sources]
+      minimize: [Implement water-efficiency measures and metering]
+    investigations: [Water balance study, Hydrological study]
+  resource_access_conflict:
+    label: Competition for access to natural resources
+    component: resource_access
+    receptors: [nearby_communities, agricultural_land_users]
+    pathway: Project use of water or land competes with existing community uses.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Agree resource-sharing arrangements with affected users]
+    investigations: [Stakeholder consultation, Socio-economic baseline survey]
+  hydrological_change:
+    label: Change in hydrological regime
+    component: hydrology
+    receptors: [surface_water, aquatic_ecosystems]
+    pathway: Abstraction, diversion, impoundment or drainage alter flow regimes.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: regional, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Maintain environmental flows, Design drainage to preserve natural flow paths]
+    investigations: [Hydrological study]
+  aquatic_ecosystem_disturbance:
+    label: Disturbance of aquatic ecosystems
+    component: aquatic_ecosystems
+    receptors: [aquatic_ecosystems]
+    pathway: Sediment, pollutants and flow change degrade aquatic habitats and species.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Avoid in-stream works where possible]
+      minimize: [Protect riparian zones and maintain environmental flows]
+    investigations: [Aquatic ecology survey, Baseline surface water-quality sampling]
+  solid_waste_burden:
+    label: Solid waste generation and disposal burden
+    component: waste
+    receptors: [soil, nearby_communities]
+    pathway: Wastes generated by the project require handling, storage and disposal capacity.
+    defaults: {likelihood: likely, severity: minor, duration: long_term, extent: local, reversibility: reversible}
+    mitigation:
+      avoid: [Apply waste-hierarchy principles in design and procurement]
+      minimize: [Prepare a waste management plan with segregation, reuse and licensed disposal]
+    investigations: [Waste stream inventory]
+  soil_contamination:
+    label: Soil contamination
+    component: soil
+    receptors: [soil, groundwater]
+    pathway: Spills, leaks or improper waste handling contaminate soils.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: site, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Bunded storage, spill kits and spill response procedures]
+      restore: [Remediate contaminated soils]
+    investigations: [Baseline soil-quality sampling]
+  tailings_failure_risk:
+    label: Tailings storage failure and seepage risk
+    component: surface_water
+    receptors: [surface_water, nearby_communities, aquatic_ecosystems]
+    pathway: Failure or seepage of tailings storage facilities releases contaminated material downstream.
+    defaults: {likelihood: unlikely, severity: major, duration: long_term, extent: regional, reversibility: irreversible}
+    mitigation:
+      avoid: [Select tailings technology and site with lowest consequence classification]
+      minimize: [Independent design review and dam safety monitoring, Emergency preparedness and response plan]
+    investigations: [Geotechnical investigation, Dam-break and consequence assessment]
+  landscape_visual:
+    label: Landscape and visual change
+    component: land
+    receptors: [nearby_communities, cultural_heritage_sites]
+    pathway: New structures, pits or spoil heaps change the landscape character and views.
+    defaults: {likelihood: likely, severity: minor, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Screening, landform design and colour treatment]
+    investigations: [Landscape and visual impact assessment]
+  cultural_heritage_disturbance:
+    label: Disturbance to cultural heritage
+    component: cultural_heritage
+    receptors: [cultural_heritage_sites, nearby_communities]
+    pathway: Earthworks, inundation or landscape change damage or affect access to heritage sites.
+    defaults: {likelihood: possible, severity: moderate, duration: permanent, extent: site, reversibility: irreversible}
+    mitigation:
+      avoid: [Avoid known heritage sites in the layout]
+      minimize: [Adopt a chance-finds procedure]
+    investigations: [Cultural heritage survey, Stakeholder consultation]
+  road_safety:
+    label: Traffic and road safety risks
+    component: traffic_safety
+    receptors: [road_users, nearby_communities]
+    pathway: Increased heavy-vehicle traffic raises accident risk and congestion on local roads.
+    defaults: {likelihood: possible, severity: moderate, duration: medium_term, extent: local, reversibility: reversible}
+    mitigation:
+      minimize: [Prepare a traffic management plan, Driver training and speed control]
+    investigations: [Traffic impact assessment]
+  community_conflict:
+    label: Community tensions and conflict
+    component: social_cohesion
+    receptors: [nearby_communities]
+    pathway: Workforce influx, perceived unfairness in benefits or resource competition cause tensions.
+    defaults: {likelihood: possible, severity: moderate, duration: medium_term, extent: local, reversibility: reversible}
+    mitigation:
+      minimize: [Stakeholder engagement plan, Worker code of conduct, Local hiring policy, Grievance mechanism]
+    investigations: [Stakeholder consultation, Social impact assessment]
+  employment_opportunities:
+    label: Employment and local economic opportunities (potential positive effect)
+    component: employment
+    receptors: [nearby_communities]
+    pathway: Construction and operation create direct and indirect jobs and procurement opportunities.
+    defaults: {likelihood: likely, severity: minor, duration: medium_term, extent: local, reversibility: reversible}
+    beneficial: true
+    mitigation:
+      minimize: [Local recruitment and skills training plan]
+    investigations: [Socio-economic baseline survey]
+  odour_nuisance:
+    label: Odour nuisance
+    component: air_quality
+    receptors: [nearby_communities]
+    pathway: Decomposition of organic material, manure or waste generates odours.
+    defaults: {likelihood: likely, severity: minor, duration: long_term, extent: local, reversibility: reversible}
+    mitigation:
+      avoid: [Provide adequate separation from residential areas]
+      minimize: [Odour management plan, covered storage]
+    investigations: [Odour assessment]
+  flood_risk:
+    label: Flood risk
+    component: climate_resilience
+    receptors: [nearby_communities, surface_water]
+    pathway: Changes in drainage or development in flood-prone areas increase flood risk on and off site.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Avoid development in flood-prone areas]
+      minimize: [Sustainable drainage design sized for climate-adjusted design storms]
+    investigations: [Flood risk assessment, Hydrological study]
+  drought_vulnerability:
+    label: Drought vulnerability of water supply
+    component: climate_resilience
+    receptors: [surface_water, groundwater, nearby_communities]
+    pathway: Reliance on water sources sensitive to drought may intensify competition in dry periods.
+    defaults: {likelihood: possible, severity: moderate, duration: long_term, extent: local, reversibility: reversible}
+    mitigation:
+      minimize: [Water storage and demand management for dry periods]
+    investigations: [Water balance study, Climate risk screening]
+  ghg_emissions:
+    label: Greenhouse gas emissions
+    component: ghg
+    receptors: [global_climate]
+    pathway: Fuel combustion, electricity use, land-use change and waste decomposition release greenhouse gases.
+    defaults: {likelihood: likely, severity: minor, duration: long_term, extent: transboundary, reversibility: irreversible}
+    mitigation:
+      minimize: [Energy efficiency and renewable energy supply, GHG accounting and reduction plan]
+    investigations: [Greenhouse gas emissions estimate]
+  carbon_storage_loss:
+    label: Loss of carbon storage
+    component: carbon_storage
+    receptors: [vegetation, global_climate]
+    pathway: Clearing of vegetation and disturbance of soils release stored carbon.
+    defaults: {likelihood: likely, severity: minor, duration: long_term, extent: transboundary, reversibility: partially_reversible}
+    mitigation:
+      avoid: [Avoid clearing of forest and high-carbon areas]
+      restore: [Re-vegetate disturbed land]
+    investigations: [Vegetation survey, Greenhouse gas emissions estimate]
+  resource_consumption_energy:
+    label: Energy resource consumption
+    component: resources
+    receptors: [global_climate]
+    pathway: Project energy demand consumes grid or fuel resources.
+    defaults: {likelihood: likely, severity: minor, duration: long_term, extent: regional, reversibility: reversible}
+    mitigation:
+      minimize: [Energy-efficient design and equipment]
+    investigations: [Energy demand assessment]
+  land_use_change:
+    label: Change of land use
+    component: land
+    receptors: [agricultural_land_users, soil]
+    pathway: Project occupation converts existing land uses.
+    defaults: {likelihood: likely, severity: minor, duration: long_term, extent: site, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Co-location or dual land use where feasible]
+    investigations: [Land tenure and land-use survey]
+  soil_fertility_loss:
+    label: Loss of soil fertility (ecosystem service)
+    component: ecosystem_services
+    receptors: [soil, agricultural_land_users]
+    pathway: Intensive cultivation, erosion and agrochemical use deplete soil organic matter and nutrients.
+    defaults: {likelihood: possible, severity: minor, duration: long_term, extent: site, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Soil conservation practices, crop rotation and organic matter management]
+    investigations: [Baseline soil-quality sampling]
+  pollination_impacts:
+    label: Pollination service impacts
+    component: ecosystem_services
+    receptors: [pollinators, agricultural_land_users]
+    pathway: Pesticide use and habitat loss reduce pollinator populations.
+    defaults: {likelihood: possible, severity: minor, duration: long_term, extent: local, reversibility: partially_reversible}
+    mitigation:
+      minimize: [Integrated pest management, retain flowering field margins]
+    investigations: [Pollinator / ecological survey]

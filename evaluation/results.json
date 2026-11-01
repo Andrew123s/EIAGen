@@ -1,0 +1,1454 @@
+{
+  "dataset": "EIAGen synthetic evaluation set v1",
+  "status": "SYNTHETIC - for software testing only",
+  "label_provenance": "All project descriptions are fictitious. Expected labels were written by the EIAGen developer from a reading of each description (activities, parameters, missing information, affected environmental components) and from the encoded screening rules (criterion results). They have NOT been reviewed by independent EIA experts and do NOT represent real regulatory outcomes or professional EIA decisions.",
+  "workflow_embedding_backend": "sentence_transformers",
+  "generated_at": "2026-11-01T12:28:01.090458+00:00",
+  "retrieval": {
+    "sentence_transformers": {
+      "queries": 27,
+      "precision_at_5": 0.704,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "details": [
+        {
+          "project": "SYN-01",
+          "query": "environmental permit registration for a mining undertaking",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.88)",
+            "gh-li1652 (0.79)",
+            "gh-act703 (0.76)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-01",
+          "query": "water use permit for groundwater abstraction",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.88)",
+            "gh-wrc-act522 (0.62)",
+            "gh-wrc-act522 (0.61)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-01",
+          "query": "mineral right and mining lease",
+          "relevant": [
+            "gh-act703"
+          ],
+          "top": [
+            "gh-act703 (0.88)",
+            "gh-act703 (0.70)",
+            "gh-act703 (0.70)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-01",
+          "query": "storage of hazardous chemicals such as cyanide",
+          "relevant": [
+            "gh-act917",
+            "intl-ifc-ehs-general"
+          ],
+          "top": [
+            "intl-ifc-ehs-general (0.81)",
+            "gh-act917 (0.77)",
+            "gh-act917 (0.72)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-02",
+          "query": "intensive rearing of poultry installation EIA threshold",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.87)",
+            "eu-habitats-directive (0.41)",
+            "eu-eia-directive (0.41)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-02",
+          "query": "discharge to a water body and deterioration of status",
+          "relevant": [
+            "eu-wfd"
+          ],
+          "top": [
+            "eu-wfd (0.83)",
+            "eu-wfd (0.74)",
+            "eu-wfd (0.46)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-02",
+          "query": "selection criteria for screening Annex II projects",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.90)",
+            "eu-eia-directive (0.76)",
+            "eu-eia-directive (0.66)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-03",
+          "query": "environmental permit for a manufacturing undertaking",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.87)",
+            "gh-li1652 (0.67)",
+            "gh-li1652 (0.62)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-03",
+          "query": "dust and air emission control guideline",
+          "relevant": [
+            "intl-ifc-ehs-general"
+          ],
+          "top": [
+            "intl-ifc-ehs-general (0.89)",
+            "intl-ifc-ehs-general (0.59)",
+            "intl-ifc-ehs-general (0.53)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-04",
+          "query": "water use permit for borehole abstraction",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.85)",
+            "gh-wrc-act522 (0.64)",
+            "gh-wrc-act522 (0.64)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-04",
+          "query": "registration of an energy undertaking and environmental permit",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.89)",
+            "gh-li1652 (0.75)",
+            "gh-li1652 (0.63)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-04",
+          "query": "biodiversity natural habitat mitigation hierarchy",
+          "relevant": [
+            "intl-ifc-ps"
+          ],
+          "top": [
+            "intl-ifc-ps (0.86)",
+            "intl-ifc-ehs-general (0.46)",
+            "intl-ifc-ps (0.46)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-05",
+          "query": "construction of a new road of four lanes over 10 km",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.80)",
+            "eu-wfd (0.37)",
+            "eu-eia-directive (0.36)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-05",
+          "query": "appropriate assessment for a Natura 2000 site",
+          "relevant": [
+            "eu-habitats-directive"
+          ],
+          "top": [
+            "eu-habitats-directive (0.90)",
+            "eu-habitats-directive (0.50)",
+            "eu-eia-directive (0.49)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-06",
+          "query": "authorisation to discharge wastewater into a water body",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.91)",
+            "gh-wrc-act522 (0.58)",
+            "intl-ifc-ehs-general (0.54)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-06",
+          "query": "registration of a housing development and environmental permit",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.85)",
+            "gh-li1652 (0.64)",
+            "gh-act490 (0.60)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-07",
+          "query": "permit for a landfill installation under immission control law",
+          "relevant": [
+            "de-bimschg"
+          ],
+          "top": [
+            "de-bimschg (0.86)",
+            "de-bimschg (0.68)",
+            "de-bimschg (0.66)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-07",
+          "query": "waste hierarchy and disposal of waste",
+          "relevant": [
+            "de-krwg"
+          ],
+          "top": [
+            "de-krwg (0.88)",
+            "de-krwg (0.70)",
+            "de-krwg (0.70)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-07",
+          "query": "deterioration of groundwater status",
+          "relevant": [
+            "de-whg",
+            "eu-wfd"
+          ],
+          "top": [
+            "de-whg (0.88)",
+            "eu-wfd (0.80)",
+            "de-whg (0.68)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "authorisation to dam or impound water resources",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.90)",
+            "gh-wrc-act522 (0.72)",
+            "gh-wrc-act522 (0.63)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "public hearing where communities will be relocated",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.82)",
+            "intl-ifc-ps (0.41)",
+            "intl-ifc-ps (0.39)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "involuntary resettlement and livelihood restoration",
+          "relevant": [
+            "intl-ifc-ps"
+          ],
+          "top": [
+            "intl-ifc-ps (0.87)",
+            "gh-act703 (0.35)",
+            "intl-ifc-ps (0.34)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "cultural heritage chance finds procedure",
+          "relevant": [
+            "intl-ifc-ps"
+          ],
+          "top": [
+            "intl-ifc-ps (0.84)",
+            "gh-li1652 (0.37)",
+            "gh-li1652 (0.32)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-09",
+          "query": "wind farm with 20 or more wind turbines",
+          "relevant": [
+            "de-uvpg"
+          ],
+          "top": [
+            "de-uvpg (0.83)",
+            "eu-eia-directive (0.42)",
+            "eu-eia-directive (0.39)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-09",
+          "query": "species protection of breeding birds and disturbance",
+          "relevant": [
+            "de-bnatschg",
+            "eu-habitats-directive"
+          ],
+          "top": [
+            "de-bnatschg (0.89)",
+            "eu-habitats-directive (0.86)",
+            "eu-eia-directive (0.48)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-10",
+          "query": "quarries and open-cast mining over 25 hectares",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.89)",
+            "eu-wfd (0.36)",
+            "eu-eia-directive (0.35)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-10",
+          "query": "selection criteria characteristics and location of projects",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.86)",
+            "eu-eia-directive (0.69)",
+            "eu-eia-directive (0.50)"
+          ],
+          "first_relevant_rank": 1
+        }
+      ]
+    },
+    "hashing": {
+      "queries": 27,
+      "precision_at_5": 0.711,
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "details": [
+        {
+          "project": "SYN-01",
+          "query": "environmental permit registration for a mining undertaking",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.66)",
+            "gh-li1652 (0.56)",
+            "gh-act703 (0.50)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-01",
+          "query": "water use permit for groundwater abstraction",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.77)",
+            "gh-wrc-act522 (0.42)",
+            "gh-wrc-act522 (0.41)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-01",
+          "query": "mineral right and mining lease",
+          "relevant": [
+            "gh-act703"
+          ],
+          "top": [
+            "gh-act703 (0.79)",
+            "gh-act703 (0.48)",
+            "gh-act703 (0.35)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-01",
+          "query": "storage of hazardous chemicals such as cyanide",
+          "relevant": [
+            "gh-act917",
+            "intl-ifc-ehs-general"
+          ],
+          "top": [
+            "gh-act917 (0.51)",
+            "intl-ifc-ehs-general (0.48)",
+            "gh-act917 (0.46)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-02",
+          "query": "intensive rearing of poultry installation EIA threshold",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.55)",
+            "eu-eia-directive (0.10)",
+            "eu-habitats-directive (0.10)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-02",
+          "query": "discharge to a water body and deterioration of status",
+          "relevant": [
+            "eu-wfd"
+          ],
+          "top": [
+            "eu-wfd (0.64)",
+            "eu-wfd (0.51)",
+            "eu-wfd (0.13)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-02",
+          "query": "selection criteria for screening Annex II projects",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.71)",
+            "eu-eia-directive (0.46)",
+            "eu-eia-directive (0.45)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-03",
+          "query": "environmental permit for a manufacturing undertaking",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.68)",
+            "gh-li1652 (0.49)",
+            "gh-li1652 (0.38)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-03",
+          "query": "dust and air emission control guideline",
+          "relevant": [
+            "intl-ifc-ehs-general"
+          ],
+          "top": [
+            "intl-ifc-ehs-general (0.54)",
+            "intl-ifc-ehs-general (0.22)",
+            "intl-ifc-ehs-general (0.18)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-04",
+          "query": "water use permit for borehole abstraction",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.76)",
+            "gh-wrc-act522 (0.47)",
+            "gh-wrc-act522 (0.45)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-04",
+          "query": "registration of an energy undertaking and environmental permit",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.68)",
+            "gh-li1652 (0.52)",
+            "gh-li1652 (0.41)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-04",
+          "query": "biodiversity natural habitat mitigation hierarchy",
+          "relevant": [
+            "intl-ifc-ps"
+          ],
+          "top": [
+            "intl-ifc-ps (0.62)",
+            "intl-ifc-ps (0.14)",
+            "intl-ifc-ehs-general (0.12)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-05",
+          "query": "construction of a new road of four lanes over 10 km",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.68)",
+            "eu-wfd (0.08)",
+            "eu-eia-directive (0.06)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-05",
+          "query": "appropriate assessment for a Natura 2000 site",
+          "relevant": [
+            "eu-habitats-directive"
+          ],
+          "top": [
+            "eu-habitats-directive (0.69)",
+            "eu-eia-directive (0.20)",
+            "eu-habitats-directive (0.17)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-06",
+          "query": "authorisation to discharge wastewater into a water body",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.66)",
+            "intl-ifc-ehs-general (0.26)",
+            "gh-wrc-act522 (0.26)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-06",
+          "query": "registration of a housing development and environmental permit",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.65)",
+            "gh-li1652 (0.41)",
+            "gh-act490 (0.35)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-07",
+          "query": "permit for a landfill installation under immission control law",
+          "relevant": [
+            "de-bimschg"
+          ],
+          "top": [
+            "de-bimschg (0.62)",
+            "de-whg (0.35)",
+            "de-bimschg (0.31)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-07",
+          "query": "waste hierarchy and disposal of waste",
+          "relevant": [
+            "de-krwg"
+          ],
+          "top": [
+            "de-krwg (0.69)",
+            "de-krwg (0.45)",
+            "de-krwg (0.43)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-07",
+          "query": "deterioration of groundwater status",
+          "relevant": [
+            "de-whg",
+            "eu-wfd"
+          ],
+          "top": [
+            "de-whg (0.71)",
+            "eu-wfd (0.56)",
+            "de-whg (0.41)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "authorisation to dam or impound water resources",
+          "relevant": [
+            "gh-wrc-act522"
+          ],
+          "top": [
+            "gh-wrc-act522 (0.68)",
+            "gh-wrc-act522 (0.46)",
+            "gh-wrc-act522 (0.45)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "public hearing where communities will be relocated",
+          "relevant": [
+            "gh-li1652"
+          ],
+          "top": [
+            "gh-li1652 (0.62)",
+            "gh-act490 (0.11)",
+            "intl-ifc-ps (0.11)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "involuntary resettlement and livelihood restoration",
+          "relevant": [
+            "intl-ifc-ps"
+          ],
+          "top": [
+            "intl-ifc-ps (0.65)",
+            "intl-ifc-ps (0.02)",
+            "intl-ifc-ps (0.02)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-08",
+          "query": "cultural heritage chance finds procedure",
+          "relevant": [
+            "intl-ifc-ps"
+          ],
+          "top": [
+            "intl-ifc-ps (0.78)",
+            "gh-li1652 (0.05)",
+            "gh-act917 (0.04)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-09",
+          "query": "wind farm with 20 or more wind turbines",
+          "relevant": [
+            "de-uvpg"
+          ],
+          "top": [
+            "de-uvpg (0.72)",
+            "eu-eia-directive (0.15)",
+            "eu-eia-directive (0.06)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-09",
+          "query": "species protection of breeding birds and disturbance",
+          "relevant": [
+            "de-bnatschg",
+            "eu-habitats-directive"
+          ],
+          "top": [
+            "de-bnatschg (0.61)",
+            "eu-habitats-directive (0.53)",
+            "eu-eia-directive (0.14)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-10",
+          "query": "quarries and open-cast mining over 25 hectares",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.78)",
+            "eu-wfd (0.02)",
+            "eu-eia-directive (0.02)"
+          ],
+          "first_relevant_rank": 1
+        },
+        {
+          "project": "SYN-10",
+          "query": "selection criteria characteristics and location of projects",
+          "relevant": [
+            "eu-eia-directive"
+          ],
+          "top": [
+            "eu-eia-directive (0.58)",
+            "eu-eia-directive (0.42)",
+            "eu-eia-directive (0.19)"
+          ],
+          "first_relevant_rank": 1
+        }
+      ]
+    }
+  },
+  "knowledge_base_version": "kb-15docs-722268ba9e",
+  "projects_evaluated": 10,
+  "extraction": {
+    "activities": {
+      "precision": 0.925,
+      "recall": 0.875,
+      "f1": 0.899,
+      "tp": 49,
+      "fp": 4,
+      "fn": 7
+    },
+    "parameter_accuracy": 0.968,
+    "parameters_checked": 31,
+    "sector_accuracy": 1.0,
+    "missing_information": {
+      "precision": 0.947,
+      "recall": 0.982,
+      "f1": 0.964,
+      "tp": 54,
+      "fp": 3,
+      "fn": 1
+    }
+  },
+  "impacts": {
+    "components_overall": {
+      "precision": 0.661,
+      "recall": 0.937,
+      "f1": 0.775,
+      "tp": 119,
+      "fp": 61,
+      "fn": 8
+    },
+    "by_category": {
+      "biological": {
+        "precision": 0.621,
+        "recall": 0.857,
+        "f1": 0.72,
+        "tp": 18,
+        "fp": 11,
+        "fn": 3
+      },
+      "climate_ecosystem_services": {
+        "precision": 0.588,
+        "recall": 0.769,
+        "f1": 0.667,
+        "tp": 10,
+        "fp": 7,
+        "fn": 3
+      },
+      "physical": {
+        "precision": 0.746,
+        "recall": 0.981,
+        "f1": 0.848,
+        "tp": 53,
+        "fp": 18,
+        "fn": 1
+      },
+      "social": {
+        "precision": 0.603,
+        "recall": 0.974,
+        "f1": 0.745,
+        "tp": 38,
+        "fp": 25,
+        "fn": 1
+      }
+    }
+  },
+  "screening": {
+    "workflows_completed": 10,
+    "schema_validation_success": 1.0,
+    "rule_execution_correctness": 1.0,
+    "criteria_checked": 51,
+    "unsupported_conclusion_detection": {
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "statements": 13
+    },
+    "prompt_injection_detection": {
+      "true_positive_rate": 1.0,
+      "false_positive_rate": 0.0,
+      "statements": 7
+    }
+  },
+  "reports": {
+    "reports_with_19_sections": "10/10",
+    "disclaimer_and_exports_present": "10/10",
+    "citation_validity": 1.0,
+    "citations_checked": 193,
+    "requirement_evidence_coverage": 1.0,
+    "impact_evidence_coverage": 1.0,
+    "unsupported_claims_in_reports": 0
+  },
+  "timing_ms_mean": {
+    "project_information_extraction": 8.9,
+    "project_profile_validation": 0.2,
+    "missing_information_check": 0.5,
+    "environmental_impact_identification": 2.5,
+    "regulatory_requirement_retrieval": 1198.8,
+    "preliminary_eia_screening": 18.6,
+    "evidence_citation_validation": 41.3,
+    "preliminary_screening_report": 1524.1
+  },
+  "per_case": [
+    {
+      "id": "SYN-01",
+      "sector": "mining",
+      "jurisdiction": "ghana",
+      "status": "completed",
+      "seconds": 9.78,
+      "activities": {
+        "precision": 0.9,
+        "recall": 0.818,
+        "f1": 0.857,
+        "tp": 9,
+        "fp": 1,
+        "fn": 2
+      },
+      "missed_activities": [
+        "site_preparation_land_clearing",
+        "solid_waste_generation"
+      ],
+      "extra_activities": [
+        "agricultural_operations"
+      ],
+      "parameters": [
+        "project_area_ha:ok",
+        "water_demand:ok",
+        "workforce:ok",
+        "project_duration_months:ok"
+      ],
+      "sector_detected": "mining",
+      "missing_info": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 6,
+        "fp": 0,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.87,
+        "recall": 0.87,
+        "f1": 0.87,
+        "tp": 20,
+        "fp": 3,
+        "fn": 3
+      },
+      "missed_components": [
+        "carbon_storage",
+        "land_tenure",
+        "vegetation"
+      ],
+      "extra_components": [
+        "climate_resilience",
+        "cultural_heritage",
+        "ecosystem_services"
+      ],
+      "criteria_wrong": [],
+      "impacts": 34,
+      "requirements": 26,
+      "citations": "27/27",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Additional project information required",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-02",
+      "sector": "agriculture",
+      "jurisdiction": "eu",
+      "status": "completed",
+      "seconds": 1.98,
+      "activities": {
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1": 0.8,
+        "tp": 4,
+        "fp": 1,
+        "fn": 1
+      },
+      "missed_activities": [
+        "agricultural_operations"
+      ],
+      "extra_activities": [
+        "residential_occupation"
+      ],
+      "parameters": [
+        "broiler_count:ok",
+        "project_area_ha:ok",
+        "workforce:ok",
+        "wastewater_volume:ok"
+      ],
+      "sector_detected": "agriculture",
+      "missing_info": {
+        "precision": 0.75,
+        "recall": 0.75,
+        "f1": 0.75,
+        "tp": 3,
+        "fp": 1,
+        "fn": 1
+      },
+      "components": {
+        "precision": 0.5,
+        "recall": 0.9,
+        "f1": 0.643,
+        "tp": 9,
+        "fp": 9,
+        "fn": 1
+      },
+      "missed_components": [
+        "groundwater"
+      ],
+      "extra_components": [
+        "biodiversity",
+        "climate_resilience",
+        "land",
+        "livelihoods",
+        "occupational_health_safety",
+        "resource_access",
+        "resources",
+        "social_cohesion",
+        "waste"
+      ],
+      "criteria_wrong": [],
+      "impacts": 22,
+      "requirements": 11,
+      "citations": "14/14",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-03",
+      "sector": "manufacturing",
+      "jurisdiction": "ghana",
+      "status": "completed",
+      "seconds": 1.78,
+      "activities": {
+        "precision": 1.0,
+        "recall": 0.8,
+        "f1": 0.889,
+        "tp": 4,
+        "fp": 0,
+        "fn": 1
+      },
+      "missed_activities": [
+        "energy_consumption"
+      ],
+      "extra_activities": [],
+      "parameters": [
+        "project_area_ha:ok",
+        "production_capacity:ok",
+        "water_demand:ok",
+        "workforce:ok"
+      ],
+      "sector_detected": "manufacturing",
+      "missing_info": {
+        "precision": 0.8,
+        "recall": 1.0,
+        "f1": 0.889,
+        "tp": 4,
+        "fp": 1,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.571,
+        "recall": 1.0,
+        "f1": 0.727,
+        "tp": 8,
+        "fp": 6,
+        "fn": 0
+      },
+      "missed_components": [],
+      "extra_components": [
+        "aquatic_ecosystems",
+        "biodiversity",
+        "social_cohesion",
+        "soil",
+        "surface_water",
+        "traffic_safety"
+      ],
+      "criteria_wrong": [],
+      "impacts": 16,
+      "requirements": 18,
+      "citations": "20/20",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-04",
+      "sector": "renewable_energy",
+      "jurisdiction": "ghana",
+      "status": "completed",
+      "seconds": 2.76,
+      "activities": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 7,
+        "fp": 0,
+        "fn": 0
+      },
+      "missed_activities": [],
+      "extra_activities": [],
+      "parameters": [
+        "installed_capacity_mw:ok",
+        "project_area_ha:ok",
+        "water_demand:ok",
+        "project_duration_months:ok",
+        "workforce:ok"
+      ],
+      "sector_detected": "renewable_energy",
+      "missing_info": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 3,
+        "fp": 0,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.64,
+        "recall": 1.0,
+        "f1": 0.78,
+        "tp": 16,
+        "fp": 9,
+        "fn": 0
+      },
+      "missed_components": [],
+      "extra_components": [
+        "aquatic_ecosystems",
+        "climate_resilience",
+        "cultural_heritage",
+        "hydrology",
+        "invasive_species",
+        "resource_access",
+        "surface_water",
+        "traffic_safety",
+        "waste"
+      ],
+      "criteria_wrong": [],
+      "impacts": 36,
+      "requirements": 19,
+      "citations": "21/21",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-05",
+      "sector": "road_construction",
+      "jurisdiction": "eu",
+      "status": "completed",
+      "seconds": 2.2,
+      "activities": {
+        "precision": 1.0,
+        "recall": 0.667,
+        "f1": 0.8,
+        "tp": 4,
+        "fp": 0,
+        "fn": 2
+      },
+      "missed_activities": [
+        "site_preparation_land_clearing",
+        "transportation_traffic"
+      ],
+      "extra_activities": [],
+      "parameters": [
+        "road_length_km:ok",
+        "lanes:ok",
+        "project_duration_months:ok",
+        "workforce:ok"
+      ],
+      "sector_detected": "road_construction",
+      "missing_info": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 4,
+        "fp": 0,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.833,
+        "recall": 0.833,
+        "f1": 0.833,
+        "tp": 15,
+        "fp": 3,
+        "fn": 3
+      },
+      "missed_components": [
+        "carbon_storage",
+        "ghg",
+        "vegetation"
+      ],
+      "extra_components": [
+        "occupational_health_safety",
+        "social_cohesion",
+        "waste"
+      ],
+      "criteria_wrong": [],
+      "impacts": 24,
+      "requirements": 14,
+      "citations": "15/15",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Additional project information required",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-06",
+      "sector": "housing_development",
+      "jurisdiction": "ghana",
+      "status": "completed",
+      "seconds": 2.14,
+      "activities": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 5,
+        "fp": 0,
+        "fn": 0
+      },
+      "missed_activities": [],
+      "extra_activities": [],
+      "parameters": [
+        "housing_units:ok",
+        "project_area_ha:ok",
+        "project_duration_months:ok"
+      ],
+      "sector_detected": "housing_development",
+      "missing_info": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 6,
+        "fp": 0,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.65,
+        "recall": 1.0,
+        "f1": 0.788,
+        "tp": 13,
+        "fp": 7,
+        "fn": 0
+      },
+      "missed_components": [],
+      "extra_components": [
+        "biodiversity",
+        "climate_resilience",
+        "hydrology",
+        "land_tenure",
+        "occupational_health_safety",
+        "resource_access",
+        "social_cohesion"
+      ],
+      "criteria_wrong": [],
+      "impacts": 25,
+      "requirements": 19,
+      "citations": "22/22",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-07",
+      "sector": "waste_management",
+      "jurisdiction": "germany",
+      "status": "completed",
+      "seconds": 1.86,
+      "activities": {
+        "precision": 0.6,
+        "recall": 1.0,
+        "f1": 0.75,
+        "tp": 3,
+        "fp": 2,
+        "fn": 0
+      },
+      "missed_activities": [],
+      "extra_activities": [
+        "construction_works",
+        "solid_waste_generation"
+      ],
+      "parameters": [
+        "project_area_ha:ok",
+        "wastewater_volume:None"
+      ],
+      "sector_detected": "waste_management",
+      "missing_info": {
+        "precision": 0.833,
+        "recall": 1.0,
+        "f1": 0.909,
+        "tp": 5,
+        "fp": 1,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.538,
+        "recall": 1.0,
+        "f1": 0.7,
+        "tp": 7,
+        "fp": 6,
+        "fn": 0
+      },
+      "missed_components": [],
+      "extra_components": [
+        "aquatic_ecosystems",
+        "biodiversity",
+        "occupational_health_safety",
+        "social_cohesion",
+        "soil",
+        "waste"
+      ],
+      "criteria_wrong": [],
+      "impacts": 16,
+      "requirements": 19,
+      "citations": "23/23",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Additional project information required",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-08",
+      "sector": "water_infrastructure",
+      "jurisdiction": "ghana",
+      "status": "completed",
+      "seconds": 2.89,
+      "activities": {
+        "precision": 1.0,
+        "recall": 0.875,
+        "f1": 0.933,
+        "tp": 7,
+        "fp": 0,
+        "fn": 1
+      },
+      "missed_activities": [
+        "agricultural_operations"
+      ],
+      "extra_activities": [],
+      "parameters": [
+        "project_area_ha:ok"
+      ],
+      "sector_detected": "water_infrastructure",
+      "missing_info": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 7,
+        "fp": 0,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.72,
+        "recall": 1.0,
+        "f1": 0.837,
+        "tp": 18,
+        "fp": 7,
+        "fn": 0
+      },
+      "missed_components": [],
+      "extra_components": [
+        "groundwater",
+        "invasive_species",
+        "occupational_health_safety",
+        "resources",
+        "social_cohesion",
+        "traffic_safety",
+        "waste"
+      ],
+      "criteria_wrong": [],
+      "impacts": 35,
+      "requirements": 21,
+      "citations": "22/22",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-09",
+      "sector": "renewable_energy",
+      "jurisdiction": "germany",
+      "status": "completed",
+      "seconds": 1.34,
+      "activities": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 2,
+        "fp": 0,
+        "fn": 0
+      },
+      "missed_activities": [],
+      "extra_activities": [],
+      "parameters": [
+        "turbine_count:ok",
+        "turbine_height_m:ok"
+      ],
+      "sector_detected": "renewable_energy",
+      "missing_info": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 7,
+        "fp": 0,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.556,
+        "recall": 1.0,
+        "f1": 0.714,
+        "tp": 5,
+        "fp": 4,
+        "fn": 0
+      },
+      "missed_components": [],
+      "extra_components": [
+        "air_quality",
+        "community_health",
+        "cultural_heritage",
+        "ghg"
+      ],
+      "criteria_wrong": [],
+      "impacts": 13,
+      "requirements": 11,
+      "citations": "15/15",
+      "outcomes": [
+        "Potentially relevant regulatory screening category identified",
+        "Further assessment potentially warranted",
+        "Additional project information required",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    },
+    {
+      "id": "SYN-10",
+      "sector": "mining",
+      "jurisdiction": "eu",
+      "status": "completed",
+      "seconds": 1.93,
+      "activities": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 4,
+        "fp": 0,
+        "fn": 0
+      },
+      "missed_activities": [],
+      "extra_activities": [],
+      "parameters": [
+        "project_area_ha:ok",
+        "production_capacity:ok"
+      ],
+      "sector_detected": "mining",
+      "missing_info": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "tp": 9,
+        "fp": 0,
+        "fn": 0
+      },
+      "components": {
+        "precision": 0.533,
+        "recall": 0.889,
+        "f1": 0.667,
+        "tp": 8,
+        "fp": 7,
+        "fn": 1
+      },
+      "missed_components": [
+        "vegetation"
+      ],
+      "extra_components": [
+        "aquatic_ecosystems",
+        "biodiversity",
+        "cultural_heritage",
+        "ghg",
+        "occupational_health_safety",
+        "surface_water",
+        "waste"
+      ],
+      "criteria_wrong": [],
+      "impacts": 23,
+      "requirements": 13,
+      "citations": "14/14",
+      "outcomes": [
+        "Further assessment potentially warranted",
+        "No determination possible from available information",
+        "Human regulatory review required"
+      ],
+      "report_unsupported_claims": []
+    }
+  ]
+}

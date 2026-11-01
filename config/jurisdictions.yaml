@@ -1,0 +1,66 @@
+# Regulatory jurisdictions. Each jurisdiction has its own document collection.
+# Related collections are searched only with an explicit relationship label so
+# that, for example, international guidance is never presented as national law.
+#
+# relationship values:
+#   primary        - the jurisdiction's own legislation and guidance
+#   supranational  - binding framework implemented through national law (e.g. EU directives in Germany)
+#   reference      - non-binding international framework (e.g. lender standards)
+
+jurisdictions:
+  ghana:
+    name: Ghana
+    country: Ghana
+    regions: [Ahafo, Ashanti, Bono, Bono East, Central, Eastern, Greater Accra, North East,
+              Northern, Oti, Savannah, Upper East, Upper West, Volta, Western, Western North]
+    authorities:
+      - name: Environmental Protection Authority (formerly Environmental Protection Agency), Ghana
+        role: Competent authority for environmental assessment and environmental permits
+      - name: Water Resources Commission
+        role: Water use permits (abstraction, discharge)
+      - name: Minerals Commission
+        role: Mineral rights and mining licences
+    assessment_frameworks:
+      - Environmental Assessment Regulations, 1999 (L.I. 1652)
+    collections:
+      - id: ghana
+        relationship: primary
+      - id: international
+        relationship: reference
+    bounding_box: {min_lat: 4.5, max_lat: 11.2, min_lon: -3.3, max_lon: 1.2}
+
+  germany:
+    name: Germany
+    country: Germany
+    regions: [Baden-Württemberg, Bayern, Berlin, Brandenburg, Bremen, Hamburg, Hessen,
+              Mecklenburg-Vorpommern, Niedersachsen, Nordrhein-Westfalen, Rheinland-Pfalz,
+              Saarland, Sachsen, Sachsen-Anhalt, Schleswig-Holstein, Thüringen]
+    authorities:
+      - name: Competent Land (state) authority for the approval procedure
+        role: Determines EIA obligation (UVP-Pflicht) and conducts the approval procedure
+      - name: Lower water authority (Untere Wasserbehörde)
+        role: Water-law permits under the WHG
+      - name: Nature conservation authority (Naturschutzbehörde)
+        role: Impact regulation, Natura 2000 and species protection
+    assessment_frameworks:
+      - Gesetz über die Umweltverträglichkeitsprüfung (UVPG)
+    collections:
+      - id: germany
+        relationship: primary
+      - id: eu
+        relationship: supranational
+    bounding_box: {min_lat: 47.2, max_lat: 55.1, min_lon: 5.8, max_lon: 15.1}
+
+  eu:
+    name: European Union (framework level)
+    country: European Union
+    regions: []
+    authorities:
+      - name: European Commission / Member State competent authorities
+        role: Directives are transposed and applied by Member States
+    assessment_frameworks:
+      - Directive 2011/92/EU as amended by Directive 2014/52/EU (EIA Directive)
+    collections:
+      - id: eu
+        relationship: primary
+    bounding_box: null

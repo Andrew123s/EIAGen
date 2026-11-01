@@ -1,0 +1,283 @@
+# Regulatory document manifest - seed knowledge base.
+#
+# content_form:
+#   curated_summary - prepared by the EIAGen maintainers from their reading of the
+#                     instrument; NOT official text. Every citation to these
+#                     documents is flagged "verification required".
+#   official_text   - the published official document (e.g. a PDF downloaded from
+#                     the issuing authority). Add these with scripts/ingest_regulations.py.
+#
+# document_type (legal nature of the underlying instrument):
+#   legislation | regulation | guideline | technical_standard |
+#   international_framework | non_binding_recommendation
+#
+# date_last_verified is null for every seed document: none has been checked against
+# the official text by a qualified reviewer. status_verified=false means the current
+# legal status (in force / amended / repealed) has not been confirmed.
+
+kb_name: EIAGen seed knowledge base
+curated_on: "2026-11-01"
+
+documents:
+  # ------------------------------------------------------------------ Ghana
+  - document_id: gh-li1652
+    file: ghana/gh-li1652_environmental_assessment_regulations_summary.md
+    title: Environmental Assessment Regulations, 1999 (L.I. 1652)
+    short_title: L.I. 1652
+    issuing_authority: Parliament of Ghana / Minister responsible for the Environment (administered by the Environmental Protection Authority)
+    jurisdiction: ghana
+    document_type: regulation
+    content_form: curated_summary
+    publication_date: "1999"
+    effective_date: null
+    version: "1999 (amendments not verified)"
+    source_url: https://epa.gov.gh/
+    source_url_note: Regulator home page; locate the official L.I. 1652 text from the regulator or the Ghana Legal Information Institute.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: Believed in force; interaction with the Environmental Protection Act, 2025 (Act 1124) not verified
+    status_verified: false
+  - document_id: gh-act490
+    file: ghana/gh-act490_epa_act_summary.md
+    title: Environmental Protection Agency Act, 1994 (Act 490)
+    short_title: Act 490
+    issuing_authority: Parliament of Ghana
+    jurisdiction: ghana
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "1994"
+    effective_date: null
+    version: "1994"
+    source_url: https://epa.gov.gh/
+    source_url_note: Regulator home page; locate official text.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: Reported repealed and replaced by the Environmental Protection Act, 2025 (Act 1124) - NOT VERIFIED
+    status_verified: false
+  - document_id: gh-wrc-act522
+    file: ghana/gh-wrc-act522_water_resources_summary.md
+    title: Water Resources Commission Act, 1996 (Act 522) and Water Use Regulations, 2001 (L.I. 1692)
+    short_title: Act 522 / L.I. 1692
+    issuing_authority: Parliament of Ghana (administered by the Water Resources Commission)
+    jurisdiction: ghana
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "1996; 2001"
+    effective_date: null
+    version: "Act 522 (1996); L.I. 1692 (2001)"
+    source_url: https://www.wrc-gh.org/
+    source_url_note: Commission web site (URL not verified); locate official texts.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: Believed in force - not verified
+    status_verified: false
+  - document_id: gh-act703
+    file: ghana/gh-act703_minerals_mining_summary.md
+    title: Minerals and Mining Act, 2006 (Act 703)
+    short_title: Act 703
+    issuing_authority: Parliament of Ghana (administered by the Minerals Commission)
+    jurisdiction: ghana
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2006"
+    effective_date: null
+    version: "2006 (as amended - amendments not verified)"
+    source_url: https://www.mincom.gov.gh/
+    source_url_note: Minerals Commission web site; locate official text.
+    applicable_sectors: [mining]
+    date_last_verified: null
+    legal_status: Believed in force as amended - not verified
+    status_verified: false
+  - document_id: gh-act917
+    file: ghana/gh-act917_hazardous_waste_summary.md
+    title: Hazardous and Electronic Waste Control and Management Act, 2016 (Act 917)
+    short_title: Act 917
+    issuing_authority: Parliament of Ghana
+    jurisdiction: ghana
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2016"
+    effective_date: null
+    version: "2016"
+    source_url: https://epa.gov.gh/
+    source_url_note: Regulator home page; locate official text.
+    applicable_sectors: [mining, manufacturing, waste_management]
+    date_last_verified: null
+    legal_status: Believed in force - not verified
+    status_verified: false
+
+  # ---------------------------------------------------------------- Germany
+  - document_id: de-uvpg
+    file: germany/de-uvpg_environmental_impact_assessment_act_summary.md
+    title: Gesetz über die Umweltverträglichkeitsprüfung (UVPG) - Environmental Impact Assessment Act
+    short_title: UVPG
+    issuing_authority: German Bundestag / Federal Ministry for the Environment
+    jurisdiction: germany
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2021-03-18"
+    effective_date: null
+    version: "Promulgation of 18 March 2021, as amended (consolidated version not verified)"
+    source_url: https://www.gesetze-im-internet.de/uvpg/
+    source_url_note: Official consolidated German text (Federal Ministry of Justice).
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: In force as amended - current consolidated version not verified
+    status_verified: false
+  - document_id: de-bimschg
+    file: germany/de-bimschg_federal_immission_control_act_summary.md
+    title: Bundes-Immissionsschutzgesetz (BImSchG) - Federal Immission Control Act
+    short_title: BImSchG
+    issuing_authority: German Bundestag
+    jurisdiction: germany
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2013-05-17"
+    effective_date: null
+    version: "Promulgation of 17 May 2013, as amended"
+    source_url: https://www.gesetze-im-internet.de/bimschg/
+    source_url_note: Official consolidated German text.
+    applicable_sectors: [manufacturing, mining, waste_management, agriculture, renewable_energy]
+    date_last_verified: null
+    legal_status: In force as amended - current consolidated version not verified
+    status_verified: false
+  - document_id: de-whg
+    file: germany/de-whg_water_resources_act_summary.md
+    title: Wasserhaushaltsgesetz (WHG) - Federal Water Act
+    short_title: WHG
+    issuing_authority: German Bundestag
+    jurisdiction: germany
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2009-07-31"
+    effective_date: null
+    version: "31 July 2009, as amended"
+    source_url: https://www.gesetze-im-internet.de/whg_2009/
+    source_url_note: Official consolidated German text.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: In force as amended - current consolidated version not verified
+    status_verified: false
+  - document_id: de-bnatschg
+    file: germany/de-bnatschg_federal_nature_conservation_act_summary.md
+    title: Bundesnaturschutzgesetz (BNatSchG) - Federal Nature Conservation Act
+    short_title: BNatSchG
+    issuing_authority: German Bundestag
+    jurisdiction: germany
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2009-07-29"
+    effective_date: null
+    version: "29 July 2009, as amended"
+    source_url: https://www.gesetze-im-internet.de/bnatschg_2009/
+    source_url_note: Official consolidated German text.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: In force as amended - current consolidated version not verified
+    status_verified: false
+  - document_id: de-krwg
+    file: germany/de-krwg_circular_economy_act_summary.md
+    title: Kreislaufwirtschaftsgesetz (KrWG) - Circular Economy Act
+    short_title: KrWG
+    issuing_authority: German Bundestag
+    jurisdiction: germany
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2012-02-24"
+    effective_date: null
+    version: "24 February 2012, as amended"
+    source_url: https://www.gesetze-im-internet.de/krwg/
+    source_url_note: Official consolidated German text.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: In force as amended - current consolidated version not verified
+    status_verified: false
+
+  # --------------------------------------------------------------------- EU
+  - document_id: eu-eia-directive
+    file: eu/eu-eia-directive_2011-92-eu_summary.md
+    title: Directive 2011/92/EU on the assessment of the effects of certain public and private projects on the environment (as amended by Directive 2014/52/EU)
+    short_title: EIA Directive
+    issuing_authority: European Parliament and Council of the European Union
+    jurisdiction: eu
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2011-12-13"
+    effective_date: null
+    version: "Codified 2011, amended by Directive 2014/52/EU"
+    source_url: https://eur-lex.europa.eu/eli/dir/2011/92/oj
+    source_url_note: EUR-Lex ELI link; see also https://eur-lex.europa.eu/eli/dir/2014/52/oj
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: In force (binding on Member States via transposition) - not verified
+    status_verified: false
+  - document_id: eu-habitats-directive
+    file: eu/eu-habitats-directive_92-43-eec_summary.md
+    title: Council Directive 92/43/EEC on the conservation of natural habitats and of wild fauna and flora (Habitats Directive)
+    short_title: Habitats Directive
+    issuing_authority: Council of the European Communities
+    jurisdiction: eu
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "1992-05-21"
+    effective_date: null
+    version: "1992, as amended"
+    source_url: https://eur-lex.europa.eu/eli/dir/1992/43/oj
+    source_url_note: EUR-Lex ELI link.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: In force (binding on Member States via transposition) - not verified
+    status_verified: false
+  - document_id: eu-wfd
+    file: eu/eu-water-framework-directive_2000-60-ec_summary.md
+    title: Directive 2000/60/EC establishing a framework for Community action in the field of water policy (Water Framework Directive)
+    short_title: Water Framework Directive
+    issuing_authority: European Parliament and Council of the European Union
+    jurisdiction: eu
+    document_type: legislation
+    content_form: curated_summary
+    publication_date: "2000-10-23"
+    effective_date: null
+    version: "2000, as amended"
+    source_url: https://eur-lex.europa.eu/eli/dir/2000/60/oj
+    source_url_note: EUR-Lex ELI link.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: In force (binding on Member States via transposition) - not verified
+    status_verified: false
+
+  # ---------------------------------------------------------- International
+  - document_id: intl-ifc-ps
+    file: international/intl-ifc-ps_performance_standards_summary.md
+    title: IFC Performance Standards on Environmental and Social Sustainability
+    short_title: IFC PS
+    issuing_authority: International Finance Corporation (World Bank Group)
+    jurisdiction: international
+    document_type: international_framework
+    content_form: curated_summary
+    publication_date: "2012-01-01"
+    effective_date: "2012-01-01"
+    version: "2012"
+    source_url: https://www.ifc.org/
+    source_url_note: IFC web site; locate the Performance Standards publication.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: Non-binding unless required by financing agreements
+    status_verified: false
+  - document_id: intl-ifc-ehs-general
+    file: international/intl-ifc-ehs-general_guidelines_summary.md
+    title: World Bank Group Environmental, Health, and Safety (EHS) General Guidelines
+    short_title: EHS General Guidelines
+    issuing_authority: International Finance Corporation (World Bank Group)
+    jurisdiction: international
+    document_type: non_binding_recommendation
+    content_form: curated_summary
+    publication_date: "2007-04-30"
+    effective_date: null
+    version: "2007"
+    source_url: https://www.ifc.org/
+    source_url_note: IFC web site; locate the EHS General Guidelines publication.
+    applicable_sectors: [all]
+    date_last_verified: null
+    legal_status: Non-binding technical reference unless required by financing agreements or national regulator
+    status_verified: false

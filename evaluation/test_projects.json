@@ -1,0 +1,209 @@
+{
+  "dataset": "EIAGen synthetic evaluation set v1",
+  "status": "SYNTHETIC - for software testing only",
+  "label_provenance": "All project descriptions are fictitious. Expected labels were written by the EIAGen developer from a reading of each description (activities, parameters, missing information, affected environmental components) and from the encoded screening rules (criterion results). They have NOT been reviewed by independent EIA experts and do NOT represent real regulatory outcomes or professional EIA decisions.",
+  "notes": {
+    "expected_criteria": "Expected results of the *encoded* criteria (rule execution correctness), not a legal determination.",
+    "expected_components": "Environmental components a screening practitioner would expect to investigate, judged from the description.",
+    "retrieval": "Relevant document ids for each query; a passage counts as relevant when it belongs to a listed document."
+  },
+  "projects": [
+    {
+      "id": "SYN-01", "sector_label": "mining", "jurisdiction": "ghana",
+      "input": {
+        "name": "SYN-01 Gold mine with CIL processing", "sector": "mining", "phase": "feasibility",
+        "location": "Amansie district, Ashanti Region (illustrative)", "jurisdiction": "ghana", "region": "Ashanti",
+        "description": "Open-pit gold mine with on-site processing. The developer will clear 120 hectares of secondary forest, excavate pits using blasting, construct a carbon-in-leach processing plant and a tailings storage facility. Process water (2,500 m3/day) will be abstracted from boreholes. Ore will be hauled by trucks. Cyanide and diesel will be stored on site. 600 workers will be employed. Construction period is 24 months and mine life is 10 years. Treated effluent will be discharged to the Offin River.",
+        "environmental_setting": "The concession borders a forest reserve and lies 1 km from the Offin River; several farming communities with cocoa farms are within 3 km."
+      },
+      "expected_sector": "mining",
+      "expected_activities": ["site_preparation_land_clearing", "excavation_earthworks", "construction_works", "mining_extraction", "mineral_processing", "water_abstraction", "wastewater_discharge", "hazardous_materials_storage", "transportation_traffic", "workforce_employment", "solid_waste_generation"],
+      "expected_parameters": {"project_area_ha": 120, "water_demand": 2500, "workforce": 600, "project_duration_months": 24},
+      "expected_missing": ["coordinates", "land_tenure", "production_capacity", "wastewater_volume", "energy_demand", "hazardous_materials"],
+      "expected_components": ["soil", "land", "habitats", "vegetation", "biodiversity", "surface_water", "groundwater", "aquatic_ecosystems", "air_quality", "noise_vibration", "waste", "resources", "hydrology", "community_health", "occupational_health_safety", "traffic_safety", "livelihoods", "land_tenure", "employment", "social_cohesion", "ghg", "carbon_storage", "resource_access"],
+      "expected_criteria": {"GH-LI1652-R1": "met", "GH-LI1652-S2": "indeterminate", "GH-LI1652-S5": "met", "GH-WRC-WATERUSE": "met", "GH-ACT703-MINERAL-RIGHT": "met"},
+      "retrieval": [
+        {"query": "environmental permit registration for a mining undertaking", "relevant": ["gh-li1652"]},
+        {"query": "water use permit for groundwater abstraction", "relevant": ["gh-wrc-act522"]},
+        {"query": "mineral right and mining lease", "relevant": ["gh-act703"]},
+        {"query": "storage of hazardous chemicals such as cyanide", "relevant": ["gh-act917", "intl-ifc-ehs-general"]}
+      ]
+    },
+    {
+      "id": "SYN-02", "sector_label": "agriculture", "jurisdiction": "eu",
+      "input": {
+        "name": "SYN-02 Intensive broiler farm", "sector": "agriculture", "phase": "design",
+        "location": "Rural municipality (illustrative)", "jurisdiction": "eu",
+        "description": "An intensive poultry farm with 95,000 broilers in eight animal housing units on 6 hectares. Manure will be stored in covered storage and spread on farmland; wastewater from cleaning (15 m3/day) will be treated before discharge to a ditch. Feed deliveries arrive by trucks and ventilation fans run continuously. The farm will have 12 employees.",
+        "environmental_setting": "Arable land; a village 600 m to the south-west; a small stream crosses the property."
+      },
+      "expected_sector": "agriculture",
+      "expected_activities": ["livestock_rearing", "wastewater_discharge", "transportation_traffic", "workforce_employment", "agricultural_operations"],
+      "expected_parameters": {"broiler_count": 95000, "project_area_ha": 6, "workforce": 12, "wastewater_volume": 15},
+      "expected_missing": ["coordinates", "project_duration_months", "land_tenure", "water_demand"],
+      "expected_components": ["air_quality", "surface_water", "aquatic_ecosystems", "community_health", "traffic_safety", "noise_vibration", "employment", "soil", "ghg", "groundwater"],
+      "expected_criteria": {"EU-EIA-I-17": "met", "EU-EIA-I-19": "not_met", "EU-EIA-I-7C": "not_met", "EU-EIA-II": "indeterminate", "EU-HABITATS-6-3": "not_met"},
+      "retrieval": [
+        {"query": "intensive rearing of poultry installation EIA threshold", "relevant": ["eu-eia-directive"]},
+        {"query": "discharge to a water body and deterioration of status", "relevant": ["eu-wfd"]},
+        {"query": "selection criteria for screening Annex II projects", "relevant": ["eu-eia-directive"]}
+      ]
+    },
+    {
+      "id": "SYN-03", "sector_label": "manufacturing", "jurisdiction": "ghana",
+      "input": {
+        "name": "SYN-03 Cement grinding plant", "phase": "feasibility",
+        "location": "Tema industrial area (illustrative)", "jurisdiction": "ghana", "region": "Greater Accra",
+        "description": "A cement grinding and bagging factory will be constructed on a 15 hectare industrial plot. Clinker will be imported, ground in ball mills and bagged, with a capacity of 1 million tonnes per year. Dust will be controlled with bag filters. The plant needs 8 MW of grid power and 200 m3/day of water from the municipal supply. The factory will employ 300 workers. Solid waste includes packaging and filter dust.",
+        "environmental_setting": "Industrial zone with residential neighbourhoods 500 m to the north; a lagoon lies 2 km away."
+      },
+      "expected_sector": "manufacturing",
+      "expected_activities": ["construction_works", "industrial_processing", "energy_consumption", "solid_waste_generation", "workforce_employment"],
+      "expected_parameters": {"project_area_ha": 15, "production_capacity": 1000000, "water_demand": 200, "workforce": 300},
+      "expected_missing": ["coordinates", "project_duration_months", "land_tenure", "wastewater_volume"],
+      "expected_components": ["air_quality", "noise_vibration", "community_health", "occupational_health_safety", "waste", "ghg", "resources", "employment"],
+      "expected_criteria": {"GH-LI1652-R1": "met", "GH-LI1652-S2": "indeterminate", "GH-LI1652-S5": "met", "GH-WRC-WATERUSE": "not_met", "GH-ACT703-MINERAL-RIGHT": "not_met"},
+      "retrieval": [
+        {"query": "environmental permit for a manufacturing undertaking", "relevant": ["gh-li1652"]},
+        {"query": "dust and air emission control guideline", "relevant": ["intl-ifc-ehs-general"]}
+      ]
+    },
+    {
+      "id": "SYN-04", "sector_label": "renewable_energy", "jurisdiction": "ghana",
+      "input": {
+        "name": "SYN-04 Solar PV park", "sector": "renewable_energy", "phase": "feasibility",
+        "location": "Northern Region (illustrative)", "jurisdiction": "ghana", "region": "Northern",
+        "description": "A 50 MWp solar photovoltaic park on 80 hectares of savanna grassland. Works include vegetation clearance, grading, pile-driven mounting structures, inverter stations, a substation and a 12 km overhead transmission line. Panels will be cleaned with water, about 30 m3/day from a borehole. Construction will take 12 months with 400 workers.",
+        "environmental_setting": "Savanna grassland used for seasonal grazing by local herders; a river is 5 km away; the nearest village is 1.5 km away."
+      },
+      "expected_sector": "renewable_energy",
+      "expected_activities": ["site_preparation_land_clearing", "excavation_earthworks", "construction_works", "power_generation_renewable", "water_abstraction", "linear_infrastructure", "workforce_employment"],
+      "expected_parameters": {"installed_capacity_mw": 50, "project_area_ha": 80, "water_demand": 30, "project_duration_months": 12, "workforce": 400},
+      "expected_missing": ["coordinates", "land_tenure", "waste_streams"],
+      "expected_components": ["habitats", "vegetation", "soil", "land", "livelihoods", "biodiversity", "groundwater", "resources", "employment", "community_health", "occupational_health_safety", "noise_vibration", "air_quality", "carbon_storage", "social_cohesion", "land_tenure"],
+      "expected_criteria": {"GH-LI1652-R1": "met", "GH-LI1652-S2": "indeterminate", "GH-LI1652-S5": "met", "GH-WRC-WATERUSE": "met", "GH-ACT703-MINERAL-RIGHT": "not_met"},
+      "retrieval": [
+        {"query": "water use permit for borehole abstraction", "relevant": ["gh-wrc-act522"]},
+        {"query": "registration of an energy undertaking and environmental permit", "relevant": ["gh-li1652"]},
+        {"query": "biodiversity natural habitat mitigation hierarchy", "relevant": ["intl-ifc-ps"]}
+      ]
+    },
+    {
+      "id": "SYN-05", "sector_label": "road_construction", "jurisdiction": "eu",
+      "input": {
+        "name": "SYN-05 Dual carriageway bypass", "sector": "road_construction", "phase": "design",
+        "location": "Between two market towns (illustrative)", "jurisdiction": "eu",
+        "description": "Construction of a new dual carriageway bypass of 14 km length with four lanes, two bridges over a river and three interchanges. Earthworks of 1.2 million m3, removal of hedgerows and woodland strips, and relocation of utilities. Construction duration 36 months with 250 workers at peak.",
+        "environmental_setting": "Agricultural landscape with a river floodplain; the route passes 800 m from a Natura 2000 site and 300 m from two villages."
+      },
+      "expected_sector": "road_construction",
+      "expected_activities": ["excavation_earthworks", "construction_works", "linear_infrastructure", "site_preparation_land_clearing", "workforce_employment", "transportation_traffic"],
+      "expected_parameters": {"road_length_km": 14, "lanes": 4, "project_duration_months": 36, "workforce": 250},
+      "expected_missing": ["coordinates", "land_tenure", "waste_streams", "project_area_ha"],
+      "expected_components": ["habitats", "biodiversity", "vegetation", "soil", "land", "hydrology", "surface_water", "aquatic_ecosystems", "noise_vibration", "air_quality", "traffic_safety", "land_tenure", "livelihoods", "community_health", "ghg", "carbon_storage", "employment", "climate_resilience"],
+      "expected_criteria": {"EU-EIA-I-7C": "met", "EU-HABITATS-6-3": "met", "EU-EIA-II": "indeterminate", "EU-EIA-I-19": "not_met", "EU-EIA-I-17": "not_met"},
+      "retrieval": [
+        {"query": "construction of a new road of four lanes over 10 km", "relevant": ["eu-eia-directive"]},
+        {"query": "appropriate assessment for a Natura 2000 site", "relevant": ["eu-habitats-directive"]}
+      ]
+    },
+    {
+      "id": "SYN-06", "sector_label": "housing_development", "jurisdiction": "ghana",
+      "input": {
+        "name": "SYN-06 Residential estate", "sector": "housing_development", "phase": "design",
+        "location": "Outskirts of Kumasi (illustrative)", "jurisdiction": "ghana", "region": "Ashanti",
+        "description": "A residential estate development of 1,200 housing units on 60 hectares with internal roads, a sewage treatment plant discharging treated effluent to a stream, and solid waste collection. Construction over 48 months.",
+        "environmental_setting": "Former farmland and secondary bush; a stream runs along the eastern boundary; an existing settlement is adjacent to the west."
+      },
+      "expected_sector": "housing_development",
+      "expected_activities": ["construction_works", "residential_occupation", "wastewater_discharge", "solid_waste_generation", "linear_infrastructure"],
+      "expected_parameters": {"housing_units": 1200, "project_area_ha": 60, "project_duration_months": 48},
+      "expected_missing": ["coordinates", "distance_to_receptors", "workforce", "water_demand", "land_tenure", "wastewater_volume"],
+      "expected_components": ["surface_water", "aquatic_ecosystems", "waste", "traffic_safety", "land", "soil", "habitats", "livelihoods", "resources", "community_health", "ghg", "noise_vibration", "air_quality"],
+      "expected_criteria": {"GH-LI1652-R1": "met", "GH-LI1652-S2": "indeterminate", "GH-LI1652-S5": "met", "GH-WRC-WATERUSE": "met", "GH-ACT703-MINERAL-RIGHT": "not_met"},
+      "retrieval": [
+        {"query": "authorisation to discharge wastewater into a water body", "relevant": ["gh-wrc-act522"]},
+        {"query": "registration of a housing development and environmental permit", "relevant": ["gh-li1652"]}
+      ]
+    },
+    {
+      "id": "SYN-07", "sector_label": "waste_management", "jurisdiction": "germany",
+      "input": {
+        "name": "SYN-07 Landfill cell expansion", "sector": "waste_management", "phase": "planning",
+        "location": "Existing landfill site (illustrative)", "jurisdiction": "germany", "region": "Hessen",
+        "description": "Expansion of a municipal solid waste landfill by a new 8 hectare cell with a composite liner, leachate collection and treatment (40 m3/day treated leachate discharged to the municipal sewer), landfill gas collection and flaring, and waste deliveries by up to 120 trucks per day. Operation for 20 years.",
+        "environmental_setting": "Former gravel pit; groundwater is shallow; the nearest residential buildings are 700 m east; no protected areas are known within 2 km."
+      },
+      "expected_sector": "waste_management",
+      "expected_activities": ["landfilling_waste_treatment", "transportation_traffic", "wastewater_discharge"],
+      "expected_parameters": {"project_area_ha": 8, "wastewater_volume": 40},
+      "expected_missing": ["coordinates", "workforce", "land_tenure", "waste_capacity", "project_duration_months"],
+      "expected_components": ["groundwater", "surface_water", "air_quality", "ghg", "community_health", "traffic_safety", "noise_vibration"],
+      "expected_criteria": {"DE-BIMSCHG-4": "indeterminate", "DE-WHG-8": "met", "DE-UVPG-ANNEX1": "indeterminate", "DE-BNATSCHG-34": "not_met", "DE-UVPG-1.6.1": "not_met", "DE-UVPG-2.1.1": "not_met", "DE-BNATSCHG-14": "not_met"},
+      "retrieval": [
+        {"query": "permit for a landfill installation under immission control law", "relevant": ["de-bimschg"]},
+        {"query": "waste hierarchy and disposal of waste", "relevant": ["de-krwg"]},
+        {"query": "deterioration of groundwater status", "relevant": ["de-whg", "eu-wfd"]}
+      ]
+    },
+    {
+      "id": "SYN-08", "sector_label": "water_infrastructure", "jurisdiction": "ghana",
+      "input": {
+        "name": "SYN-08 Irrigation dam and reservoir", "sector": "water_infrastructure", "phase": "feasibility",
+        "location": "Upper East Region (illustrative)", "jurisdiction": "ghana", "region": "Upper East",
+        "description": "Construction of an irrigation dam and reservoir on a tributary of the Volta, creating a 350 hectare reservoir. The embankment dam will be 18 m high. Works include clearing of vegetation in the inundation area, quarrying of rock fill, excavation of a spillway and canals, and resettlement of about 40 households. Water will be released for irrigation of 1,500 hectares of rice.",
+        "environmental_setting": "Riverine forest and farmland; fishing communities live downstream; a sacred grove lies within the reservoir area."
+      },
+      "expected_sector": "water_infrastructure",
+      "expected_activities": ["impoundment_dam", "site_preparation_land_clearing", "mining_extraction", "excavation_earthworks", "land_acquisition_resettlement", "water_abstraction", "agricultural_operations", "construction_works"],
+      "expected_parameters": {"project_area_ha": 1500},
+      "expected_missing": ["coordinates", "distance_to_receptors", "workforce", "waste_streams", "project_duration_months", "land_tenure", "water_demand"],
+      "expected_components": ["hydrology", "aquatic_ecosystems", "habitats", "vegetation", "biodiversity", "land_tenure", "livelihoods", "cultural_heritage", "community_health", "resource_access", "soil", "land", "surface_water", "ghg", "carbon_storage", "climate_resilience", "noise_vibration", "air_quality"],
+      "expected_criteria": {"GH-LI1652-R1": "met", "GH-LI1652-S2": "indeterminate", "GH-LI1652-S5": "met", "GH-WRC-WATERUSE": "met", "GH-ACT703-MINERAL-RIGHT": "not_met"},
+      "retrieval": [
+        {"query": "authorisation to dam or impound water resources", "relevant": ["gh-wrc-act522"]},
+        {"query": "public hearing where communities will be relocated", "relevant": ["gh-li1652"]},
+        {"query": "involuntary resettlement and livelihood restoration", "relevant": ["intl-ifc-ps"]},
+        {"query": "cultural heritage chance finds procedure", "relevant": ["intl-ifc-ps"]}
+      ]
+    },
+    {
+      "id": "SYN-09", "sector_label": "renewable_energy", "jurisdiction": "germany",
+      "input": {
+        "name": "SYN-09 Wind farm repowering", "sector": "renewable_energy", "phase": "planning",
+        "location": "Open farmland (illustrative)", "jurisdiction": "germany", "region": "Brandenburg",
+        "description": "Repowering project: 25 wind turbines with a tip height of 230 m replacing older machines; new access tracks and crane pads; transport of components by heavy goods vehicles.",
+        "environmental_setting": "Open farmland; a red kite breeding site has been reported 1 km away; the nearest dwelling is 1 km away."
+      },
+      "expected_sector": "renewable_energy",
+      "expected_activities": ["power_generation_renewable", "transportation_traffic"],
+      "expected_parameters": {"turbine_count": 25, "turbine_height_m": 230},
+      "expected_missing": ["coordinates", "project_area_ha", "installed_capacity_mw", "project_duration_months", "workforce", "waste_streams", "land_tenure"],
+      "expected_components": ["biodiversity", "noise_vibration", "land", "traffic_safety", "livelihoods"],
+      "expected_criteria": {"DE-UVPG-1.6.1": "met", "DE-UVPG-1.6.2": "not_met", "DE-UVPG-1.6.3": "not_met", "DE-BNATSCHG-34": "not_met"},
+      "retrieval": [
+        {"query": "wind farm with 20 or more wind turbines", "relevant": ["de-uvpg"]},
+        {"query": "species protection of breeding birds and disturbance", "relevant": ["de-bnatschg", "eu-habitats-directive"]}
+      ]
+    },
+    {
+      "id": "SYN-10", "sector_label": "mining", "jurisdiction": "eu",
+      "input": {
+        "name": "SYN-10 Limestone quarry", "phase": "concept",
+        "location": "Hillside near a village (illustrative)", "jurisdiction": "eu",
+        "description": "A limestone quarry with an extraction area of 20 hectares, using blasting and crushing, producing 300,000 tonnes per year. Haulage by trucks through a village.",
+        "environmental_setting": "Hillside scrub; a village 400 m away; no watercourse on site."
+      },
+      "expected_sector": "mining",
+      "expected_activities": ["mining_extraction", "excavation_earthworks", "mineral_processing", "transportation_traffic"],
+      "expected_parameters": {"project_area_ha": 20, "production_capacity": 300000},
+      "expected_missing": ["coordinates", "project_duration_months", "workforce", "waste_streams", "land_tenure", "water_demand", "wastewater_volume", "energy_demand", "hazardous_materials"],
+      "expected_components": ["air_quality", "noise_vibration", "community_health", "traffic_safety", "land", "habitats", "vegetation", "soil", "groundwater"],
+      "expected_criteria": {"EU-EIA-I-19": "not_met", "EU-EIA-II": "indeterminate", "EU-EIA-I-7C": "not_met", "EU-EIA-I-17": "not_met", "EU-HABITATS-6-3": "not_met"},
+      "retrieval": [
+        {"query": "quarries and open-cast mining over 25 hectares", "relevant": ["eu-eia-directive"]},
+        {"query": "selection criteria characteristics and location of projects", "relevant": ["eu-eia-directive"]}
+      ]
+    }
+  ]
+}

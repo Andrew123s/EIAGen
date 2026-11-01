@@ -1,0 +1,42 @@
+# EIAGen application settings. Environment variables (EIAGEN_*) override these.
+app:
+  name: EIAGen
+  version: 0.1.0
+
+paths:
+  data_dir: data
+  regulations_dir: data/regulations
+  uploads_dir: data/uploads
+  processed_dir: data/processed
+  vector_store_dir: data/vector_store
+  geospatial_dir: data/geospatial
+  reports_dir: reports/generated
+
+database:
+  url: sqlite:///data/eiagen.db
+
+llm:
+  provider: rule_based          # rule_based | anthropic | openai_compatible
+  anthropic_model: claude-opus-5-5
+  anthropic_effort: medium
+  openai_base_url: http://localhost:11434/v1
+  openai_model: llama3.1:8b
+  timeout_seconds: 120
+
+retrieval:
+  embedding_backend: sentence_transformers   # sentence_transformers | hashing
+  embedding_model: BAAI/bge-small-en-v1.5
+  chunk_size_chars: 900
+  chunk_overlap_chars: 150
+  top_k: 6
+  hybrid: true                  # fuse dense + BM25 rankings (reciprocal rank fusion)
+  min_relevance: 0.15           # fused-score floor before a passage is used as evidence
+
+uploads:
+  max_upload_mb: 20
+  allowed_extensions: [".pdf", ".txt", ".md", ".docx"]
+
+security:
+  # Reviewer identities the system refuses to accept for approvals:
+  # the AI pipeline may never approve its own assessment.
+  reserved_reviewer_names: [system, ai, eiagen, agent, llm, assistant, bot, claude, automated]

@@ -1,0 +1,40 @@
+# --- Web API ---------------------------------------------------------------
+fastapi>=0.115            # REST API
+uvicorn[standard]>=0.30   # ASGI server
+python-multipart>=0.0.9   # file uploads
+pydantic>=2.7             # schemas / structured outputs
+pydantic-settings>=2.3    # environment-driven settings
+PyYAML>=6.0               # configuration files
+
+# --- Database --------------------------------------------------------------
+SQLAlchemy>=2.0           # ORM (SQLite now, PostgreSQL-ready)
+alembic>=1.13             # schema migrations
+
+# --- Retrieval / RAG -------------------------------------------------------
+PyMuPDF>=1.24             # PDF text extraction with page numbers
+faiss-cpu>=1.8            # vector index (CPU)
+sentence-transformers>=3.0  # semantic embeddings (CPU; BAAI/bge-small-en-v1.5)
+scikit-learn>=1.4         # hashing-vectoriser fallback embeddings
+rank-bm25>=0.2            # lexical leg of hybrid retrieval
+numpy>=1.26
+pandas>=2.1
+
+# --- Geospatial ------------------------------------------------------------
+shapely>=2.0              # coordinate checks / proximity to optional layers
+
+# --- Reports ---------------------------------------------------------------
+python-docx>=1.1          # DOCX export
+reportlab>=4.1            # PDF export
+matplotlib>=3.8           # risk-matrix figure in reports
+
+# --- LLM (optional) --------------------------------------------------------
+anthropic>=0.60           # Claude provider (only needed if EIAGEN_LLM_PROVIDER=anthropic)
+httpx>=0.27               # OpenAI-compatible provider + API client in tests
+
+# --- Frontend --------------------------------------------------------------
+streamlit>=1.35
+requests>=2.31
+
+# --- Testing / utilities ---------------------------------------------------
+pytest>=8.0
+joblib>=1.3

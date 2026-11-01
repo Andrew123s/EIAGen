@@ -1,0 +1,13 @@
+{
+  "name": "Nordheide Wind Park (synthetic example)",
+  "developer": "Example Wind GmbH (fictitious)",
+  "description": "Construction and operation of a wind farm with 8 wind turbines, each with a total height of 200 m and a capacity of 5.6 MW (44.8 MW in total). Works include access road construction, foundation excavation, crane pads, underground cabling and a grid connection substation. Construction duration is 14 months. Heavy transport deliveries of turbine components are required.",
+  "sector": "renewable_energy",
+  "phase": "planning",
+  "location": "Agricultural land near a village (illustrative)",
+  "jurisdiction": "germany",
+  "region": "Niedersachsen",
+  "coordinates": {"latitude": 53.1, "longitude": 9.9},
+  "characteristics": {"project_area_ha": 12},
+  "environmental_setting": "Arable farmland with hedgerows; a woodland edge 400 m to the east used by bats; the nearest residential buildings are 900 m away. A Natura 2000 site is located approximately 3 km to the north."
+}
